@@ -12,7 +12,7 @@ MAGENTA		= \033[1;35m
 RESET		= \033[0m
 
 #===============================================================================: Include files
-LIBFT		= include/libft
+LIBFT		= libs/libft
 
 #===============================================================================: Compile variables
 CC			= gcc
@@ -24,19 +24,23 @@ HEADERS		= -I include
 
 #===============================================================================: Sourcefiles
 SRCS		= $(addprefix src/, $(addsuffix .c, \
-				)))
+				main \
+			$(addprefix validation/, \
+				input_validation)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)
 
 #===============================================================================: Main compile
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(HEADERS) $(LIBFT)/libft.a -o $(NAME)
+	@$(CC) $(OBJS) $(HEADERS) $(LIBFT)/libft.a -lreadline -o $(NAME)
 	@printf "$(GREEN)✅Executable \"$(NAME)\" created!$(RESET)\n\n"
 
 #===============================================================================: C file compile
 objs/%.o: src/%.c
 	@$(MKDIR) objs
+	@$(MKDIR) objs/parsing
+	@$(MKDIR) objs/validation
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"

@@ -10,7 +10,7 @@
   
   # :notebook_with_decorative_cover: Table of Contents
 
-- [:notebook\_with\_decorative\_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
+- [:notebook_with_decorative_cover: Table of Contents](#notebook_with_decorative_cover-table-of-contents)
 	- [:star2: About the Project](#star2-about-the-project)
 		- [:dart: Features](#dart-features)
 	- [:toolbox: Getting Started](#toolbox-getting-started)
@@ -64,6 +64,10 @@ Or if you add the library path to your header file:
 ## :eyes: Usage
 
 ```c
+make
+```
+```c
+./minishell
 ```
 
 

@@ -6,11 +6,16 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 15:34:46 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/23 18:04:07 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/23 21:11:50 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/shell.h"
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include "../../libs/libft/include/libft.h"
 
 bool	validate_read(const char *input_line)
 {
