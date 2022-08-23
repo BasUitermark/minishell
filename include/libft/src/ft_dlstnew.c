@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell.h                                            :+:    :+:            */
+/*   ft_dlstnew.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/23 16:00:19 by buiterma      ########   odam.nl         */
+/*   Created: 2022/07/12 12:36:37 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/07/12 12:36:38 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "../include/libft.h"
 
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft/include/libft.h"
+t_dlist	*ft_dlstnew(void *content)
+{
+	t_dlist	*head;
 
-#endif
+	head = (t_dlist *)malloc(sizeof(t_dlist));
+	if (head == NULL)
+		return (0);
+	head->content = content;
+	head->next = NULL;
+	head->prev = NULL;
+	return (head);
+}

@@ -1,20 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell.h                                            :+:    :+:            */
+/*   libft.h                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/23 16:00:19 by buiterma      ########   odam.nl         */
+/*   Created: 2022/03/22 15:18:26 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/03/23 08:28:20 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#ifndef LIBFT_H
+# define LIBFT_H
 
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft/include/libft.h"
+//=== Libraries ===//
+
+# include "def.h"
+# include "functions.h"
+
+//=== TODO ===//
+
+/**
+ * freenull (free's pointer and sets it to NULL)
+ * prime
+ * next prime
+ * strncpy
+ * strchrn
+ * strrev
+ * pow
+ * sqrt
+ * realloc
+ * swapchr
+ * swapstr
+ * swapnbr
+ * consvowl
+ * factorial
+ * fibonacci
+ * GCD
+ * LCM
+ * Palindrome
+ * Primeinterval
+ */
 
 #endif

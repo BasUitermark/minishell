@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell.h                                            :+:    :+:            */
+/*   ft_dlstfirst_i.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/23 16:00:19 by buiterma      ########   odam.nl         */
+/*   Created: 2022/07/12 12:58:31 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/07/12 13:39:26 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "../include/libft.h"
 
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft/include/libft.h"
-
-#endif
+t_dlist_i	*ft_dlstfirst_i(t_dlist_i *lst)
+{
+	if (!lst)
+		return (NULL);
+	while (lst->prev != NULL)
+		lst = lst->prev;
+	return (lst);
+}

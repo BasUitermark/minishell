@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shell.h                                            :+:    :+:            */
+/*   ft_dlstadd_back.c                                  :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/23 16:00:19 by buiterma      ########   odam.nl         */
+/*   Created: 2022/07/12 12:41:17 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/07/12 12:41:18 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHELL_H
-# define SHELL_H
+#include "../include/libft.h"
 
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft/include/libft.h"
+void	ft_dlstadd_back(t_dlist **lst, t_dlist *new_item)
+{
+	t_dlist	*last;
 
-#endif
+	if (lst && new_item)
+	{
+		if (!*lst)
+			*lst = new_item;
+		else
+		{
+			last = ft_dlstlast(*lst);
+			last->next = new_item;
+			new_item->prev = last;
+		}
+	}
+	return ;
+}
