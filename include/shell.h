@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/23 21:19:54 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/24 11:36:28 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,19 @@
 # include "../libs/libft/include/libft.h"
 
 # define SHELL BOLD BLUE "[mini_pain]> " RESET
+
+typedef struct s_env {
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+typedef struct s_shell {
+	t_env	*env;
+	int		exit_code;
+	int		fd_in;
+	int		fd_out;
+}	t_shell;
 
 int		main(void);
 
