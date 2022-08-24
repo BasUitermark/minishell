@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/24 15:27:06 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/08/24 17:03:34 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ bool	validate_read(const char *input_line);
 
 
 //======== Input Parsing ========//
-bool	validate_read(const char *input_line);
+bool	resolve_paths(t_command *commands);
 
 #endif
