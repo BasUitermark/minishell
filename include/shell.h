@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/24 17:03:34 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/08/24 17:26:17 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include <stdlib.h>
 # include "../libs/libft/include/libft.h"
 
-# define SHELL BOLD BLUE "[mini_pain]> " RESET
+# define SHELL "[mini_pain]> "
+# define SPECIAL_CHAR "$|<>\'\""
 
 typedef struct s_env {
 	char			*key;
@@ -43,13 +44,17 @@ typedef struct s_shell {
 	t_command	*commands;
 }	t_shell;
 
-int		main(void);
+int			main(void);
 
 //======== Input Validation ========//
-bool	validate_read(const char *input_line);
+bool		validate_read(const char *input_line);
+
+//============ Parsing =============//
+t_command	*parse_read(char *input);
+t_command	parse_special(char *input);
 
 
 //======== Input Parsing ========//
-bool	resolve_paths(t_command *commands);
+bool		resolve_paths(t_command *commands);
 
 #endif
