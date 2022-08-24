@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/24 11:36:28 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/08/24 15:27:06 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,28 @@ typedef struct s_env {
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_command {
+	char	*path;
+	char	**args;
+}	t_command;
+
 typedef struct s_shell {
-	t_env	*env;
-	int		exit_code;
-	int		fd_in;
-	int		fd_out;
+	t_env		*env;
+	int			exit_code;
+	int			fd_in;
+	int			fd_out;
+	int			pipe[2];
+	pid_t		pid;
+	t_command	*commands;
 }	t_shell;
 
 int		main(void);
 
 //======== Input Validation ========//
+bool	validate_read(const char *input_line);
+
+
+//======== Input Parsing ========//
 bool	validate_read(const char *input_line);
 
 #endif
