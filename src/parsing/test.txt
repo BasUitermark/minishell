@@ -1,0 +1,6 @@
+< Makefile cat | wc -w > outfile
+
+./program "arg1 a\"rg2 arg3" lol
+
+cat Makefile > outfile
+
