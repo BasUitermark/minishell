@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/24 17:26:17 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/25 12:06:42 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ typedef struct s_env {
 	char			*value;
 	struct s_env	*next;
 }	t_env;
+
+typedef enum e_token_type {
+	in_file,
+	command,
+	argument,
+	out_file
+}	t_token_type;
+
+typedef struct s_token {
+	unsigned int	index;
+	unsigned int	length;
+	t_token_type	type;
+	struct s_token	*next;
+}	t_token;
 
 typedef struct s_command {
 	char	*path;
