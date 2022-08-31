@@ -1,18 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   input_parse.c                                      :+:    :+:            */
+/*   parse_counters.c                                   :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/24 11:29:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/24 16:43:02 by buiterma      ########   odam.nl         */
+/*   Created: 2022/08/31 10:47:52 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/08/31 12:36:26 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../include/shell.h"
 
-t_command	parse_special(char *input)
+size_t	command_counter(t_token *tokens)
 {
-	
+	int	i;
+
+	i = 0;
+	while (tokens)
+	{
+		if (tokens->type == command)
+			i++;
+		tokens = tokens->next;
+	}
+	return (i);
+}
+
+size_t	arg_counter(t_token *tokens)
+{
+	int	i;
+
+	i = 1;
+	tokens = tokens->next;
+	while (tokens && tokens->type == argument)
+	{
+		i++;
+		tokens = tokens->next;
+	}
+	return (i);
 }
