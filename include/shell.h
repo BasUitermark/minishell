@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 13:26:23 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 15:26:52 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ typedef struct s_env {
 
 typedef enum e_token_type {
 	in_file,
+	out_file,
+	out_file_append,
+	heredoc,
 	command,
-	argument,
-	out_file
+	argument
 }	t_token_type;
 
 typedef struct s_token {
@@ -67,12 +69,14 @@ int			main(void);
 bool		validate_read(const char *input_line);
 
 //============ Parsing =============//
-t_command	*parse_read(char *input);
+
+t_shell		parser(t_token *tokens, char const *input);
+void		parse_commands(t_shell *shell, t_token *tokens, char const *input);
 
 size_t		command_counter(t_token *tokens);
 size_t		arg_counter(t_token *tokens);
 
-t_token		*token_lstnew(unsigned index, unsigned length, t_token_type type);
+t_token		*token_lstnew(t_token in);
 void		token_lstadd_back(t_token **lst, t_token *new_item);
 t_token		*token_lstlast(t_token *lst);
 //======== Input Parsing ========//

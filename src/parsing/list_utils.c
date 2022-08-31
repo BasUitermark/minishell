@@ -6,22 +6,24 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 11:20:58 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 11:58:11 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 13:40:15 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/shell.h"
 
-t_token	*token_lstnew(unsigned index, unsigned length, t_token_type type)
+t_token	*token_lstnew(t_token in)
 {
 	t_token	*new;
 
 	new = (t_token *)malloc(sizeof(t_token));
 	if (new == NULL)
 		return (0);
-	new->index = index;
-	new->length = length;
-	new->type = type;
+	new->index = in.index;
+	new->length = in.length;
+	new->type = in.type;
+	new->expendable = in.expendable;
+	new->expendable = in.adjecent;
 	new->next = NULL;
 	return (new);
 }
