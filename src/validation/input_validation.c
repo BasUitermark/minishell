@@ -6,11 +6,11 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:50:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/23 20:50:51 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 13:56:07 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../include/shell.h"
 
 bool	validate_read(const char *input_line)
 {

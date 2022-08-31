@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 13:50:30 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/08/31 16:08:59 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ typedef struct s_shell {
 	int			fd_out;
 	int			pipe[2];
 	pid_t		pid;
-	t_command	*commands;
+	t_command	*cmds;
+	size_t		cmd_n;
 }	t_shell;
 
 int				main(void);
@@ -79,9 +80,17 @@ bool			part_handler(t_token **head, unsigned int index, \
 bool			validate_read(const char *input_line);
 
 //============ Parsing =============//
-t_command		*parse_read(char *input);
-t_command		parse_special(char *input);
 
+t_shell			parser(t_token *tokens, char const *input);
+void			parse_commands(t_shell *shell, t_token *tokens, \
+				char const *input);
+
+size_t			command_counter(t_token *tokens);
+size_t			arg_counter(t_token *tokens);
+
+t_token			*token_lstnew(t_token in);
+void			token_lstadd_back(t_token **lst, t_token *new_item);
+t_token			*token_lstlast(t_token *lst);
 //======== Input Parsing ========//
 bool			resolve_paths(t_command *commands);
 
