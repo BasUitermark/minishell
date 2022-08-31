@@ -6,42 +6,115 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/08/25 14:12:10 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/08/31 15:49:17 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../include/shell.h"
 
-unsigned int	part_length(const char *input)
+static bool	process_token_length(const char *input, unsigned int *index, \
+	unsigned int from)
 {
-	unsigned int	length;
-	char			end_of_line;
-
-	length = 0;
-	end_of_line = input[0];
-	length++;
-	if (end_of_line == '\"' || end_of_line == '\'')
+	if (input[from] == '\"' || input[from] == '\'')
 	{
-		while (input[length] && !(input[length] == \
-			end_of_line && input[length - 1] != '\\'))
-			length++;
-		length++;
+		if (input[from + *index] == input[from] && \
+			input[from + *index - 1] != '\\')
+			return (true);
+		else
+			(*index)++;
 	}
+	else if (input[from + *index] != ' ' && input[from + *index] != '|' \
+		&& input[from + *index] != '>' && input[from + *index] != '<' \
+		&& input[from + *index] != '"' && input[from + *index] != '\'')
+		(*index)++;
 	else
+		return (true);
+	return (false);
+}
+
+static unsigned int	token_length(const char *input, unsigned int from)
+{
+	unsigned int	index;
+
+	index = 0;
+	if (input[from] == '\"' || input[from] == '\'')
+		index++;
+	if (get_type(input, from) == HEREDOC || \
+		get_type(input, from) == OUTFILE_APPEND)
+		return (2);
+	if (ft_strchr("|<>", input[from]))
+		return (1);
+	while (input[from + index])
+		if (process_token_length(input, &index, from))
+			break ;
+	if (input[from] == '\"' || input[from] == '\'')
+		index++;
+	return (index);
+}
+
+static t_token	*clear_list(t_token *head)
+{
+	t_token	*next;
+
+	while (head)
 	{
-		end_of_line = ' ';
-		while (input[length] && (input[length] != end_of_line))
-			length++;
+		next = head->next;
+		free(head);
+		head = next;
 	}
-	return (length);
+	return (NULL);
+}
+
+static void	set_token_info(const char *input, unsigned int *index, \
+	unsigned int *length, bool add_length)
+{
+	if (add_length)
+		*index = find_next(input, *index + *length);
+	else
+		*index = find_next(input, *index);
+	*length = token_length(input, *index);
 }
 
 t_token	*lexer(const char *input)
 {
-	t_token	*head;
+	t_token			*head;
+	t_tokentype		types[2];
+	unsigned int	index;
+	unsigned int	length;
 
-	head = init_token();
-	if (!head)
-		return (NULL);
-	return (head);
+	index = 0;
+	head = NULL;
+	types[0] = INFILE;
+	while (input[index])
+	{
+		set_token_info(input, &index, &length, false);
+		types[1] = get_type(input, index);
+		if ((types[0] == COMMAND || types[0] == ARGUMENT) \
+			&& types[1] == COMMAND)
+			types[1] = ARGUMENT;
+		if (types[1] == INFILE || types[1] == OUTFILE || \
+			types[1] == OUTFILE_APPEND)
+			set_token_info(input, &index, &length, true);
+		if (!part_handler(&head, index, length, types[1]))
+			return (clear_list(head));
+		index += length;
+		types[0] = types[1];
+	}
+	return (post_process(input, head));
+}
+
+
+int	main(void)
+{
+	const char *input = {"< infile.txt<second_infile.txt cat -e -n|grep '$$ \\\' \"  \" $'\'hahaha\'lmao\"ok\" | \"$HOME/\"a.out | \"$HOME\"/a.out >> out_append.txt > out_overwrite.txt"};
+
+	t_token *head = lexer(input);
+
+	while (head)
+	{
+		printf("%d @ %d [%d, %d] [%.*s]\n", head->type, head->index, head->expandable, head->adjacent, head->length, &input[head->index]);
+        head = head->next;
+	}
+
+	return (0);
 }
