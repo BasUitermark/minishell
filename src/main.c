@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/24 15:16:50 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 16:03:29 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 int	main(void)
 {
-	char		*input_line;
-	t_command	*data;
+	char	*input_line;
+	t_token	*tokens;
+	t_shell	shell;
 
-	while (validate_read(input_line))
+	while (1)
 	{
 		input_line = readline(BOLD BLUE SHELL RESET);
-		data = parse(input_line);
+		tokens = lexer(input_line);
+		shell = parser(tokens, input_line);
 		add_history(input_line);
+		if (ft_strncmp(input_line, "exit", 4))
+			break ;
 	}
 	free (input_line);
 	input_line = NULL;

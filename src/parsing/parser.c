@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/24 11:29:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 15:51:30 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 15:58:58 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	print_all_tokens(t_token *tokens)
 		printf("%d\n", tokens->index);
 		printf("%d\n", tokens->length);
 		printf("%d\n", tokens->type);
-		printf("%d\n", tokens->expendable);
-		printf("%d\n\n", tokens->adjecent);
+		printf("%d\n", tokens->expandable);
+		printf("%d\n\n", tokens->adjacent);
 		tokens = tokens->next;
 	}
 }
