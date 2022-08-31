@@ -34,7 +34,8 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			$(addprefix parsing/, \
 				parser \
 				parse_commands \
-				parse_counters)))
+				parse_special \
+				parse_utility)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)

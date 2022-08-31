@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 16:35:00 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 20:27:52 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,7 @@ void			print_all_tokens(t_token *tokens);
 t_shell			parser(t_token *tokens, char const *input);
 void			parse_commands(t_shell *shell, t_token *tokens, \
 				char const *input);
-
-size_t			command_counter(t_token *tokens);
-size_t			arg_counter(t_token *tokens);
-
-t_token			*token_lstnew(t_token in);
-void			token_lstadd_back(t_token **lst, t_token *new_item);
-t_token			*token_lstlast(t_token *lst);
-//======== Input Parsing ========//
-bool			resolve_paths(t_command *commands);
+void			parse_special(t_shell *shell, t_token *tokens, \
+				char const *input);
 
 #endif
