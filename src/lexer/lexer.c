@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/08/31 15:49:17 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/08/31 16:28:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,17 +104,17 @@ t_token	*lexer(const char *input)
 }
 
 
-int	main(void)
-{
-	const char *input = {"< infile.txt<second_infile.txt cat -e -n|grep '$$ \\\' \"  \" $'\'hahaha\'lmao\"ok\" | \"$HOME/\"a.out | \"$HOME\"/a.out >> out_append.txt > out_overwrite.txt"};
+// int	main(void)
+// {
+// 	const char *input = {"< infile.txt<second_infile.txt cat -e -n|grep '$$ \\\' \"  \" $'\'hahaha\'lmao\"ok\" | \"$HOME/\"a.out | \"$HOME\"/a.out >> out_append.txt > out_overwrite.txt"};
 
-	t_token *head = lexer(input);
+// 	t_token *head = lexer(input);
 
-	while (head)
-	{
-		printf("%d @ %d [%d, %d] [%.*s]\n", head->type, head->index, head->expandable, head->adjacent, head->length, &input[head->index]);
-        head = head->next;
-	}
+// 	while (head)
+// 	{
+// 		printf("%d @ %d [%d, %d] [%.*s]\n", head->type, head->index, head->expandable, head->adjacent, head->length, &input[head->index]);
+//         head = head->next;
+// 	}
 
-	return (0);
-}
+// 	return (0);
+// }

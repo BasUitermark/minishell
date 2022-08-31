@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 16:03:29 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 16:35:33 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(void)
 		tokens = lexer(input_line);
 		shell = parser(tokens, input_line);
 		add_history(input_line);
-		if (ft_strncmp(input_line, "exit", 4))
+		print_command(shell.cmds, shell.cmd_n);
+		if (!ft_strncmp(input_line, "exit", 4))
 			break ;
 	}
 	free (input_line);

@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 10:47:52 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 12:36:26 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 16:16:12 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	command_counter(t_token *tokens)
 	i = 0;
 	while (tokens)
 	{
-		if (tokens->type == command)
+		if (tokens->type == COMMAND)
 			i++;
 		tokens = tokens->next;
 	}
@@ -32,7 +32,7 @@ size_t	arg_counter(t_token *tokens)
 
 	i = 1;
 	tokens = tokens->next;
-	while (tokens && tokens->type == argument)
+	while (tokens && tokens->type == ARGUMENT)
 	{
 		i++;
 		tokens = tokens->next;

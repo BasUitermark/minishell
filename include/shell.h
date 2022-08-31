@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 16:08:59 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 16:35:00 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ bool			part_handler(t_token **head, unsigned int index, \
 bool			validate_read(const char *input_line);
 
 //============ Parsing =============//
+void			print_command(t_command *cmd, size_t n);
+void			print_all_tokens(t_token *tokens);
 
 t_shell			parser(t_token *tokens, char const *input);
 void			parse_commands(t_shell *shell, t_token *tokens, \
