@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/25 12:06:42 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/08/31 13:50:30 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,22 @@ typedef struct s_env {
 	struct s_env	*next;
 }	t_env;
 
-typedef enum e_token_type {
-	in_file,
-	command,
-	argument,
-	out_file
-}	t_token_type;
+typedef enum e_tokentype {
+	INFILE,
+	HEREDOC,
+	OUTFILE,
+	OUTFILE_APPEND,
+	COMMAND,
+	ARGUMENT,
+	PIPE
+}	t_tokentype;
 
 typedef struct s_token {
+	t_tokentype		type;
 	unsigned int	index;
 	unsigned int	length;
-	t_token_type	type;
+	bool			expandable;
+	bool			adjacent;
 	struct s_token	*next;
 }	t_token;
 
@@ -58,17 +63,26 @@ typedef struct s_shell {
 	t_command	*commands;
 }	t_shell;
 
-int			main(void);
+int				main(void);
+
+//============== Lexer =============//
+t_token			*lexer(const char *input);
+t_token			*post_process(const char *input, t_token *head);
+t_tokentype		get_type(const char *input, unsigned int from);
+unsigned int	find_next(const char *input, unsigned int from);
+bool			add_token(t_token **head, t_tokentype type, unsigned int index, \
+					unsigned int length);
+bool			part_handler(t_token **head, unsigned int index, \
+					unsigned int length, t_tokentype type);
 
 //======== Input Validation ========//
-bool		validate_read(const char *input_line);
+bool			validate_read(const char *input_line);
 
 //============ Parsing =============//
-t_command	*parse_read(char *input);
-t_command	parse_special(char *input);
-
+t_command		*parse_read(char *input);
+t_command		parse_special(char *input);
 
 //======== Input Parsing ========//
-bool		resolve_paths(t_command *commands);
+bool			resolve_paths(t_command *commands);
 
 #endif
