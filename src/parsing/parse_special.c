@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 20:29:02 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/01 13:07:15 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	parse_outfile(t_token *tokens, char const *input)
 		{
 			tmp_path = ft_substr(input, tokens->index, tokens->length);
 			if (access(tmp_path, R_OK && tokens->type == OUTFILE))
-				fd = open(tmp_path, O_RDWR | O_CREAT| O_TRUNC , 0644);
+				fd = open(tmp_path, O_RDWR | O_CREAT | O_TRUNC, 0644);
 			if (access(tmp_path, R_OK && tokens->type == OUTFILE_APPEND))
 				fd = open(tmp_path, O_RDWR | O_CREAT | O_APPEND, 0644);
 			free (tmp_path);
@@ -54,12 +54,22 @@ static int	parse_outfile(t_token *tokens, char const *input)
 	return (fd);
 }
 
+static char	*parse_heredoc(void)
+{
+	char	*input;
+
+	printf("here");
+	input = readline("> ");
+	return (input);
+}
+
 void	parse_special(t_shell *shell, t_token *tokens, char const *input)
 {
+	print_all_tokens(tokens);
 	while (tokens)
 	{
-		// if (tokens->type == HEREDOC)
-		// 	parse_heredoc();
+		if (tokens->type == HEREDOC)
+			parse_heredoc();
 		if (tokens->type == INFILE)
 			shell->fd_in = parse_infile(tokens, input);
 		if (tokens->type == OUTFILE || tokens->type == OUTFILE_APPEND)

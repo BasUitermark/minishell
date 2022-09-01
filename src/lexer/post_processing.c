@@ -6,11 +6,11 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 12:51:50 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/08/31 19:49:55 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/01 12:20:24 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../include/shell.h"
 
 static void	find_expandable(const char *input, t_token *head)
 {

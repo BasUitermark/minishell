@@ -6,11 +6,11 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:09 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/08/31 19:50:01 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/01 12:20:27 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../include/shell.h"
 
 
 t_tokentype	get_type(const char *input, unsigned int from)

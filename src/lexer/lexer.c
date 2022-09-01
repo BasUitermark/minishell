@@ -6,11 +6,11 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/08/31 19:49:50 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/01 12:20:21 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../../include/shell.h"
 
 static bool	process_token_length(const char *input, unsigned int *index, \
 	unsigned int from)
@@ -93,7 +93,7 @@ t_token	*lexer(const char *input)
 			&& types[1] == COMMAND)
 			types[1] = ARGUMENT;
 		if (types[1] == INFILE || types[1] == OUTFILE || \
-			types[1] == OUTFILE_APPEND)
+			types[1] == OUTFILE_APPEND || types[1] == HEREDOC)
 			set_token_info(input, &index, &length, true);
 		if (!part_handler(&head, index, length, types[1]))
 			return (clear_list(head));
@@ -104,17 +104,18 @@ t_token	*lexer(const char *input)
 }
 
 
-// int	main(void)
-// {
-// 	const char *input = {"< infile.txt<second_infile.txt cat -e -n|grep '$$ \\\' \"  \" $'\'hahaha\'lmao\"ok\" | \"$HOME/\"a.out | \"$HOME\"/a.out >> out_append.txt > out_overwrite.txt"};
+int	main(void)
+{
+	// const char *input = {"< infile.txt<second_infile.txt cat -e -n|grep '$$ \\\' \"  \" $'\'hahaha\'lmao\"ok\" | \"$HOME/\"a.out | \"$HOME\"/a.out >> out_append.txt > out_overwrite.txt"};
+	const char *input = {"<< help"};
 
-// 	t_token *head = lexer(input);
+	t_token *head = lexer(input);
 
-// 	while (head)
-// 	{
-// 		printf("%d @ %d [%d, %d] [%.*s]\n", head->type, head->index, head->expandable, head->adjacent, head->length, &input[head->index]);
-//         head = head->next;
-// 	}
+	while (head)
+	{
+		printf("%d @ %d [%d, %d] [%.*s]\n", head->type, head->index, head->expandable, head->adjacent, head->length, &input[head->index]);
+        head = head->next;
+	}
 
-// 	return (0);
-// }
+	return (0);
+}

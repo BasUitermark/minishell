@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utility.c                                          :+:    :+:            */
+/*   parse_utility.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 11:20:58 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 20:30:46 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/01 12:16:56 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ void	print_all_tokens(t_token *tokens)
 {
 	while (tokens != NULL)
 	{
-		printf("%d\n", tokens->index);
-		printf("%d\n", tokens->length);
-		printf("%d\n", tokens->type);
-		printf("%d\n", tokens->expandable);
-		printf("%d\n\n", tokens->adjacent);
+		printf("Index:		%d\n", tokens->index);
+		printf("Length:		%d\n", tokens->length);
+		printf("Type:		%d\n", tokens->type);
+		printf("Expandable:	%d\n", tokens->expandable);
+		printf("Adjacent:	%d\n\n", tokens->adjacent);
 		tokens = tokens->next;
 	}
 }
