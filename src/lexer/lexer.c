@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/08/31 15:49:17 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/01 10:54:51 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,20 +101,4 @@ t_token	*lexer(const char *input)
 		types[0] = types[1];
 	}
 	return (post_process(input, head));
-}
-
-
-int	main(void)
-{
-	const char *input = {"< infile.txt<second_infile.txt cat -e -n|grep '$$ \\\' \"  \" $'\'hahaha\'lmao\"ok\" | \"$HOME/\"a.out | \"$HOME\"/a.out >> out_append.txt > out_overwrite.txt"};
-
-	t_token *head = lexer(input);
-
-	while (head)
-	{
-		printf("%d @ %d [%d, %d] [%.*s]\n", head->type, head->index, head->expandable, head->adjacent, head->length, &input[head->index]);
-        head = head->next;
-	}
-
-	return (0);
 }
