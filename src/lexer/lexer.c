@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/01 10:54:51 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/01 13:06:24 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_token	*lexer(const char *input)
 			&& types[1] == COMMAND)
 			types[1] = ARGUMENT;
 		if (types[1] == INFILE || types[1] == OUTFILE || \
-			types[1] == OUTFILE_APPEND)
+			types[1] == OUTFILE_APPEND || types[1] == HEREDOC)
 			set_token_info(input, &index, &length, true);
 		if (!part_handler(&head, index, length, types[1]))
 			return (clear_list(head));
