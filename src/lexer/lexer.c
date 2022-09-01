@@ -6,11 +6,11 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/01 13:06:24 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/01 13:10:40 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../include/shell.h"
+#include "../../include/shell.h"
 
 static bool	process_token_length(const char *input, unsigned int *index, \
 	unsigned int from)

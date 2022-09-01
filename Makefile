@@ -26,7 +26,16 @@ HEADERS		= -I include
 SRCS		= $(addprefix src/, $(addsuffix .c, \
 				main \
 			$(addprefix validation/, \
-				input_validation)))
+				input_validation) \
+			$(addprefix lexer/, \
+				lexer \
+				post_processing \
+				utility) \
+			$(addprefix parsing/, \
+				parser \
+				parse_commands \
+				parse_special \
+				parse_utility)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)
@@ -40,6 +49,7 @@ $(NAME): $(OBJS)
 objs/%.o: src/%.c
 	@$(MKDIR) objs
 	@$(MKDIR) objs/parsing
+	@$(MKDIR) objs/lexer
 	@$(MKDIR) objs/validation
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)

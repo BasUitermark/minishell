@@ -6,11 +6,39 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 13:30:56 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 15:27:14 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/08/31 19:49:28 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/shell.h"
+#include "shell.h"
+
+static size_t	command_counter(t_token *tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens)
+	{
+		if (tokens->type == COMMAND)
+			i++;
+		tokens = tokens->next;
+	}
+	return (i);
+}
+
+static size_t	arg_counter(t_token *tokens)
+{
+	int	i;
+
+	i = 1;
+	tokens = tokens->next;
+	while (tokens && tokens->type == ARGUMENT)
+	{
+		i++;
+		tokens = tokens->next;
+	}
+	return (i);
+}
 
 static char	**parse_args(char const *input, t_token *tokens, int amount)
 {
@@ -42,7 +70,7 @@ void	parse_commands(t_shell *shell, t_token *tokens, char const *input)
 	// 	error();
 	while (tokens && i < shell->cmd_n)
 	{
-		if (tokens->type == command)
+		if (tokens->type == COMMAND)
 		{
 			arg_count = arg_counter(tokens);
 			shell->cmds[i].args = parse_args(input, tokens, arg_count);
