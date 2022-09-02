@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/02 12:13:03 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/02 12:52:13 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_shell {
 	size_t		cmd_n;
 }	t_shell;
 
+t_shell			g_shell;
 int				main(int argc, char **argv, char **envp);
 
 //============== Lexer =============//
@@ -100,5 +101,6 @@ t_env			*clear_list(t_env *head);
 t_env			*get_env(t_env *head, char *key);
 bool			add_variable(t_env **head, char *var_string);
 bool			remove_variable(t_env **head, char *key);
+bool			expand(t_env *head, char **location);
 
 #endif
