@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   temp.h                                             :+:    :+:            */
+/*   parse.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/01 10:59:09 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/01 16:23:04 by jde-groo      ########   odam.nl         */
+/*   Created: 2022/09/02 11:54:27 by jde-groo      #+#    #+#                 */
+/*   Updated: 2022/09/02 12:15:36 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEMP_H
-# define TEMP_H
+#include "./../../include/shell.h"
 
-# include "./../../libs/libft/include/libft.h"
-# include <stdbool.h>
-# include <stdlib.h>
-# include <stdio.h>
+t_env	*parse_environment(char **envp)
+{
+	t_env	*env;
 
-typedef struct s_env {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
-
-t_env	*parse_environment(char **envp);
-t_env	*get_env(t_env *head, char *key);
-bool	add_variable(t_env **head, char *var);
-bool	remove_variable(t_env **head, char *key);
-
-#endif
+	env = NULL;
+	if (!envp)
+		return (NULL);
+	while (*envp)
+	{
+		if (!add_variable(&env, *envp))
+			return (clear_list(env));
+		envp++;
+	}
+	return (env);
+}

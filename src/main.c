@@ -6,18 +6,19 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 16:03:29 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/02 12:22:35 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*input_line;
 	t_token	*tokens;
 	t_shell	shell;
 
+	shell.env = parse_environment(envp);
 	while (1)
 	{
 		input_line = readline(BOLD BLUE SHELL RESET);

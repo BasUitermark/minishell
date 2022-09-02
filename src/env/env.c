@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   env.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/01 10:58:51 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/01 16:32:14 by jde-groo      ########   odam.nl         */
+/*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
+/*   Updated: 2022/09/02 12:15:32 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "temp.h"
-
-static t_env	*clear_list(t_env *head)
-{
-	t_env	*next;
-
-	while (head)
-	{
-		next = head->next;
-		free(head->key);
-		free(head->value);
-		free(head);
-		head = next;
-	}
-	return (NULL);
-}
+#include "./../../include/shell.h"
 
 static bool	fill_env(t_env *env, char *var_string)
 {
@@ -51,27 +36,27 @@ static bool	fill_env(t_env *env, char *var_string)
 	return (true);
 }
 
-t_env	*parse_environment(char **envp)
+t_env	*clear_list(t_env *head)
 {
-	t_env	*env;
+	t_env	*next;
 
-	env = NULL;
-	if (!envp)
-		return (NULL);
-	while (*envp)
+	while (head)
 	{
-		if (!add_variable(&env, *envp))
-			return (clear_list(env));
-		envp++;
+		next = head->next;
+		free(head->key);
+		free(head->value);
+		free(head);
+		head = next;
 	}
-	return (env);
+	return (NULL);
 }
 
 t_env	*get_env(t_env *head, char *key)
 {
 	while (head)
 	{
-		if (ft_strncmp(head->key, key, ft_strlen(head->key)) == 0)
+		if (ft_strlen(head->key) == ft_strlen(key) \
+			&& ft_strncmp(head->key, key, ft_strlen(head->key)) == 0)
 			return (head);
 		head = head->next;
 	}
@@ -125,19 +110,3 @@ bool	remove_variable(t_env **head, char *key)
 	free(env);
 	return (true);
 }
-
-//int main(int argc, char **argv, char **envp)
-//{
-//	t_env	*env;
-
-//	env = parse_environment(envp);
-//	remove_variable(&env, "SHELL");
-//	remove_variable(&env, "TMPDIR");
-//	remove_variable(&env, "SSH");
-//	remove_variable(&env, "PATH");
-//	while (env)
-//	{
-//		printf("%s -> %s \n", env->key, env->value);
-//		env = env->next;
-//	}
-//}
