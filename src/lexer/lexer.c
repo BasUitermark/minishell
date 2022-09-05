@@ -6,11 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2022/09/01 13:10:40 by buiterma      ########   odam.nl         */
-=======
-/*   Updated: 2022/09/01 12:57:05 by jde-groo      ########   odam.nl         */
->>>>>>> env
+/*   Updated: 2022/09/05 12:25:40 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +52,7 @@ static unsigned int	token_length(const char *input, unsigned int from)
 	return (index);
 }
 
-static t_token	*clear_list(t_token *head)
+t_token	*clear_token_list(t_token *head)
 {
 	t_token	*next;
 
@@ -100,7 +96,7 @@ t_token	*lexer(const char *input)
 			types[1] == OUTFILE_APPEND || types[1] == HEREDOC)
 			set_token_info(input, &index, &length, true);
 		if (!part_handler(&head, index, length, types[1]))
-			return (clear_list(head));
+			return (clear_token_list(head));
 		index += length;
 		types[0] = types[1];
 	}

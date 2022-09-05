@@ -35,7 +35,11 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 				parser \
 				parse_commands \
 				parse_special \
-				parse_utility)))
+				parse_utility) \
+			$(addprefix env/, \
+				env \
+				expand \
+				parse)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)
@@ -51,6 +55,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/parsing
 	@$(MKDIR) objs/lexer
 	@$(MKDIR) objs/validation
+	@$(MKDIR) objs/env
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"

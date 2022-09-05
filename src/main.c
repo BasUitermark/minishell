@@ -6,11 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2022/09/05 10:33:59 by buiterma      ########   odam.nl         */
-=======
-/*   Updated: 2022/09/02 12:22:35 by jde-groo      ########   odam.nl         */
->>>>>>> env
+/*   Updated: 2022/09/05 12:23:21 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

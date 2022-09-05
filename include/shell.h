@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 12:20:16 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/05 12:25:59 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ bool			add_token(t_token **head, t_tokentype type, unsigned int index, \
 					unsigned int length);
 bool			part_handler(t_token **head, unsigned int index, \
 					unsigned int length, t_tokentype type);
+t_token			*clear_token_list(t_token *head);
 
 //======== Input Validation ========//
 bool			validate_read(const char *input_line);
