@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 12:45:21 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/05 11:54:40 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/05 12:16:33 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,27 @@ static unsigned int	var_length(char *string, unsigned int from)
 	return (length);
 }
 
-static char	*ft_strndup(char const *str, unsigned int n)
+static bool	in_expand(t_env *head, char *location, \
+	unsigned int *index, char **expanded)
 {
-	char	*out;
+	char	prev_char;
 
-	if (!str)
-		return (NULL);
-	out = (char *)ft_calloc(n + 1, sizeof(char));
-	if (!out)
-		return (NULL);
-	ft_memcpy(out, str, n);
-	out[n] = '\0';
-	return (out);
-}
-
-static char	*ft_strnappend(char const *s1, char const *s2, unsigned int n)
-{
-	char	*out;
-	t_size	len1;
-	t_size	len2;
-
-	if (!s1)
-		return (ft_strndup(s2, n));
-	len1 = ft_strlen(s1);
-	out = (char *)ft_calloc(len1 + n + 1, sizeof(char));
-	if (!out)
-		return (NULL);
-	ft_memcpy(out, s1, len1);
-	ft_memcpy(out + len1, s2, n);
-	free((char *)s1);
-	return (out);
-}
+	expanded[0] = ft_strnappend(expanded[0], \
+		&location[index[0]], next_var(location, index[0]) - index[0]);
+	if (!expanded[0])
+		return (false);
+	index[0] = next_var(location, index[0]);
+	prev_char = location[index[0] + var_length(location, index[0])];
+	location[index[0] + var_length(location, index[0])] = 0;
+	if (get_env(head, &location[index[0] + 1]))
+		expanded[0] = ft_strappend(expanded[0], \
+			get_env(head, &location[index[0] + 1])->value);
+	if (!expanded[0])
+		return (false);
+	location[index[0] + var_length(location, index[0])] = prev_char;
+	index[0] += var_length(location, index[0]);
+	return (true);
+}	
 
 bool	expand(t_env *head, char **location)
 {
@@ -75,37 +65,12 @@ bool	expand(t_env *head, char **location)
 	index = 0;
 	expanded = NULL;
 	while (location[0][index])
-	{
-		expanded = ft_strnappend(expanded, \
-			&location[0][index], next_var(location[0], index) - index);
-		index = next_var(location[0], index);
-		prev_char = location[0][index + var_length(location[0], index)];
-		location[0][index + var_length(location[0], index)] = 0;
-		if (get_env(head, &location[0][index + 1]))
-			expanded = ft_strappend(expanded, \
-				get_env(head, &location[0][index + 1])->value);
-		location[0][index + var_length(location[0], index)] = prev_char;
-		index += var_length(location[0], index);
-	}
+		if (!in_expand(head, location[0], &index, &expanded))
+			return (false);
 	expanded = ft_strnappend(expanded, &location[0][index], \
 		next_var(location[0], index) - index);
+	if (!expanded)
+		return (false);
 	location[0] = expanded;
 	return (true);
-}
-
-
-
-
-
-int main(int argc, char **argv, char **envp)
-{
-	char	*str = ft_strdup("z$PWDz lol");
-	//char	*str = ft_strdup("Hello, $USER! Ur in $PWD using shell $SHELL :)");
-	//char	*str = ft_strdup(argv[1]);
-	t_env	*env;
-
-	env = parse_environment(envp);
-	printf("%s\n", str);
-	expand(env, &str);
-	printf("%s\n", str);
 }
