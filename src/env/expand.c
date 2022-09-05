@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 12:45:21 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/02 17:01:42 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/05 11:54:40 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,31 @@ static char	*ft_strnappend(char const *s1, char const *s2, unsigned int n)
 	return (out);
 }
 
-//static char	*
-
 bool	expand(t_env *head, char **location)
 {
-	
+	unsigned int	index;
+	char			*expanded;
+	char			prev_char;
+
+	index = 0;
+	expanded = NULL;
+	while (location[0][index])
+	{
+		expanded = ft_strnappend(expanded, \
+			&location[0][index], next_var(location[0], index) - index);
+		index = next_var(location[0], index);
+		prev_char = location[0][index + var_length(location[0], index)];
+		location[0][index + var_length(location[0], index)] = 0;
+		if (get_env(head, &location[0][index + 1]))
+			expanded = ft_strappend(expanded, \
+				get_env(head, &location[0][index + 1])->value);
+		location[0][index + var_length(location[0], index)] = prev_char;
+		index += var_length(location[0], index);
+	}
+	expanded = ft_strnappend(expanded, &location[0][index], \
+		next_var(location[0], index) - index);
+	location[0] = expanded;
+	return (true);
 }
 
 
@@ -79,8 +99,9 @@ bool	expand(t_env *head, char **location)
 
 int main(int argc, char **argv, char **envp)
 {
-	//char	*str = ft_strdup("Hello, $USER! Ur in $PWD :)");
-	char	*str = ft_strdup(argv[1]);
+	char	*str = ft_strdup("z$PWDz lol");
+	//char	*str = ft_strdup("Hello, $USER! Ur in $PWD using shell $SHELL :)");
+	//char	*str = ft_strdup(argv[1]);
 	t_env	*env;
 
 	env = parse_environment(envp);
