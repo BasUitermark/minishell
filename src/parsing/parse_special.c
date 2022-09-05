@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/01 16:38:24 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/05 10:29:23 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,17 @@ static char	*parse_heredoc(t_token token, char const *input)
 	char	*end;
 
 	end = ft_substr(input, token.index, token.length);
+	str = NULL;
 	while (1)
 	{
 		write(1, "> ", 2);
 		tmp = ft_get_next_line(STDIN_FILENO);
 		if (!tmp || !ft_strncmp(tmp, end, ft_strlen(end)))
 			break ;
-		// str = ft_strappend(str, tmp);
+		str = ft_strappend(str, tmp);
 		free(tmp);
 	}
 	free(end);
-	// printf("%s\n", tmp);
 	return (str);
 }
 

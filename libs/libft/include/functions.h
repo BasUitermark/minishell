@@ -259,11 +259,30 @@ char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 
 /**
+ * @brief 
+ * 
+ * @param s1 
+ * @param s2 
+ * @param n 
+ * @return char* 
+ */
+char		*ft_strnappend(char const *s1, char const *s2, unsigned int n);
+
+/**
  * Applies function f to each character of s.
  * @param *s String to apply function f to.
  * @param *f Function to apply.
  */
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
+
+/**
+ * @brief 
+ * 
+ * @param str 
+ * @param n 
+ * @return char* 
+ */
+char		*ft_strndup(char const *str, unsigned int n);
 
 //==Memory Functions==//
 

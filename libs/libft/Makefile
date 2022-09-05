@@ -87,9 +87,11 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			ft_putstr_fd \
 			ft_split \
 			ft_strappend \
+			ft_strnappend \
 			ft_strchr \
 			ft_strclen \
 			ft_strdup \
+			ft_strndup \
 			ft_striteri \
 			ft_strjoin \
 			ft_strlcat \

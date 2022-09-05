@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_strnappend.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 10:33:59 by buiterma      ########   odam.nl         */
+/*   Created: 2022/09/05 12:09:35 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/09/05 12:15:38 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../include/libft.h"
 
-int	main(void)
+char	*ft_strnappend(char const *s1, char const *s2, unsigned int n)
 {
-	char	*input;
-	t_token	*tokens;
-	t_shell	shell;
+	char	*out;
+	t_size	len1;
 
-	while (1)
-	{
-		input = readline(BOLD BLUE SHELL RESET);
-		if (!input)
-			break ;
-		add_history(input);
-		tokens = lexer(input);
-		shell = parser(tokens, input);
-		if (!ft_strncmp(input, "exit", 4))
-			break ;
-		free (input);
-		input = NULL;
-	}
-	return (0);
+	if (!s1)
+		return (ft_strndup(s2, n));
+	len1 = ft_strlen(s1);
+	out = (char *)ft_calloc(len1 + n + 1, sizeof(char));
+	if (!out)
+		return (NULL);
+	ft_memcpy(out, s1, len1);
+	ft_memcpy(out + len1, s2, n);
+	free((char *)s1);
+	return (out);
 }

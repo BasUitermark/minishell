@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_strndup.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 10:33:59 by buiterma      ########   odam.nl         */
+/*   Created: 2022/09/05 12:14:17 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/09/05 12:14:39 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../include/libft.h"
 
-int	main(void)
+char	*ft_strndup(char const *str, unsigned int n)
 {
-	char	*input;
-	t_token	*tokens;
-	t_shell	shell;
+	char	*out;
 
-	while (1)
-	{
-		input = readline(BOLD BLUE SHELL RESET);
-		if (!input)
-			break ;
-		add_history(input);
-		tokens = lexer(input);
-		shell = parser(tokens, input);
-		if (!ft_strncmp(input, "exit", 4))
-			break ;
-		free (input);
-		input = NULL;
-	}
-	return (0);
+	if (!str)
+		return (NULL);
+	out = (char *)ft_calloc(n + 1, sizeof(char));
+	if (!out)
+		return (NULL);
+	ft_memcpy(out, str, n);
+	out[n] = '\0';
+	return (out);
 }
