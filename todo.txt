@@ -1,0 +1,5 @@
+use global shell variable, do not reassign it
+	main.c:26
+		shell = parser(tokens, input_line);
+maybe put t_token* (and others) in shell struct for easy access
+protect parse_env in main ( error function )

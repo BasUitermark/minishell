@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/01 16:52:20 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/05 12:20:16 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ typedef struct s_shell {
 	size_t		cmd_n;
 }	t_shell;
 
-int				main(void);
+t_shell			g_shell;
+int				main(int argc, char **argv, char **envp);
 
 //============== Lexer =============//
 t_token			*lexer(const char *input);
@@ -82,11 +83,21 @@ bool			validate_read(const char *input_line);
 //============ Parsing =============//
 void			print_command(t_command *cmd, size_t n);
 void			print_all_tokens(t_token *tokens);
-
+void			parse_special(t_shell *shell, t_token *tokens, \
+				char const *input);
 t_shell			parser(t_token *tokens, char const *input);
 void			parse_commands(t_shell *shell, t_token *tokens, \
 				char const *input);
-void			parse_special(t_shell *shell, t_token *tokens, \
-				char const *input);
+
+//======== Input Parsing ========//
+bool			resolve_paths(t_command *commands);
+
+//========== Environment ==========//
+t_env			*parse_environment(char **envp);
+t_env			*clear_list(t_env *head);
+t_env			*get_env(t_env *head, char *key);
+bool			add_variable(t_env **head, char *var_string);
+bool			remove_variable(t_env **head, char *key);
+bool			expand(t_env *head, char **location);
 
 #endif
