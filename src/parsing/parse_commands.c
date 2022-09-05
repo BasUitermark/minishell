@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 13:30:56 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/08/31 19:49:28 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/05 13:35:20 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,33 @@ static char	**parse_args(char const *input, t_token *tokens, int amount)
 	while (tokens && i < amount)
 	{
 		args[i] = ft_substr(input, tokens->index, tokens->length);
+		if (!args[i])
+			//error();
 		i++;
 		tokens = tokens->next;
 	}
 	return (args);
 }
 
-void	parse_commands(t_shell *shell, t_token *tokens, char const *input)
+bool	parse_commands(t_token *tokens, char const *input)
 {
-	size_t		i;
-	size_t		arg_count;
+	size_t	i;
+	size_t	arg_count;
 
 	i = 0;
-	shell->cmd_n = command_counter(tokens);
-	shell->cmds = malloc(shell->cmd_n * sizeof(t_command));
-	// if (!cmds)
-	// 	error();
-	while (tokens && i < shell->cmd_n)
+	g_shell.cmd_n = command_counter(tokens);
+	g_shell.cmds = malloc(g_shell.cmd_n * sizeof(t_command));
+	if (!g_shell.cmds)
+		return (false);
+	while (tokens && i < g_shell.cmd_n)
 	{
 		if (tokens->type == COMMAND)
 		{
 			arg_count = arg_counter(tokens);
-			shell->cmds[i].args = parse_args(input, tokens, arg_count);
+			g_shell.cmds[i].args = parse_args(input, tokens, arg_count);
 			i++;
 		}
 		tokens = tokens->next;
 	}
+	return (true);
 }

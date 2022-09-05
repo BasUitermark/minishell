@@ -6,52 +6,44 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 10:29:23 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/05 15:57:05 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static int	parse_infile(t_token *tokens, char const *input)
+static void	parse_infile(t_token *tokens, char const *input)
 {
-	int		fd;
 	char	*tmp_path;
 
-	fd = 0;
-	while (tokens)
+	if (g_shell.fd_in != -1)
 	{
-		if (tokens->type == INFILE)
-		{
-			tmp_path = ft_substr(input, tokens->index, tokens->length);
-			if (access(tmp_path, R_OK))
-				fd = open(tmp_path, O_RDONLY);
-			free (tmp_path);
-		}
-		tokens = tokens->next;
+		close(g_shell.fd_in);
+		g_shell.fd_in = -1;
 	}
-	return (fd);
+	tmp_path = ft_substr(input, tokens->index, tokens->length);
+	if (access(tmp_path, R_OK) == 0)
+		g_shell.fd_in = open(tmp_path, O_RDONLY);
+	free (tmp_path);
 }
 
-static int	parse_outfile(t_token *tokens, char const *input)
+static void	parse_outfile(t_token *tokens, char const *input)
 {
-	int		fd;
 	char	*tmp_path;
 
-	fd = 0;
-	while (tokens)
+	if (g_shell.fd_out)
 	{
-		if (tokens->type == OUTFILE || tokens->type == OUTFILE_APPEND)
-		{
-			tmp_path = ft_substr(input, tokens->index, tokens->length);
-			if (access(tmp_path, R_OK && tokens->type == OUTFILE))
-				fd = open(tmp_path, O_RDWR | O_CREAT | O_TRUNC, 0644);
-			if (access(tmp_path, R_OK && tokens->type == OUTFILE_APPEND))
-				fd = open(tmp_path, O_RDWR | O_CREAT | O_APPEND, 0644);
-			free (tmp_path);
-		}
-		tokens = tokens->next;
+		close(g_shell.fd_out);
+		g_shell.fd_out = -1;
 	}
-	return (fd);
+	tmp_path = ft_substr(input, tokens->index, tokens->length);
+	if (tokens->type == OUTFILE)
+		g_shell.fd_out = open(tmp_path, O_RDWR | O_CREAT | O_TRUNC, \
+						0644);
+	if (tokens->type == OUTFILE_APPEND)
+		g_shell.fd_out = open(tmp_path, O_RDWR | O_CREAT | O_APPEND, \
+						0644);
+	free (tmp_path);
 }
 
 static char	*parse_heredoc(t_token token, char const *input)
@@ -75,7 +67,7 @@ static char	*parse_heredoc(t_token token, char const *input)
 	return (str);
 }
 
-void	parse_special(t_shell *shell, t_token *tokens, char const *input)
+void	parse_special(t_token *tokens, char const *input)
 {
 	char	*heredoc;
 
@@ -84,9 +76,9 @@ void	parse_special(t_shell *shell, t_token *tokens, char const *input)
 		if (tokens->type == HEREDOC)
 			heredoc = parse_heredoc(*tokens, input);
 		if (tokens->type == INFILE)
-			shell->fd_in = parse_infile(tokens, input);
+			parse_infile(tokens, input);
 		if (tokens->type == OUTFILE || tokens->type == OUTFILE_APPEND)
-			shell->fd_out = parse_outfile(tokens, input);
+			parse_outfile(tokens, input);
 		tokens = tokens->next;
 	}
 }
