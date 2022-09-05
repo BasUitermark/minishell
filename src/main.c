@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 16:16:07 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/05 16:59:02 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 
 	g_shell.env = parse_environment(envp);
 	init();
-	while (1)
+	while (true)
 	{
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input)
