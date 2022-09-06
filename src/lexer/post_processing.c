@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 12:51:50 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/01 12:20:24 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/06 14:24:39 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static void	remove_quotes(const char *input, t_token *head)
 	}
 }
 
-t_token	*post_process(const char *input, t_token *head)
+bool	post_process(const char *input, t_token *head)
 {
 	find_expandable(input, head);
 	find_adjacent(input, head);
 	remove_quotes(input, head);
-	return (head);
+	return (true);
 }

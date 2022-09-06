@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/06 11:43:04 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/06 15:39:14 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,15 @@ t_shell			g_shell;
 int				main(int argc, char **argv, char **envp);
 
 //============== Lexer =============//
-t_token			*lexer(const char *input);
-t_token			*post_process(const char *input, t_token *head);
+bool			lexer(const char *input);
+bool			post_process(const char *input, t_token *head);
 t_tokentype		get_type(const char *input, unsigned int from);
 unsigned int	find_next(const char *input, unsigned int from);
 bool			add_token(t_token **head, t_tokentype type, unsigned int index, \
 					unsigned int length);
 bool			part_handler(t_token **head, unsigned int index, \
 					unsigned int length, t_tokentype type);
-t_token			*clear_token_list(t_token *head);
+bool			clear_token_list(t_token **head);
 
 //======== Input Validation ========//
 bool			validate_read(const char *input_line);
@@ -100,6 +100,6 @@ bool			clear_list(t_env **head);
 t_env			*get_env(t_env *head, char *key);
 bool			add_variable(t_env **head, char *var_string);
 bool			remove_variable(t_env **head, char *key);
-bool			expand(t_env *head, char **location);
+bool			expand(char **location);
 
 #endif

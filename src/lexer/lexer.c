@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/05 12:25:40 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/06 14:24:09 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,20 @@ static unsigned int	token_length(const char *input, unsigned int from)
 	return (index);
 }
 
-t_token	*clear_token_list(t_token *head)
+bool	clear_token_list(t_token **head)
 {
 	t_token	*next;
+	t_token	*thead;
 
-	while (head)
+	thead = *head;
+	while (thead)
 	{
-		next = head->next;
-		free(head);
-		head = next;
+		next = thead->next;
+		free(thead);
+		thead = next;
 	}
-	return (NULL);
+	*head = NULL;
+	return (false);
 }
 
 static void	set_token_info(const char *input, unsigned int *index, \
@@ -75,15 +78,13 @@ static void	set_token_info(const char *input, unsigned int *index, \
 	*length = token_length(input, *index);
 }
 
-t_token	*lexer(const char *input)
+bool	lexer(const char *input)
 {
-	t_token			*head;
 	t_tokentype		types[2];
 	unsigned int	index;
 	unsigned int	length;
 
 	index = 0;
-	head = NULL;
 	types[0] = INFILE;
 	while (input[index])
 	{
@@ -95,10 +96,10 @@ t_token	*lexer(const char *input)
 		if (types[1] == INFILE || types[1] == OUTFILE || \
 			types[1] == OUTFILE_APPEND || types[1] == HEREDOC)
 			set_token_info(input, &index, &length, true);
-		if (!part_handler(&head, index, length, types[1]))
-			return (clear_token_list(head));
+		if (!part_handler(&g_shell.token, index, length, types[1]))
+			return (clear_token_list(&g_shell.token));
 		index += length;
 		types[0] = types[1];
 	}
-	return (post_process(input, head));
+	return (post_process(input, g_shell.token));
 }

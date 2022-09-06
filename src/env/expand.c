@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 12:45:21 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/06 12:19:33 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/06 15:38:48 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,16 @@ static bool	in_expand(t_env *head, char *location, \
 	prev_char = location[index[0] + var_length(location, index[0])];
 	location[index[0] + var_length(location, index[0])] = 0;
 	if (ft_strncmp(&location[index[0] + 1], "?", 1) == 0)
+	{
 		if (!expand_exit_code(expanded))
 			return (false);
+	}
 	else
+	{
 		if (get_env(head, &location[index[0] + 1]))
 			expanded[0] = ft_strappend(expanded[0], \
 				get_env(head, &location[index[0] + 1])->value);
+	}
 	if (!expanded[0])
 		return (false);
 	location[index[0] + var_length(location, index[0])] = prev_char;
@@ -75,7 +79,7 @@ static bool	in_expand(t_env *head, char *location, \
 	return (true);
 }
 
-bool	expand(t_env *head, char **location)
+bool	expand(char **location)
 {
 	unsigned int	index;
 	char			*expanded;
@@ -84,7 +88,7 @@ bool	expand(t_env *head, char **location)
 	index = 0;
 	expanded = NULL;
 	while (location[0][index])
-		if (!in_expand(head, location[0], &index, &expanded))
+		if (!in_expand(g_shell.env, location[0], &index, &expanded))
 			return (false);
 	expanded = ft_strnappend(expanded, &location[0][index], \
 		next_var(location[0], index) - index);
