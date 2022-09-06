@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 13:30:56 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 13:35:20 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/06 11:05:24 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	**parse_args(char const *input, t_token *tokens, int amount)
 	while (tokens && i < amount)
 	{
 		args[i] = ft_substr(input, tokens->index, tokens->length);
-		if (!args[i])
+		//if (!args[i])
 			//error();
 		i++;
 		tokens = tokens->next;

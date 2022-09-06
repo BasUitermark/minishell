@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 12:45:21 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/05 12:16:33 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/06 12:19:33 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static unsigned int	next_var(char *string, unsigned int from)
 {
 	while (string[from] && string[from + 1] && \
 		!(string[from] == '$' && \
-		(ft_isalpha(string[from + 1]) || string[from + 1] == '_')))
+		(ft_isalpha(string[from + 1]) || string[from + 1] == '_' \
+			|| string[from + 1] == '?')))
 		from++;
 	if (string[from] != '$')
 		from++;
@@ -28,10 +29,24 @@ static unsigned int	var_length(char *string, unsigned int from)
 	unsigned int	length;
 
 	length = 1;
+	if (string[from + length] == '?')
+		return (2);
 	while (string[from + length] && \
 		(ft_isalnum(string[from + length]) || string[from + length] == '_'))
 		length++;
 	return (length);
+}
+
+static bool	expand_exit_code(char **expanded)
+{
+	char	*exit_code;
+
+	exit_code = ft_itoa(g_shell.exit_code);
+	if (!exit_code)
+		return (false);
+	expanded[0] = ft_strappend(expanded[0], exit_code);
+	free(exit_code);
+	return (true);
 }
 
 static bool	in_expand(t_env *head, char *location, \
@@ -46,15 +61,19 @@ static bool	in_expand(t_env *head, char *location, \
 	index[0] = next_var(location, index[0]);
 	prev_char = location[index[0] + var_length(location, index[0])];
 	location[index[0] + var_length(location, index[0])] = 0;
-	if (get_env(head, &location[index[0] + 1]))
-		expanded[0] = ft_strappend(expanded[0], \
-			get_env(head, &location[index[0] + 1])->value);
+	if (ft_strncmp(&location[index[0] + 1], "?", 1) == 0)
+		if (!expand_exit_code(expanded))
+			return (false);
+	else
+		if (get_env(head, &location[index[0] + 1]))
+			expanded[0] = ft_strappend(expanded[0], \
+				get_env(head, &location[index[0] + 1])->value);
 	if (!expanded[0])
 		return (false);
 	location[index[0] + var_length(location, index[0])] = prev_char;
 	index[0] += var_length(location, index[0]);
 	return (true);
-}	
+}
 
 bool	expand(t_env *head, char **location)
 {
@@ -71,6 +90,7 @@ bool	expand(t_env *head, char **location)
 		next_var(location[0], index) - index);
 	if (!expanded)
 		return (false);
+	free(location[0]);
 	location[0] = expanded;
 	return (true);
 }

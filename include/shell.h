@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 13:42:55 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/06 11:43:04 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include "../libs/libft/include/libft.h"
 
+# define READ 0
+# define WRITE 1
 # define SHELL "[mini_pain]> "
 # define SPECIAL_CHAR "$|<>\'\""
 
@@ -60,6 +62,7 @@ typedef struct s_shell {
 	int			fd_out;
 	int			pipe[2];
 	pid_t		pid;
+	t_token		*token;
 	t_command	*cmds;
 	size_t		cmd_n;
 }	t_shell;
@@ -85,15 +88,15 @@ bool			validate_read(const char *input_line);
 void			print_command(t_command *cmd, size_t n);
 void			print_all_tokens(t_token *tokens);
 void			parse_special(t_token *tokens, char const *input);
-bool			parser(t_token *tokens, char const *input);
+bool			parser(char const *input);
 bool			parse_commands(t_token *tokens, char const *input);
 
 //======== Input Parsing ========//
 bool			resolve_paths(t_command *commands);
 
 //========== Environment ==========//
-t_env			*parse_environment(char **envp);
-t_env			*clear_list(t_env *head);
+bool			parse_environment(char **envp);
+bool			clear_list(t_env **head);
 t_env			*get_env(t_env *head, char *key);
 bool			add_variable(t_env **head, char *var_string);
 bool			remove_variable(t_env **head, char *key);

@@ -3,3 +3,6 @@ use global shell variable, do not reassign it
 		shell = parser(tokens, input_line);
 maybe put t_token* (and others) in shell struct for easy access
 protect parse_env in main ( error function )
+
+expand $? ( exit code )
+strappend and strnappend might leak because it overwrites char *. maybe fix by always freeing s1

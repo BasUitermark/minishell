@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/02 12:15:32 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/06 11:25:09 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,22 @@ static bool	fill_env(t_env *env, char *var_string)
 	return (true);
 }
 
-t_env	*clear_list(t_env *head)
+bool	clear_list(t_env **head)
 {
+	t_env	*thead;
 	t_env	*next;
 
+	thead = *head;
 	while (head)
 	{
-		next = head->next;
-		free(head->key);
-		free(head->value);
-		free(head);
-		head = next;
+		next = thead->next;
+		free(thead->key);
+		free(thead->value);
+		free(thead);
+		thead = next;
 	}
-	return (NULL);
+	*head = NULL;
+	return (false);
 }
 
 t_env	*get_env(t_env *head, char *key)
