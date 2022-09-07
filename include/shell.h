@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 17:27:37 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/07 15:24:31 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ typedef struct s_shell {
 	size_t		cmd_n;
 }	t_shell;
 
-t_shell			g_shell;
+extern t_shell			g_shell;
+
 int				main(int argc, char **argv, char **envp);
 
 //============== Lexer =============//

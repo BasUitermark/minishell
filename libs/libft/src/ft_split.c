@@ -7,7 +7,7 @@ static t_size	ft_wcount(char const *s, char c)
 
 	wcount = 0;
 	i = 0;
-	while (!s[i])
+	while (s[i])
 	{
 		if (s[i] != c)
 			wcount++;
