@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 16:59:02 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/08 11:26:59 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	t_token	*tokens;
+	int		i;
 
 	g_shell.env = parse_environment(envp);
 	init();

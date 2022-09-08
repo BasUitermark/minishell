@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/07 15:24:31 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/08 11:44:08 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ typedef struct s_shell {
 	size_t		cmd_n;
 }	t_shell;
 
-extern t_shell			g_shell;
+t_shell			g_shell;
 
-int				main(int argc, char **argv, char **envp);
+// int				main(int argc, char **argv, char **envp);
 
 //============== Lexer =============//
 t_token			*lexer(const char *input);
@@ -78,9 +78,6 @@ bool			add_token(t_token **head, t_tokentype type, unsigned int index, \
 bool			part_handler(t_token **head, unsigned int index, \
 					unsigned int length, t_tokentype type);
 t_token			*clear_token_list(t_token *head);
-
-//======== Input Validation ========//
-bool			validate_read(const char *input_line);
 
 //============ Parsing =============//
 void			print_command(t_command *cmd, size_t n);
