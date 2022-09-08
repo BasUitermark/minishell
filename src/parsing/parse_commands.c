@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 13:30:56 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/06 11:05:24 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/08 17:21:13 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static size_t	arg_counter(t_token *tokens)
 	tokens = tokens->next;
 	while (tokens && tokens->type == ARGUMENT)
 	{
-		i++;
+		if (!tokens->adjacent)
+			i++;
 		tokens = tokens->next;
 	}
 	return (i);
@@ -47,13 +48,14 @@ static char	**parse_args(char const *input, t_token *tokens, int amount)
 
 	i = 0;
 	args = ft_calloc(amount + 1, sizeof(char *));
-	// if (!args)
-	// 	error();
+	if (!args)
+		return (NULL);
 	while (tokens && i < amount)
 	{
-		args[i] = ft_substr(input, tokens->index, tokens->length);
-		//if (!args[i])
-			//error();
+		if (!parse_adjacent(input, tokens, &args[i]))
+			return (ft_freearray(args));
+		while (tokens->adjacent)
+			tokens = tokens->next;
 		i++;
 		tokens = tokens->next;
 	}
@@ -67,7 +69,7 @@ bool	parse_commands(t_token *tokens, char const *input)
 
 	i = 0;
 	g_shell.cmd_n = command_counter(tokens);
-	g_shell.cmds = malloc(g_shell.cmd_n * sizeof(t_command));
+	g_shell.cmds = ft_calloc(g_shell.cmd_n, sizeof(t_command));
 	if (!g_shell.cmds)
 		return (false);
 	while (tokens && i < g_shell.cmd_n)
@@ -76,6 +78,8 @@ bool	parse_commands(t_token *tokens, char const *input)
 		{
 			arg_count = arg_counter(tokens);
 			g_shell.cmds[i].args = parse_args(input, tokens, arg_count);
+			if (!g_shell.cmds[i].args)
+				return (false);
 			i++;
 		}
 		tokens = tokens->next;

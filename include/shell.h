@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/06 15:39:14 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/08 17:14:26 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,11 @@ void			print_all_tokens(t_token *tokens);
 void			parse_special(t_token *tokens, char const *input);
 bool			parser(char const *input);
 bool			parse_commands(t_token *tokens, char const *input);
+bool			parse_adjacent(const char *input, \
+					t_token *tokens, char **location);
 
 //======== Input Parsing ========//
-bool			resolve_paths(t_command *commands);
+bool			resolve_paths(void);
 
 //========== Environment ==========//
 bool			parse_environment(char **envp);
