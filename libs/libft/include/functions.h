@@ -284,6 +284,14 @@ void		ft_striteri(char *s, void (*f)(unsigned int, char *));
  */
 char		*ft_strndup(char const *str, unsigned int n);
 
+/**
+ * @brief 
+ * 
+ * @param array 
+ * @return size_t 
+ */
+size_t		ft_arraylen(char **array);
+
 //==Memory Functions==//
 
 /**

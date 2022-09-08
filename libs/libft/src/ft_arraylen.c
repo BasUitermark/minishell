@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_pwd.c                                           :+:    :+:            */
+/*   ft_arraylen.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/08 11:17:12 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/08 13:34:46 by buiterma      ########   odam.nl         */
+/*   Created: 2022/09/08 13:09:30 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/09/08 13:11:15 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
+#include "../include/libft.h"
 
-int	ft_pwd(void)
+size_t	ft_arraylen(char **array)
 {
-	g_shell.env = get_env(g_shell.env, "PWD");
-	if (!(ft_strncmp(g_shell.env->key, "PWD", 3) == 0))
-		return (1);
-	ft_putendl_fd(g_shell.env->value, 1);
-	return (0);
+	size_t	i;
+
+	i = 0;
+	if (!array)
+		return (0);
+	while (array[i])
+		i++;
+	return (i);
 }
