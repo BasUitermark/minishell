@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/06 15:51:56 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/08 12:45:08 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!parse_environment(envp))
 		exit(EXIT_FAILURE);
 	init();
-	while (1)
+	while (true)
 	{
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input)
@@ -34,7 +34,6 @@ int	main(int argc, char **argv, char **envp)
 			exit(EXIT_FAILURE);
 		if (!parser(input))
 			exit(EXIT_FAILURE);
-
 		if (!ft_strncmp(input, "exit", 4))
 			break ;
 

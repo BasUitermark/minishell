@@ -25,8 +25,6 @@ HEADERS		= -I include
 #===============================================================================: Sourcefiles
 SRCS		= $(addprefix src/, $(addsuffix .c, \
 				main \
-			$(addprefix validation/, \
-				input_validation) \
 			$(addprefix lexer/, \
 				lexer \
 				post_processing \
