@@ -67,6 +67,7 @@ run: all
 submodules:
 	@git submodule update --init --recursive
 	@cd libs/libft/ && git pull
+	@cd libs/libft/ && git push
 
 #===============================================================================: Build messages
 message:
