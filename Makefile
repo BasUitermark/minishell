@@ -64,6 +64,10 @@ run: all
 	@printf "$(GREEN)Executing $(NAME)!\n$(RESET)\n"
 	@./$(NAME) $(RUN_ARGS)
 
+submodules:
+	@git submodule update --init --recursive
+	@cd libs/libft/ && git pull
+
 #===============================================================================: Build messages
 message:
 	@printf "$(MAGENTA)🔨Building \"$(NAME)\"\n$(RESET)\n"
