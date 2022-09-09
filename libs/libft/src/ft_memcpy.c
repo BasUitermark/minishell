@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 18:54:46 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/09 18:54:46 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	t_size	i;
+	size_t	i;
 
 	i = 0;
 	if (dst == NULL && src == NULL)

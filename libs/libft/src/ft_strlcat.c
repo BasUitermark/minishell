@@ -6,16 +6,16 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 18:54:08 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/09 18:54:09 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-t_size	ft_strlcat(char *dst, const char *src, size_t n)
+size_t	ft_strlcat(char *dst, const char *src, size_t n)
 {
-	const t_size	dstlen = ft_strlen(dst);
-	const t_size	srclen = ft_strlen(src);
+	const size_t	dstlen = ft_strlen(dst);
+	const size_t	srclen = ft_strlen(src);
 
 	if (dstlen >= n)
 		return (srclen + n);

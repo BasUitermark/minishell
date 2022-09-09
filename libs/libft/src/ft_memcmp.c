@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 18:54:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/09 18:54:48 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_memcmp(const void *str1, const void *str2, size_t n)
 {
-	t_size	i;
+	size_t	i;
 
 	i = 0;
 	while (i < n)

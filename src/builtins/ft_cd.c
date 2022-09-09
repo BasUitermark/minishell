@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/08 16:28:57 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/09 19:56:41 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,41 @@ static char	*prev_dir(char *cur_dir)
 	return (prev_dir);
 }
 
+// Set PWD and OLDPWD to correct values after performing CD.
+// Clean up function for readability.
 int	ft_cd(int argc, const char **argv)
 {
 	char	*temp_dir;
+	char	*cur_dir;
 
-	getcwd(NULL, -1);
+	cur_dir = getcwd(NULL, -1);
 	if (argc < 2)
 		return (1);
 	if (ft_strncmp(argv[1], "..", 2) == 0 || ft_strncmp(argv[1], "../", 3) == 0)
-		chdir(prev_dir(temp_dir));
-	else
-	{
-		cur_dir = ft_strjoin(temp_dir, "/");
-		cur_dir = ft_strappend(cur_dir, argv[1]);
-		if (chdir(cur_dir) == 0)
-		{
-			ft_putstr_fd(cur_dir, STDERR_FILENO);
-			ft_putendl_fd(": No such file or directory.", STDERR_FILENO);
-		}
-	}
+		chdir(prev_dir(cur_dir));
+	// else
+	// {
+	// 	cur_dir = ft_strjoin(temp_dir, "/");
+	// 	cur_dir = ft_strappend(cur_dir, argv[1]);
+	// 	if (chdir(cur_dir) == 0)
+	// 	{
+	// 		ft_putstr_fd(cur_dir, STDERR_FILENO);
+	// 		ft_putendl_fd(": No such file or directory.", STDERR_FILENO);
+	// 	}
+	// }
 	return (0);
 }
 
-int	main(int argc, char const *argv[])
+int	main(int argc, char const *argv[], char **envp)
 {
 	char	*cur_dir;
+	t_env	*pwd;
+	t_env	*old_pwd;
 
+	parse_environment(envp);
+	pwd = get_env(g_shell.env, "PWD");
+	old_pwd = get_env(g_shell.env, "OLDPWD");
+	printf("pwd: %s\nold pwd: %s\n", pwd->value, old_pwd->value);
 	ft_cd(argc + 1, &argv[1]);
 	return (0);
 }

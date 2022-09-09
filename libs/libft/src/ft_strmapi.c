@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 18:54:03 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/09 18:54:03 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	t_size	i;
+	size_t	i;
 	char	*out;
 
 	i = 0;

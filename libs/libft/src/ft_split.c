@@ -6,16 +6,16 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 18:54:22 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/09 18:54:22 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/libft.h"
 
-static t_size	ft_wcount(char const *s, char c)
+static size_t	ft_wcount(char const *s, char c)
 {
-	t_size	i;
-	t_size	wcount;
+	size_t	i;
+	size_t	wcount;
 
 	wcount = 0;
 	i = 0;
@@ -32,7 +32,7 @@ static t_size	ft_wcount(char const *s, char c)
 
 static void	ft_clean(char **out)
 {
-	t_size	i;
+	size_t	i;
 
 	i = 0;
 	while (out[i] != NULL)
@@ -44,11 +44,11 @@ static void	ft_clean(char **out)
 	return ;
 }
 
-static char	**ft_array(t_size wcount, char const *s, char c, char **out)
+static char	**ft_array(size_t wcount, char const *s, char c, char **out)
 {
-	t_size	lcount;
-	t_size	i;
-	t_size	j;
+	size_t	lcount;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
@@ -72,7 +72,7 @@ static char	**ft_array(t_size wcount, char const *s, char c, char **out)
 
 char	**ft_split(char const *s, char c)
 {
-	t_size	wcount;
+	size_t	wcount;
 	char	**out;
 
 	wcount = ft_wcount(s, c);

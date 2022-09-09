@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 18:54:18 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/09 18:54:19 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*ft_strchr(const char *str, int c)
 {
-	t_size	i;
-	t_size	len;
+	size_t	i;
+	size_t	len;
 
 	i = 0;
 	if (!str || !c)

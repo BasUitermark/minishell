@@ -6,19 +6,27 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 15:25:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/09 18:55:51 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/09 19:48:17 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEF_H
 # define DEF_H
 
-//=== Libraries ===//
-# include <unistd.h>
-# include <stdbool.h>
-# include <stdarg.h>
-# include <stdlib.h>
-# include <fcntl.h>
+//=== Types ====//
+typedef size_t				t_size;
+
+typedef signed char			t_i8;
+typedef unsigned char		t_u8;
+
+typedef signed short		t_i16;
+typedef unsigned short		t_u16;
+
+typedef signed int			t_i32;
+typedef unsigned int		t_u32;
+
+typedef signed long long	t_i64;
+typedef unsigned long long	t_u64;
 
 # define TRUE 1
 # define FALSE 0
