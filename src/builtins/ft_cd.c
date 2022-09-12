@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 14:52:11 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/12 15:05:00 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../libs/libft/include/libft.h"
 #include <stdio.h>
 
-static void	set_pwd(char *old_dir)
+static bool	set_pwd(char *old_dir)
 {
 	cur_dir = getcwd(NULL, -1);
 	g_shell.env = get_env(g_shell.env, "OLDPWD");
