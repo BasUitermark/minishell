@@ -28,7 +28,7 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			$(addprefix lexer/, \
 				lexer \
 				post_processing \
-				utility) \
+				lexer_utility) \
 			$(addprefix parsing/, \
 				parser \
 				parse_commands \
@@ -39,7 +39,8 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			$(addprefix env/, \
 				env \
 				expand \
-				parse)))
+				parse \
+				env_utility)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)

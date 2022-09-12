@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 15:34:25 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/12 15:53:43 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	free_home(t_env *home)
 	return (1);
 }
 
-// needs to be rewritten
 static bool	set_pwd(char *old_dir)
 {
 	char	*cur_dir;
@@ -32,13 +31,16 @@ static bool	set_pwd(char *old_dir)
 	cur_dir = getcwd(NULL, -1);
 	if (!cur_dir)
 		return (FALSE);
-	g_shell.env = get_env(g_shell.env, "OLDPWD");
-	free (g_shell.env->value);
-	g_shell.env->value = old_dir;
-	g_shell.env = get_env(g_shell.env, "PWD");
-	free (g_shell.env->value);
-	g_shell.env->value = cur_dir;
-	free(cur_dir);
+	if (!set_env("PWD", old_dir))
+	{
+		free (cur_dir);
+		return (FALSE);
+	}
+	if (!set_env("OLDPWD", cur_dir))
+	{
+		free (cur_dir);
+		return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -54,8 +56,11 @@ static bool	set_dir(const char *path)
 		free(cur_dir);
 		return (FALSE);
 	}
-	// if (!set_pwd(cur_dir))
-	// 	return (FALSE);
+	if (!set_pwd(cur_dir))
+	{
+		free(cur_dir);
+		return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -84,15 +89,15 @@ int	ft_cd(int argc, const char **argv)
 	return (0);
 }
 
-// int	main(int argc, char const *argv[], char **envp)
-// {
-// 	t_env	*pwd;
-// 	t_env	*old_pwd;
+int	main(int argc, char const *argv[], char **envp)
+{
+	t_env	*pwd;
+	t_env	*old_pwd;
 
-// 	parse_environment(envp);
-// 	pwd = get_env(g_shell.env, "PWD");
-// 	old_pwd = get_env(g_shell.env, "OLDPWD");
-// 	printf(BOLD GREEN"pwd:	%s\nold pwd:%s\n" RESET, pwd->value, old_pwd->value);
-// 	ft_cd(argc - 1, &argv[1]);
-// 	return (0);
-// }
+	parse_environment(envp);
+	pwd = get_env(g_shell.env, "PWD");
+	old_pwd = get_env(g_shell.env, "OLDPWD");
+	printf(BOLD GREEN"pwd:	%s\nold pwd:%s\n" RESET, pwd->value, old_pwd->value);
+	ft_cd(argc - 1, &argv[1]);
+	return (0);
+}
