@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 15:06:09 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/12 15:29:49 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ t_env			*get_env(t_env *head, char *key);
 bool			add_variable(t_env **head, char *var_string);
 bool			remove_variable(t_env **head, char *key);
 bool			expand(char **location);
+bool			add_env(t_env *node);
+bool			set_env(char *key, char *value);
 
 //========== Built-ins ==========//
 int				ft_echo(int argc, char **argv);
