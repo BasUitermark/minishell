@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   functions.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/09 18:55:32 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/09/09 18:58:26 by buiterma      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FUNCTIONS_H
 # define FUNCTIONS_H
 
@@ -134,7 +146,7 @@ void		ft_bzero(void *s, size_t n);
  * @param src The source where the characters are copied from.
  * @param n The amount of characters to be copied.
  */
-t_size		ft_strlcpy(char *dst, const char *src, size_t size);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 
 char		*ft_strncat(char *dest, const char *src, unsigned int n);
 
@@ -144,7 +156,7 @@ char		*ft_strncat(char *dest, const char *src, unsigned int n);
  * @param *src The source string
  * @return Returns the length of the string it tried to make.
  */
-t_size		ft_strlcat(char *dst, const char *src, size_t n);
+size_t		ft_strlcat(char *dst, const char *src, size_t n);
 
 /**
  * Searches for the first occurrence of c in str.
@@ -171,7 +183,7 @@ char		*ft_strrchr(const char *str, int c);
  * @param *little The string to search for.
  * @param len The amount of bytes to search through.
  */
-char		*ft_strnstr(const char	*big, const char *little, t_size n);
+char		*ft_strnstr(const char	*big, const char *little, size_t n);
 
 /**
  * Compares n amount of characters of str1 with str 2.
@@ -299,6 +311,14 @@ void		ft_striteri(char *s, void (*f)(unsigned int, char *));
  * @return char* 
  */
 char		*ft_strndup(char const *str, unsigned int n);
+
+/**
+ * @brief 
+ * 
+ * @param array 
+ * @return size_t 
+ */
+size_t		ft_arraylen(char **array);
 
 //==Memory Functions==//
 

@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 14:54:23 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/12 15:06:09 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/history.h>
 # include <stdbool.h>
 # include <stdlib.h>
+# include <limits.h>
 # include "../libs/libft/include/libft.h"
 
 # define READ 0

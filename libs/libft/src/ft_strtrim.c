@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_strtrim.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/09 18:53:35 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/libft.h"
 
 static int	ft_front(char const *s1, char const *set)
 {
-	t_size	i;
+	size_t	i;
 
 	i = 0;
 	while (s1[i])
@@ -16,7 +28,7 @@ static int	ft_front(char const *s1, char const *set)
 
 static int	ft_back(char const *s1, char const *set)
 {
-	t_size	len;
+	size_t	len;
 
 	len = ft_strlen(s1);
 	while (len > 0)
@@ -30,8 +42,8 @@ static int	ft_back(char const *s1, char const *set)
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	t_size	front;
-	t_size	back;
+	size_t	front;
+	size_t	back;
 
 	front = ft_front(s1, set);
 	back = ft_back(s1, set);

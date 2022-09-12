@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   ft_strappend.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2022/09/09 18:54:20 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/libft.h"
 
 char	*ft_strappend(char const *s1, char const *s2)
 {
 	char	*out;
-	t_size	len1;
-	t_size	len2;
+	size_t	len1;
+	size_t	len2;
 
 	if (!s1)
 		return (ft_strdup(s2));

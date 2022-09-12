@@ -6,19 +6,12 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 15:25:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/08 15:58:21 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/12 15:06:40 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEF_H
 # define DEF_H
-
-//=== Libraries ===//
-# include <unistd.h>
-# include <stdbool.h>
-# include <stdarg.h>
-# include <stdlib.h>
-# include <fcntl.h>
 
 //=== Types ====//
 typedef size_t				t_size;

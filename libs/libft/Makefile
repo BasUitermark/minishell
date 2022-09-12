@@ -24,6 +24,7 @@ MKDIR		= mkdir -p objs
 
 #===============================================================================: Sourcefiles==#
 SRCS		= $(addprefix src/, $(addsuffix .c, \
+			ft_arraylen \
 			ft_abs \
 			ft_atoi \
 			ft_bzero \

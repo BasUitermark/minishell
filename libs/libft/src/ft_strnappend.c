@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/05 12:09:35 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 12:15:38 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_strnappend(char const *s1, char const *s2, unsigned int n)
 {
 	char	*out;
-	t_size	len1;
+	size_t	len1;
 
 	if (!s1)
 		return (ft_strndup(s2, n));
