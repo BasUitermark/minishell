@@ -218,6 +218,12 @@ char		**ft_split(char const *s, char c);
 char		*ft_strappend(char const *s1, char const *s2);
 
 /**
+ * 
+ * 
+*/
+char		*ft_strappendfree(char const *s1, char const *s2);
+
+/**
  * Duplicates a string to a new string.
  * @param *str String to be duplicated.
  * @return Returns a new string.
@@ -267,6 +273,16 @@ char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
  * @return char* 
  */
 char		*ft_strnappend(char const *s1, char const *s2, unsigned int n);
+
+/**
+ * @brief 
+ * 
+ * @param s1 
+ * @param s2 
+ * @param n 
+ * @return char* 
+ */
+char		*ft_strnappendfree(char const *s1, char const *s2, unsigned int n);
 
 /**
  * Applies function f to each character of s.
@@ -520,5 +536,8 @@ void		ft_printlist(t_list *list);
 void		ft_printdlist(t_dlist *list);
 void		ft_printcarray(char **str);
 int			ft_fprintf(int fd, const char *str, ...);
+
+//=== Misc ===//
+void		*ft_freearray(char **arr);
 
 #endif

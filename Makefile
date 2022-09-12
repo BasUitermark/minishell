@@ -32,7 +32,9 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			$(addprefix parsing/, \
 				parser \
 				parse_commands \
+				parse_adjacent \
 				parse_special \
+				resolve_paths \
 				parse_utility) \
 			$(addprefix env/, \
 				env \

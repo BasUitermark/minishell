@@ -88,6 +88,8 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			ft_split \
 			ft_strappend \
 			ft_strnappend \
+			ft_strappendfree \
+			ft_strnappendfree \
 			ft_strchr \
 			ft_strclen \
 			ft_strdup \
@@ -107,7 +109,8 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			ft_strtrim \
 			ft_substr \
 			ft_tolower \
-			ft_toupper))
+			ft_toupper \
+			ft_freearray))
 
 #===============================================================================: Make commands
 all: message $(NAME)
