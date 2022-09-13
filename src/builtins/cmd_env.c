@@ -1,46 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_unset.c                                         :+:    :+:            */
+/*   cmd_env.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/12 17:09:16 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 17:13:11 by buiterma      ########   odam.nl         */
+/*   Created: 2022/09/08 13:37:03 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/09/13 09:57:24 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "shell.h"
-#include "../../include/shell.h"
-#include "../../libs/libft/include/libft.h"
-#include <stdio.h>
+#include "shell.h"
+// #include "../../include/shell.h"
+// #include "../../libs/libft/include/libft.h"
+// #include <stdio.h>
 
-static char	*find_key(const char *str)
+int	cmd_env(void)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			break ;
-		i++;
-	}
-	return (ft_substr(str, 0, i));
-}
-
-int	ft_unset(int argc, const char **argv)
-{
-	char	*key;
-	int		i;
-
-	i = 0;
-	key = find_key(argv[i]);
+	if (!g_shell.env)
+		return (1);
 	while (g_shell.env)
 	{
-
-		g_shell.env->next;
-		i++;
+		ft_putstr_fd(g_shell.env->key, 1);
+		ft_putchar_fd('=', 1);
+		ft_putendl_fd(g_shell.env->value, 1);
+		g_shell.env = g_shell.env->next;
 	}
 	return (0);
 }

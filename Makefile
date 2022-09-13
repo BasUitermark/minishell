@@ -35,12 +35,21 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 				parse_adjacent \
 				parse_special \
 				resolve_paths \
-				parse_utility) \
+				parse_utility \
+				purge_commands) \
 			$(addprefix env/, \
 				env \
 				expand \
 				parse \
-				env_utility)))
+				env_utility) \
+			$(addprefix builtins/, \
+				cmd_cd \
+				cmd_echo \
+				cmd_env \
+				cmd_exit \
+				cmd_export \
+				cmd_pwd \
+				cmd_unset)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)
@@ -57,6 +66,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/lexer
 	@$(MKDIR) objs/validation
 	@$(MKDIR) objs/env
+	@$(MKDIR) objs/builtins
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_echo.c                                          :+:    :+:            */
+/*   cmd_echo.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/05 16:59:32 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/08 11:14:48 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/13 09:57:30 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int	ft_echo(int argc, char **str)
+int	cmd_echo(int argc, char **str)
 {
 	int		i;
 	bool	newline;

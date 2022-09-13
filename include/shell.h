@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 15:29:49 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/13 10:19:12 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_shell {
 
 t_shell			g_shell;
 
-// int				main(int argc, char **argv, char **envp);
+int				main(int argc, char **argv, char **envp);
 
 //============== Lexer =============//
 bool			lexer(const char *input);
@@ -91,6 +91,7 @@ bool			parser(char const *input);
 bool			parse_commands(t_token *tokens, char const *input);
 bool			parse_adjacent(const char *input, \
 					t_token *tokens, char **location);
+void			purge_commands(void);
 
 //======== Input Parsing ========//
 bool			resolve_paths(void);
@@ -106,6 +107,11 @@ bool			add_env(t_env *node);
 bool			set_env(char *key, char *value);
 
 //========== Built-ins ==========//
-int				ft_echo(int argc, char **argv);
+int				cmd_echo(int argc, char **argv);
+int				cmd_cd(int argc, const char **argv);
+int				cmd_env(void);
+int				cmd_export(int argc, const char **argv);
+int				cmd_pwd(void);
+int				cmd_unset(int argc, const char **argv);
 
 #endif

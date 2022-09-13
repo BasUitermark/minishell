@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_export.c                                        :+:    :+:            */
+/*   cmd_unset.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 17:08:40 by buiterma      ########   odam.nl         */
+/*   Created: 2022/09/12 17:09:16 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/09/13 09:58:21 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "shell.h"
-#include "../../include/shell.h"
-#include "../../libs/libft/include/libft.h"
-#include <stdio.h>
+#include "shell.h"
+// #include "../../include/shell.h"
+// #include "../../libs/libft/include/libft.h"
+// #include <stdio.h>
 
 static char	*find_key(const char *str)
 {
@@ -29,49 +29,23 @@ static char	*find_key(const char *str)
 	return (ft_substr(str, 0, i));
 }
 
-static char	*find_value(const char *str)
+int	cmd_unset(int argc, const char **argv)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			break ;
-		i++;
-	}
-	return (ft_substr(str, i + 1, ft_strlen(str)));
-}
-
-int	ft_export(int argc, const char **argv)
-{
-	int		i;
 	char	*key;
-	char	*value;
+	int		i;
 
 	i = 0;
-	if (argc < 1)
-		return (1);
-	while (i < argc)
+	while (g_shell.env)
 	{
 		key = find_key(argv[i]);
-		value = find_value(argv[i]);
-		// printf("%s\n%s\n", key, value);
-		if (!set_env(key, value))
+		if (!remove_variable(&g_shell.env, key))
 		{
-			free (key);
-			free (value);
+			free(key);
 			return (1);
 		}
-		free (key);
-		free (value);
+		free(key);
+		g_shell.env = g_shell.env->next;
 		i++;
 	}
-	return (0);
-}
-
-int	main(int argc, char const *argv[])
-{
-	ft_export(argc - 1, &argv[1]);
 	return (0);
 }

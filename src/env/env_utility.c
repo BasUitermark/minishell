@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 15:12:06 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/12 15:55:40 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/13 17:16:37 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool	set_env(char *key, char *value)
 		return (false);
 	node->key = ft_strdup(key);
 	node->value = value;
-	if (node->key)
+	if (!node->key)
 	{
 		free(node);
 		return (false);
