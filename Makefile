@@ -36,6 +36,8 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 				parse_special \
 				resolve_paths \
 				parse_utility) \
+			$(addprefix exec/, \
+				exec) \
 			$(addprefix env/, \
 				env \
 				expand \
@@ -57,6 +59,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/lexer
 	@$(MKDIR) objs/validation
 	@$(MKDIR) objs/env
+	@$(MKDIR) objs/exec
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"

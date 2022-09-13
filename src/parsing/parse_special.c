@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/05 15:57:05 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/13 16:49:09 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void	parse_infile(t_token *tokens, char const *input)
 
 	if (g_shell.fd_in != -1)
 	{
-		close(g_shell.fd_in);
+		if (g_shell.fd_in != STDIN_FILENO)
+			close(g_shell.fd_in);
 		g_shell.fd_in = -1;
 	}
 	tmp_path = ft_substr(input, tokens->index, tokens->length);
@@ -33,8 +34,9 @@ static void	parse_outfile(t_token *tokens, char const *input)
 
 	if (g_shell.fd_out)
 	{
-		close(g_shell.fd_out);
-		g_shell.fd_out = -1;
+		if (g_shell.fd_out != STDOUT_FILENO)
+			close(g_shell.fd_out);
+		g_shell.fd_out = STDOUT_FILENO;
 	}
 	tmp_path = ft_substr(input, tokens->index, tokens->length);
 	if (tokens->type == OUTFILE)

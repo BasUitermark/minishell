@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 15:29:49 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/13 15:41:38 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_shell {
 	int			exit_code;
 	int			fd_in;
 	int			fd_out;
-	int			pipe[2];
 	pid_t		pid;
 	t_token		*token;
 	t_command	*cmds;
@@ -104,8 +103,12 @@ bool			remove_variable(t_env **head, char *key);
 bool			expand(char **location);
 bool			add_env(t_env *node);
 bool			set_env(char *key, char *value);
+char			**normalize_env(void);
 
 //========== Built-ins ==========//
 int				ft_echo(int argc, char **argv);
+
+//=========== Exec ============//
+bool			exec(void);
 
 #endif
