@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/13 17:24:52 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/14 17:02:58 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	init(void)
 	g_shell.fd_out = -1;
 }
 
-// Retest export, test unset & write exit
+//Fix env not working after unset & write exit
 void	builtin_test(void)
 {
 	if (ft_strncmp(g_shell.cmds[0].args[0], "pwd", 3) == 0)
