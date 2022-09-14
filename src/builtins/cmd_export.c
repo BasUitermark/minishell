@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/13 09:57:16 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/14 14:55:36 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,40 @@ static char	*find_value(const char *str)
 	return (ft_substr(str, i + 1, ft_strlen(str)));
 }
 
+static bool	parse_variables(t_env **env_list, const char **argv, int argc)
+{
+	size_t	i;
+
+	i = 0;
+	if (!argv)
+		return (false);
+	while (i < argc)
+	{
+		if (!add_variable(env_list, (char *)argv[i]))
+			return (clear_list(env_list));
+		i++;
+	}
+	// printf("key: %s\nvalue: %s\n", env_list->key, env_list->value);
+	return (true);
+}
+
 int	cmd_export(int argc, const char **argv)
 {
 	int		i;
-	char	*key;
-	char	*value;
+	t_env	*env_list;
 
-	i = 0;
+	i = 1;
+	env_list = NULL;
 	if (argc < 1)
 		return (1);
-	while (i < argc)
+	if (!parse_variables(&env_list, &argv[1], argc - 1))
+		return (1);
+	// printf("key: %s\nvalue: %s\n", env_list->key, env_list->value);
+	while (i < argc && env_list)
 	{
-		key = find_key(argv[i]);
-		value = find_value(argv[i]);
-		if (!set_env(key, value))
-		{
-			free (key);
-			free (value);
+		if (!set_env(env_list->key, env_list->value))
 			return (1);
-		}
-		free (key);
-		free (value);
+		env_list = env_list->next;
 		i++;
 	}
 	return (0);
