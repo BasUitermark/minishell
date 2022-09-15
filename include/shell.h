@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/15 11:36:17 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/15 17:36:45 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define WRITE 1
 # define SHELL "[mini_pain]> "
 # define SPECIAL_CHAR "$|<>\'\""
+# define PATH_MAX 4096
 
 typedef struct s_env {
 	char			*key;

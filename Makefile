@@ -18,6 +18,7 @@ LIBFT		= libs/libft
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra
 MAKEFLAGS	= --no-print-directory
+VALG		= valgrind --leak-check=full
 RM			= rm -rf
 MKDIR		= mkdir -p
 HEADERS		= -I include
@@ -57,7 +58,7 @@ all: libft message $(NAME)
 #===============================================================================: Main compile
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(HEADERS) $(LIBFT)/libft.a -lreadline -o $(NAME)
-	@printf "$(GREEN)✅Executable \"$(NAME)\" created!$(RESET)\n\n"
+	@printf "$(GREEN)✅Executable \"$(NAME)\" created$(RESET)\n\n"
 
 #===============================================================================: C file compile
 objs/%.o: src/%.c
@@ -74,8 +75,8 @@ endif
 
 #===============================================================================: Executable run command
 run: all
-	@printf "$(GREEN)Executing $(NAME)!\n$(RESET)\n"
-	@./$(NAME) $(RUN_ARGS)
+	@printf "$(GREEN)Executing $(NAME)\n$(RESET)\n"
+	@$(VALG) ./$(NAME)
 
 submodules:
 	@git submodule update --init --recursive

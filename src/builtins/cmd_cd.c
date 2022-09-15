@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/13 17:02:09 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/15 17:53:00 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,41 +26,31 @@ static int	free_home(t_env *home)
 
 static bool	set_pwd(char *old_dir)
 {
-	char	*cur_dir;
+	char	cur_dir[PATH_MAX];
 
-	cur_dir = getcwd(NULL, -1);
+	getcwd(cur_dir, PATH_MAX);
 	if (!cur_dir)
 		return (FALSE);
-	if (!set_env("PWD", cur_dir))
-	{
-		free (cur_dir);
+	if (!set_env("PWD", ft_strdup(cur_dir)))
 		return (FALSE);
-	}
-	if (!set_env("OLDPWD", old_dir))
-	{
-		free (cur_dir);
+	if (!set_env("OLDPWD", ft_strdup(old_dir)))
 		return (FALSE);
-	}
 	return (TRUE);
 }
 
 static bool	set_dir(const char *path)
 {
-	char	*cur_dir;
+	char	cur_dir[PATH_MAX];
 
-	cur_dir = getcwd(NULL, -1);
+	getcwd(cur_dir, PATH_MAX);
 	if (chdir(path) < 0)
 	{
 		ft_putstr_fd((char *)path, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory.", STDERR_FILENO);
-		free(cur_dir);
 		return (FALSE);
 	}
 	if (!set_pwd(cur_dir))
-	{
-		free(cur_dir);
 		return (FALSE);
-	}
 	return (TRUE);
 }
 
