@@ -6,13 +6,13 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/15 17:54:32 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/15 19:15:21 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static void	free_program_data(void)
+void	free_program_data(void)
 {
 	// close(g_shell.fd_in);
 	purge_commands();
@@ -25,7 +25,12 @@ static void	init(void)
 	g_shell.fd_out = -1;
 }
 
-// Fix env not working after unset & write exit
+/* Fix exit.
+ * strisnum segfaults
+ * purge commands in free_program_data segfaults
+ * clear_list(&g_shell.env) segfaults
+ * 
+*/
 void	builtin_test(void)
 {
 	if (ft_strncmp(g_shell.cmds[0].args[0], "pwd", 3) == 0)
@@ -40,6 +45,8 @@ void	builtin_test(void)
 		cmd_echo(ft_arraylen(g_shell.cmds[0].args), (const char **)g_shell.cmds[0].args);
 	else if (ft_strncmp(g_shell.cmds[0].args[0], "unset", 5) == 0)
 		cmd_unset(ft_arraylen(g_shell.cmds[0].args), (const char **)g_shell.cmds[0].args);
+	else if (ft_strncmp(g_shell.cmds[0].args[0], "exit", 4) == 0)
+		cmd_exit(ft_arraylen(g_shell.cmds[0].args), (const char **)g_shell.cmds[0].args);
 	else
 	{
 		ft_putstr_fd(RED BOLD"Error"RESET, STDERR_FILENO);
@@ -63,13 +70,12 @@ int	main(int argc, char **argv, char **envp)
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input || !lexer(input) || !parser(input))
 			exit(EXIT_FAILURE);
-		resolve_paths();
-		builtin_test();
 		add_history(input);
 		free(input);
+		resolve_paths();
+		builtin_test();
 		free_program_data();
 	}
-	clear_list(&g_shell.env);
 	return (EXIT_SUCCESS);
 }
 

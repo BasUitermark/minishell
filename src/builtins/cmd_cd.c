@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/15 17:53:00 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/15 18:12:40 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ int	cmd_cd(int argc, const char **argv)
 		ft_putendl_fd("Too many arguments.", STDERR_FILENO);
 		return (1);
 	}
-	if (argc == 1 || ft_strncmp(argv[1], "~", 1) == 0)
+	if (argc == 1 || (ft_strncmp(argv[1], "~", 1) == 0 && ft_strlen(argv[1]) == 1))
 	{
 		home = get_env(g_shell.env, "HOME");
-		printf("%s", home->value);
 		if (!set_dir(home->value))
 			return (free_home(home));
 	}

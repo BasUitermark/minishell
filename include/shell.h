@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/15 17:36:45 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/15 19:05:25 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,5 +114,7 @@ int				cmd_env(void);
 int				cmd_export(int argc, const char **argv);
 int				cmd_pwd(void);
 int				cmd_unset(int argc, const char **argv);
+
+void			free_program_data(void);
 
 #endif
