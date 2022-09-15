@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/13 10:19:12 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/15 11:36:17 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_shell {
 	size_t		cmd_n;
 }	t_shell;
 
-t_shell			g_shell;
+extern t_shell			g_shell;
 
 int				main(int argc, char **argv, char **envp);
 
@@ -107,7 +107,7 @@ bool			add_env(t_env *node);
 bool			set_env(char *key, char *value);
 
 //========== Built-ins ==========//
-int				cmd_echo(int argc, char **argv);
+int				cmd_echo(int argc, const char **argv);
 int				cmd_cd(int argc, const char **argv);
 int				cmd_env(void);
 int				cmd_export(int argc, const char **argv);

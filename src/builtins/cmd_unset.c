@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 17:09:16 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/13 09:58:21 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/15 11:41:45 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,20 @@ int	cmd_unset(int argc, const char **argv)
 {
 	char	*key;
 	int		i;
+	t_env	*env;
 
 	i = 0;
-	while (g_shell.env)
+	env = g_shell.env;
+	while (env)
 	{
 		key = find_key(argv[i]);
-		if (!remove_variable(&g_shell.env, key))
+		if (!remove_variable(&env, key))
 		{
 			free(key);
 			return (1);
 		}
 		free(key);
-		g_shell.env = g_shell.env->next;
+		env = env->next;
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/14 17:02:58 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/15 11:37:28 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	free_program_data(void)
 {
-	close(g_shell.fd_in);
+	// close(g_shell.fd_in);
 	purge_commands();
 	clear_token_list(&g_shell.token);
 }
@@ -36,6 +36,8 @@ void	builtin_test(void)
 		cmd_env();
 	else if (ft_strncmp(g_shell.cmds[0].args[0], "export", 6) == 0)
 		cmd_export(ft_arraylen(g_shell.cmds[0].args), (const char **)g_shell.cmds[0].args);
+	else if (ft_strncmp(g_shell.cmds[0].args[0], "echo", 4) == 0)
+		cmd_echo(ft_arraylen(g_shell.cmds[0].args), (const char **)g_shell.cmds[0].args);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -55,7 +57,7 @@ int	main(int argc, char **argv, char **envp)
 		free(input);
 		free_program_data();
 	}
-	clear_list(&g_shell.env);
+	// clear_list(&g_shell.env);
 	return (EXIT_SUCCESS);
 }
 
