@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/15 19:05:25 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/19 12:35:21 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 # define READ 0
 # define WRITE 1
 # define SHELL "[mini_pain]> "
-# define SPECIAL_CHAR "$|<>\'\""
-# define PATH_MAX 4096
+// # define PATH_MAX 4096
 
 typedef struct s_env {
 	char			*key;
@@ -114,6 +113,7 @@ int				cmd_env(void);
 int				cmd_export(int argc, const char **argv);
 int				cmd_pwd(void);
 int				cmd_unset(int argc, const char **argv);
+int				cmd_exit(int argc, const char **argv);
 
 void			free_program_data(void);
 

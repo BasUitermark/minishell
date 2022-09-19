@@ -18,7 +18,7 @@ LIBFT		= libs/libft
 CC			= gcc
 CFLAGS		= -Wall -Werror -Wextra
 MAKEFLAGS	= --no-print-directory
-VALG		= valgrind --leak-check=full
+VALG		= valgrind -s --leak-check=full
 RM			= rm -rf
 MKDIR		= mkdir -p
 HEADERS		= -I include
@@ -74,9 +74,14 @@ ifeq ($(DB),1)
 endif
 
 #===============================================================================: Executable run command
-run: all
-	@printf "$(GREEN)Executing $(NAME)\n$(RESET)\n"
+valg: all
+	@printf "$(GREEN)Executing $(NAME) with Valgrind\n$(RESET)\n"
 	@$(VALG) ./$(NAME)
+
+fsan: CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g3
+fsan: all
+	@printf "$(GREEN)Executing $(NAME) with fsanitize\n$(RESET)\n"
+	@./$(NAME)
 
 submodules:
 	@git submodule update --init --recursive

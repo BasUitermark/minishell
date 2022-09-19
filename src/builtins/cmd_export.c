@@ -6,14 +6,11 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/14 14:55:36 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/19 11:07:58 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-// #include "../../include/shell.h"
-// #include "../../libs/libft/include/libft.h"
-// #include <stdio.h>
 
 static char	*find_key(const char *str)
 {
@@ -56,7 +53,6 @@ static bool	parse_variables(t_env **env_list, const char **argv, int argc)
 			return (clear_list(env_list));
 		i++;
 	}
-	// printf("key: %s\nvalue: %s\n", env_list->key, env_list->value);
 	return (true);
 }
 
@@ -71,7 +67,6 @@ int	cmd_export(int argc, const char **argv)
 		return (1);
 	if (!parse_variables(&env_list, &argv[1], argc - 1))
 		return (1);
-	// printf("key: %s\nvalue: %s\n", env_list->key, env_list->value);
 	while (i < argc && env_list)
 	{
 		if (!set_env(env_list->key, env_list->value))

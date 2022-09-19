@@ -6,14 +6,11 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:37:03 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/15 11:39:31 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/19 11:08:20 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-// #include "../../include/shell.h"
-// #include "../../libs/libft/include/libft.h"
-// #include <stdio.h>
 
 int	cmd_env(void)
 {

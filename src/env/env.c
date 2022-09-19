@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/06 11:25:09 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/19 13:12:27 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	clear_list(t_env **head)
 	t_env	*next;
 
 	thead = *head;
-	while (head)
+	while (thead)
 	{
 		next = thead->next;
 		free(thead->key);

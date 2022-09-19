@@ -6,14 +6,11 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/15 18:12:40 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/19 11:08:13 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-// #include "../../include/shell.h"
-// #include "../../libs/libft/include/libft.h"
-// #include <stdio.h>
 
 static int	free_home(t_env *home)
 {
@@ -29,8 +26,6 @@ static bool	set_pwd(char *old_dir)
 	char	cur_dir[PATH_MAX];
 
 	getcwd(cur_dir, PATH_MAX);
-	if (!cur_dir)
-		return (FALSE);
 	if (!set_env("PWD", ft_strdup(cur_dir)))
 		return (FALSE);
 	if (!set_env("OLDPWD", ft_strdup(old_dir)))
@@ -63,7 +58,8 @@ int	cmd_cd(int argc, const char **argv)
 		ft_putendl_fd("Too many arguments.", STDERR_FILENO);
 		return (1);
 	}
-	if (argc == 1 || (ft_strncmp(argv[1], "~", 1) == 0 && ft_strlen(argv[1]) == 1))
+	if (argc == 1 || (ft_strncmp(argv[1], "~", 1) == 0 && \
+		ft_strlen(argv[1]) == 1))
 	{
 		home = get_env(g_shell.env, "HOME");
 		if (!set_dir(home->value))

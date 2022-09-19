@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/15 19:15:21 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/19 13:01:20 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 void	free_program_data(void)
 {
+	t_env	*env;
 	// close(g_shell.fd_in);
 	purge_commands();
 	clear_token_list(&g_shell.token);
+	// if (g_shell.env)
+	// {
+	// 	env = g_shell.env;
+	// 	clear_list(&env);
+	// }
 }
 
 static void	init(void)
@@ -26,8 +32,6 @@ static void	init(void)
 }
 
 /* Fix exit.
- * strisnum segfaults
- * purge commands in free_program_data segfaults
  * clear_list(&g_shell.env) segfaults
  * 
 */
