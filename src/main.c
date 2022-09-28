@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/19 14:37:53 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/28 17:54:31 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ int	main(int argc, char **argv, char **envp)
 	while (true)
 	{
 		init();
+		signal(SIGINT, sighandler);
+		signal(SIGQUIT, sighandler);
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input || !lexer(input) || !parser(input))
 			exit(EXIT_FAILURE);
 		add_history(input);
 		free(input);
 		resolve_paths();
-		builtin_test();
 		free_program_data();
 	}
 	return (EXIT_SUCCESS);

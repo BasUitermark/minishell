@@ -50,14 +50,16 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 				cmd_exit \
 				cmd_export \
 				cmd_pwd \
-				cmd_unset)))
+				cmd_unset) \
+			$(addprefix signals/, \
+				signals)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)
 
 #===============================================================================: Main compile
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(HEADERS) $(LIBFT)/libft.a -lreadline -o $(NAME)
+	@$(CC) $(OBJS) $(HEADERS) $(LIBFT)/libft.a -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -o $(NAME)
 	@printf "$(GREEN)✅Executable \"$(NAME)\" created$(RESET)\n\n"
 
 #===============================================================================: C file compile
@@ -68,6 +70,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/validation
 	@$(MKDIR) objs/env
 	@$(MKDIR) objs/builtins
+	@$(MKDIR) objs/signals
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"

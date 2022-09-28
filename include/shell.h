@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/19 12:35:21 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/09/28 17:47:09 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdbool.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <signal.h>
 # include "../libs/libft/include/libft.h"
 
 # define READ 0
@@ -114,6 +115,8 @@ int				cmd_export(int argc, const char **argv);
 int				cmd_pwd(void);
 int				cmd_unset(int argc, const char **argv);
 int				cmd_exit(int argc, const char **argv);
+
+void			sighandler(int num);
 
 void			free_program_data(void);
 
