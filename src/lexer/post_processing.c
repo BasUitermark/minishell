@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 12:51:50 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/06 14:24:39 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/11 11:07:17 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	find_adjacent(const char *input, t_token *head)
 {
 	while (head && head->next)
 	{
-		if (!ft_strchr("|<> ", input[head->index + head->length]) \
+		if (!ft_strchr("|<> \t", input[head->index + head->length]) \
 			&& input[head->index + head->length])
 			head->adjacent = true;
 		head = head->next;

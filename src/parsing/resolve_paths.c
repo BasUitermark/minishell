@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 12:46:38 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/08 15:59:06 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/15 15:26:01 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	resolve_paths(void)
 			g_shell.cmds[index].path = \
 				resolve_binary(g_shell.cmds[index].args[0]);
 			if (!g_shell.cmds[index].path)
-				return (false);
+				g_shell.cmds[index].invalid = true;
 		}
 		index++;
 	}

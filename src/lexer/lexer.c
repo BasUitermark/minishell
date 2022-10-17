@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/08 12:45:27 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/11 11:04:53 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static bool	process_token_length(const char *input, unsigned int *index, \
 		else
 			(*index)++;
 	}
-	else if (input[from + *index] != ' ' && input[from + *index] != '|' \
+	else if (input[from + *index] != ' ' && input[from + *index] != '\t' \
+		&& input[from + *index] != '|' \
 		&& input[from + *index] != '>' && input[from + *index] != '<' \
 		&& input[from + *index] != '"' && input[from + *index] != '\'')
 		(*index)++;

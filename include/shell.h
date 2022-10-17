@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/17 16:12:42 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/17 17:45:59 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_token {
 typedef struct s_command {
 	char	*path;
 	char	**args;
+	bool	invalid;
 }	t_command;
 
 typedef struct s_shell {
@@ -62,11 +63,11 @@ typedef struct s_shell {
 	int			exit_code;
 	int			fd_in;
 	int			fd_out;
-	int			pipe[2];
 	pid_t		pid;
 	t_token		*token;
 	t_command	*cmds;
 	size_t		cmd_n;
+	int			pipe[2];
 }	t_shell;
 
 extern t_shell	g_shell;
@@ -106,6 +107,7 @@ bool			remove_variable(t_env **head, char *key);
 bool			expand(char **location);
 bool			add_env(t_env *node);
 bool			set_env(char *key, char *value);
+char			**normalize_env(void);
 
 //========== Built-ins ==========//
 int				cmd_echo(int argc, const char **argv);
@@ -121,5 +123,8 @@ void			signal_intercept(void);
 void			free_program_data(void);
 
 void			builtin_test(void);
+
+//=========== Exec ============//
+bool			exec(void);
 
 #endif
