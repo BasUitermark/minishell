@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/13 15:41:38 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/09/19 14:54:18 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_token {
 typedef struct s_command {
 	char	*path;
 	char	**args;
+	bool	invalid;
 }	t_command;
 
 typedef struct s_shell {
@@ -65,6 +66,7 @@ typedef struct s_shell {
 	t_token		*token;
 	t_command	*cmds;
 	size_t		cmd_n;
+	int			pipe[2];
 }	t_shell;
 
 t_shell			g_shell;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utility.c                                          :+:    :+:            */
+/*   lexer_utility.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:09 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/01 13:55:33 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/11 11:06:25 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_tokentype	get_type(const char *input, unsigned int from)
 
 unsigned int	find_next(const char *input, unsigned int from)
 {
-	while (input[from] && input[from] == ' ')
+	while (input[from] && (input[from] == ' ' || input[from] == '\t'))
 		from++;
 	return (from);
 }
