@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/03 15:22:22 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/17 16:12:42 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int				cmd_pwd(void);
 int				cmd_unset(int argc, const char **argv);
 int				cmd_exit(int argc, const char **argv);
 
-// void			sighandler(int num);
 void			signal_intercept(void);
 
 void			free_program_data(void);

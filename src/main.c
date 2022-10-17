@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/17 12:08:00 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/17 16:12:49 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		init();
 		signal_intercept();
-		// signal(SIGINT, sighandler);
-		// signal(SIGQUIT, sighandler);
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input || !lexer(input) || !parser(input))
 			exit(EXIT_FAILURE);
