@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 09:53:34 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/19 14:14:41 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/03 12:51:42 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ int	cmd_exit(int argc, const char **argv)
 		exit_status(0);
 	else
 		exit_status(ft_atoi(argv[1]));
+	return (0);
 }

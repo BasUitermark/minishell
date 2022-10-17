@@ -52,7 +52,9 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 				cmd_pwd \
 				cmd_unset) \
 			$(addprefix signals/, \
-				signals)))
+				signals) \
+			$(addprefix utils/, \
+				built_in_test)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)
@@ -71,6 +73,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/env
 	@$(MKDIR) objs/builtins
 	@$(MKDIR) objs/signals
+	@$(MKDIR) objs/utils
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"

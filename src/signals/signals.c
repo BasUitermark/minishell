@@ -6,13 +6,13 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 12:53:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/28 17:49:02 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/03 15:27:39 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	sighandler(int num)
+static void	sighandler(int num)
 {
 	if (num == SIGINT)
 	{	
@@ -23,4 +23,13 @@ void	sighandler(int num)
 	}
 	if (num == SIGQUIT)
 		return ;
+}
+
+void	signal_intercept(void)
+{
+	struct sigaction	sig;
+
+	sig.sa_handler = &sighandler;
+	sigaction(SIGINT, &sig, NULL);
+	sigaction(SIGQUIT, &sig, NULL);
 }
