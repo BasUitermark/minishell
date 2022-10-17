@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/17 16:54:43 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/17 16:57:44 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 bool	ft_pipe(int fds[2])
 {
-	int	temp;
-
 	if (pipe(fds) == -1)
 		return (false);
 	return (true);
