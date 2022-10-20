@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/17 17:45:57 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/19 13:18:16 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,36 @@ static void	init(void)
 
 t_shell	g_shell;
 
-int	main(int argc, char **argv, char **envp)
-{
-	char	*input;
+//int	main(int argc, char **argv, char **envp)
+//{
+//	char	*input;
 
-	if (argc > 1)
-		return (EXIT_FAILURE);
-	if (!parse_environment(envp))
-		exit(EXIT_FAILURE);
-	while (true)
-	{
-		init();
-		signal_intercept();
-		input = readline(BOLD BLUE SHELL RESET);
-		if (!input || !lexer(input) || !parser(input))
-			exit(EXIT_FAILURE);
-		add_history(input);
-		builtin_test();
-		free(input);
-		resolve_paths();
-		free_program_data();
-	}
-	return (EXIT_SUCCESS);
-}
-	if (g_shell.fd_in > 2)
-		close(g_shell.fd_in);
-	if (g_shell.fd_out > 2)
-		close(g_shell.fd_out);
-	g_shell.fd_in = STDIN_FILENO;
-	g_shell.fd_out = STDOUT_FILENO;
-}
+//	if (argc > 1)
+//		return (EXIT_FAILURE);
+//	if (!parse_environment(envp))
+//		exit(EXIT_FAILURE);
+//	while (true)
+//	{
+//		init();
+//		signal_intercept();
+//		input = readline(BOLD BLUE SHELL RESET);
+//		if (!input || !lexer(input) || !parser(input))
+//			exit(EXIT_FAILURE);
+//		add_history(input);
+//		builtin_test();
+//		free(input);
+//		resolve_paths();
+//		free_program_data();
+//	}
+//	return (EXIT_SUCCESS);
+//}
+//	if (g_shell.fd_in > 2)
+//		close(g_shell.fd_in);
+//	if (g_shell.fd_out > 2)
+//		close(g_shell.fd_out);
+//	g_shell.fd_in = STDIN_FILENO;
+//	g_shell.fd_out = STDOUT_FILENO;
+//}
 
 //int	main(int argc, char **argv, char **envp)
 //{
