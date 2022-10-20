@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/17 16:57:44 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/20 12:09:45 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,24 @@ bool	ft_fork(pid_t *pid)
 static int	exec_builtin(int index)
 {
 	if (ft_strncmp("cd", g_shell.cmds[index].args[0], 3) == 0)
-		return (ft_cd());
+		return (cmd_cd(ft_arraylen(g_shell.cmds[0].args), \
+		(const char **)g_shell.cmds[0].args));
 	if (ft_strncmp("exit", g_shell.cmds[index].args[0], 5) == 0)
-		return (ft_exit());
+		return (cmd_exit(ft_arraylen(g_shell.cmds[0].args), \
+		(const char **)g_shell.cmds[0].args));
 	if (ft_strncmp("echo", g_shell.cmds[index].args[0], 5) == 0)
-		return (ft_echo());
+		return (cmd_echo(ft_arraylen(g_shell.cmds[0].args), \
+		(const char **)g_shell.cmds[0].args));
 	if (ft_strncmp("env", g_shell.cmds[index].args[0], 4) == 0)
-		return (ft_env());
+		return (cmd_env());
 	if (ft_strncmp("pwd", g_shell.cmds[index].args[0], 4) == 0)
-		return (ft_env());
+		return (cmd_pwd());
 	if (ft_strncmp("export", g_shell.cmds[index].args[0], 7) == 0)
-		return (ft_export());
+		return (cmd_export(ft_arraylen(g_shell.cmds[0].args), \
+		(const char **)g_shell.cmds[0].args));
 	if (ft_strncmp("unset", g_shell.cmds[index].args[0], 6) == 0)
-		return (ft_unset());
+		return (cmd_unset(ft_arraylen(g_shell.cmds[0].args), \
+		(const char **)g_shell.cmds[0].args));
 	return (127);
 }
 

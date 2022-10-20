@@ -16,7 +16,7 @@ LIBFT		= libs/libft
 
 #===============================================================================: Compile variables
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code 
 MAKEFLAGS	= --no-print-directory
 VALG		= valgrind -s --leak-check=full
 RM			= rm -rf
@@ -39,7 +39,8 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 				parse_utility \
 				purge_commands) \
 			$(addprefix exec/, \
-				exec) \
+				exec \
+				set_shlvl) \
 			$(addprefix env/, \
 				env \
 				expand \
@@ -56,7 +57,9 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			$(addprefix signals/, \
 				signals) \
 			$(addprefix utils/, \
-				built_in_test)))
+				built_in_test) \
+			$(addprefix error/, \
+				error)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)
@@ -77,6 +80,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/signals
 	@$(MKDIR) objs/utils
 	@$(MKDIR) objs/exec
+	@$(MKDIR) objs/error
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"

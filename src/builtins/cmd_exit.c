@@ -17,6 +17,7 @@ static void	exit_status(int exit_code)
 	free_program_data();
 	clear_list(&g_shell.env);
 	g_shell.exit_code = exit_code;
+	
 	exit(exit_code);
 }
 

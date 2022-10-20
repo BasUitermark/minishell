@@ -1,0 +1,4 @@
+RM			= rm -rf
+	@$(RM) objs/
+	@$(RM) objs/
+	@$(RM) $(NAME)
