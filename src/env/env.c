@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/19 13:12:27 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/24 14:26:00 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,16 @@ bool	add_variable(t_env **head, char *var_string)
 		*head = new;
 		return (true);
 	}
+	if (strcmp((*head)->key, new->key) > 0)
+	{
+		new->next = (*head)->next;
+		*head = new;
+		return (true);
+	}
 	tmp = *head;
-	while (tmp->next)
+	while (tmp->next && strcmp(tmp->next->key, new->key) < 0)
 		tmp = tmp->next;
+	new->next = tmp->next;
 	tmp->next = new;
 	return (true);
 }
