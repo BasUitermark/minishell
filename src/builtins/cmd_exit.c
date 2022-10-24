@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 09:53:34 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/03 12:51:42 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/24 18:04:34 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static bool	strisnum(const char *str)
 
 int	cmd_exit(int argc, const char **argv)
 {
-	int	exit_code;
-
 	if (argc > 2)
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);

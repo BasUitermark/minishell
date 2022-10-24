@@ -21,7 +21,8 @@ MAKEFLAGS	= --no-print-directory
 VALG		= valgrind -s --leak-check=full
 RM			= rm -rf
 MKDIR		= mkdir -p
-HEADERS		= -I include
+HEADERS		= -I include -I ~/.brew/opt/readline/include
+ARCHIVES	= -lreadline -L ~/.brew/opt/readline/lib
 
 #===============================================================================: Sourcefiles
 SRCS		= $(addprefix src/, $(addsuffix .c, \
@@ -66,7 +67,7 @@ all: libft message $(NAME)
 
 #===============================================================================: Main compile
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(HEADERS) $(LIBFT)/libft.a -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -o $(NAME)
+	@$(CC) $(OBJS) $(HEADERS) $(ARCHIVES) $(LIBFT)/libft.a -lreadline -o $(NAME)
 	@printf "$(GREEN)✅Executable \"$(NAME)\" created$(RESET)\n\n"
 
 #===============================================================================: C file compile
@@ -81,7 +82,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/utils
 	@$(MKDIR) objs/exec
 	@$(MKDIR) objs/error
-	@$(CC) -o $@ -c $< $(HEADERS)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 endif

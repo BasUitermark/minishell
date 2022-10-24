@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/20 12:09:45 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/24 18:03:19 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	exec_builtin(int index)
 	return (127);
 }
 
-static void	ft_exec(int index)
+static void	ft_exec(size_t index)
 {
 	if (index == 0 && g_shell.fd_in != STDIN_FILENO)
 	{
@@ -103,7 +103,7 @@ bool	exec_child(int index)
 	return (true);
 }
 
-bool	exec_func(int index)
+bool	exec_func(size_t index)
 {
 	while (index < g_shell.cmd_n - 1)
 	{

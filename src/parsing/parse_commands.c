@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 13:30:56 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 14:26:09 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/24 18:02:22 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static size_t	arg_counter(t_token *tokens)
 	return (i);
 }
 
-static char	**parse_args(char const *input, t_token *tokens, int amount)
+static char	**parse_args(char const *input, t_token *tokens, size_t amount)
 {
 	char	**args;
 	size_t	i;
