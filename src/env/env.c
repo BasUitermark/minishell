@@ -6,11 +6,27 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/24 14:26:00 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/24 14:41:16 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../include/shell.h"
+
+static int	ft_strcmp(char *s1, char *s2)
+{
+	int	index;
+
+	index = 0;
+	if (!s1 || !s2)
+		return (-1);
+	while (s1[index])
+	{
+		if (s1[index] != s2[index])
+			break ;
+		index++;
+	}
+	return (s1[index] - s2[index]);
+}
 
 static bool	fill_env(t_env *env, char *var_string)
 {
@@ -81,14 +97,14 @@ bool	add_variable(t_env **head, char *var_string)
 		*head = new;
 		return (true);
 	}
-	if (strcmp((*head)->key, new->key) > 0)
+	if (ft_strcmp((*head)->key, new->key) > 0)
 	{
 		new->next = (*head)->next;
 		*head = new;
 		return (true);
 	}
 	tmp = *head;
-	while (tmp->next && strcmp(tmp->next->key, new->key) < 0)
+	while (tmp->next && ft_strcmp(tmp->next->key, new->key) < 0)
 		tmp = tmp->next;
 	new->next = tmp->next;
 	tmp->next = new;
