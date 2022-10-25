@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/25 12:04:36 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/25 12:31:03 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	init(void)
 	t.c_lflag &= ~(ECHOCTL);
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &t);
 	rl_catch_signals = false;
+	signal(SIGQUIT, SIG_IGN);
 	set_signals();
 }
 
@@ -81,10 +82,11 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		input = sanitize(readline(BOLD BLUE SHELL RESET));
-		if (!input)
+		if ()
 		{
 			free_program_data();
-			exit
+			ft_putendl_fd("exit\n", 2);
+			exit(0);
 		}
 		if (!lexer(input))
 			exit(EXIT_FAILURE);
