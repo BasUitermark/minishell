@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/25 15:24:44 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/25 18:43:29 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,25 @@ t_env	*get_env(t_env *head, char *key)
 	return (NULL);
 }
 
+void	place_env(t_env **head, t_env *node)
+{
+	t_env	*tmp;
+
+	if (get_env(g_shell.env, node->key))
+		remove_variable(&g_shell.env, node->key);
+	if (ft_strcmp((*head)->key, node->key) > 0)
+	{
+		node->next = (*head)->next;
+		*head = node;
+		return ;
+	}
+	tmp = *head;
+	while (tmp->next && ft_strcmp(tmp->next->key, node->key) < 0)
+		tmp = tmp->next;
+	node->next = tmp->next;
+	tmp->next = node;
+}
+
 bool	add_variable(t_env **head, char *var_string)
 {
 	t_env	*tmp;
@@ -96,17 +115,18 @@ bool	add_variable(t_env **head, char *var_string)
 		*head = new;
 		return (true);
 	}
-	if (ft_strcmp((*head)->key, new->key) > 0)
-	{
-		new->next = (*head)->next;
-		*head = new;
-		return (true);
-	}
-	tmp = *head;
-	while (tmp->next && ft_strcmp(tmp->next->key, new->key) < 0)
-		tmp = tmp->next;
-	new->next = tmp->next;
-	tmp->next = new;
+	//if (ft_strcmp((*head)->key, new->key) > 0)
+	//{
+	//	new->next = (*head)->next;
+	//	*head = new;
+	//	return (true);
+	//}
+	//tmp = *head;
+	//while (tmp->next && ft_strcmp(tmp->next->key, new->key) < 0)
+	//	tmp = tmp->next;
+	//new->next = tmp->next;
+	//tmp->next = new;
+	place_env(head, new);
 	return (true);
 }
 

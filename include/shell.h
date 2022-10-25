@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/25 15:20:28 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/25 18:17:57 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ bool			expand(char **location);
 bool			add_env(t_env *node);
 bool			set_env(char *key, char *value);
 char			**normalize_env(void);
+void			place_env(t_env **head, t_env *node);
 
 //========== Built-ins ==========//
 int				cmd_echo(int argc, const char **argv);

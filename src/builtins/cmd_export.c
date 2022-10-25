@@ -6,73 +6,102 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/19 11:07:58 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/25 18:54:04 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static char	*find_key(const char *str)
+static int	print_env(void)
 {
-	int	i;
+	t_env	*env;
 
-	i = 0;
-	while (str[i])
+	env = g_shell.env;
+	while (env)
 	{
-		if (str[i] == '=')
-			break ;
-		i++;
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(env->key, STDOUT_FILENO);
+		if (env->value)
+		{
+			ft_putstr_fd("=\"", STDOUT_FILENO);
+			ft_putstr_fd(env->value, STDOUT_FILENO);
+			ft_putchar_fd('"', STDOUT_FILENO);
+		}
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		env = env->next;
 	}
-	return (ft_substr(str, 0, i));
+	return (EXIT_SUCCESS);
 }
 
-static char	*find_value(const char *str)
+static bool	is_valid_key(char *str)
 {
-	int	i;
+	int	index;
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '=')
-			break ;
-		i++;
-	}
-	return (ft_substr(str, i + 1, ft_strlen(str)));
-}
-
-static bool	parse_variables(t_env **env_list, const char **argv, int argc)
-{
-	size_t	i;
-
-	i = 0;
-	if (!argv)
+	index = 0;
+	if (!str)
 		return (false);
-	while (i < argc)
+	if (!ft_isalpha(str[index]) && str[index] != '_')
+		return (false);
+	while (str[index] && str[index] != '=')
 	{
-		if (!add_variable(env_list, (char *)argv[i]))
-			return (clear_list(env_list));
-		i++;
+		if (!ft_isalnum(str[index]) && str[index] != '_')
+			return (false);
+		index++;
 	}
 	return (true);
+}
+
+static bool	handle_no_val(const char *str)
+{
+	t_env	*env;
+
+	if (get_env(g_shell.env, str))
+		return (true);
+	env = ft_calloc(1, sizeof(t_env));
+	if (!env)
+		return (false);
+	env->hidden = true;
+	env->key = ft_strdup(str);
+	if (!env->key)
+	{
+		free(env);
+		return (false);
+	}
+	place_env(&g_shell.env, env);
+	return (true);
+}
+
+static void	print_err(const char *str)
+{
+	ft_putstr_fd("export: `", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 }
 
 int	cmd_export(int argc, const char **argv)
 {
 	int		i;
-	t_env	*env_list;
 
-	i = 1;
-	env_list = NULL;
-	if (argc < 1)
-		return (1);
-	if (!parse_variables(&env_list, &argv[1], argc - 1))
-		return (1);
-	while (i < argc && env_list)
+	i = 0;
+	if (argc == 1)
+		return (print_env());
+	while (argv[i + 1])
 	{
-		if (!set_env(env_list->key, env_list->value))
-			return (1);
-		env_list = env_list->next;
 		i++;
+		if (!is_valid_key(argv[i]))
+		{
+			print_err(argv[i]);
+			continue ;
+		}
+		if (ft_strchr(argv[i], '=') == NULL) // no value
+		{
+			if (!handle_no_val(argv[i]))
+				return (EXIT_FAILURE);
+			else
+				continue ;
+		}
+		if (!add_variable(&g_shell.env, argv[i]))
+			return (EXIT_FAILURE);
 	}
 	return (0);
 }
