@@ -6,37 +6,23 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/24 17:53:56 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/25 17:20:06 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHELL_H
 # define SHELL_H
 
-// # include <stdio.h>
-// # include <readline/readline.h>
-// # include <readline/history.h>
-// # include <stdbool.h>
-// # include <stdlib.h>
-// # include <limits.h>
-// # include <signal.h>
-// # include <errno.h>
-# include "../libs/libft/include/libft.h"
-# include <stdbool.h>
-# include <stdint.h>
 # include <stdio.h>
-# include <stdlib.h>
-# include <termios.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <errno.h>
-# include <string.h>
-# include <signal.h>
-# include <limits.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <signal.h>
+# include <errno.h>
+# include <termios.h>
+# include "../libs/libft/include/libft.h"
 
 # define READ 0
 # define WRITE 1
@@ -137,12 +123,13 @@ int				cmd_exit(int argc, const char **argv);
 //========== Signals ===========//
 // void			signal_intercept(void);
 void			set_signals(void);
+void			init_signal(void);
 
 //========== Error ============//
 void			error(char *msg, int exit_code);
 
+//========== Utils ============//
 void			free_program_data(void);
-
 void			builtin_test(void);
 
 //=========== Exec ============//

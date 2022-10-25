@@ -6,12 +6,11 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/25 12:31:03 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/25 17:21:25 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-#include <termios.h>
 
 void	free_program_data(void)
 {
@@ -25,17 +24,9 @@ void	free_program_data(void)
 
 static void	init(void)
 {
-	struct termios	t;
-
 	g_shell.fd_in = -1;
 	g_shell.fd_out = -1;
 	set_shlvl();
-	tcgetattr(STDIN_FILENO, &t);
-	t.c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &t);
-	rl_catch_signals = false;
-	signal(SIGQUIT, SIG_IGN);
-	set_signals();
 }
 
 t_shell	g_shell;
@@ -57,7 +48,7 @@ static char	*sanitize(char *inp)
 		inp[index] = '\0';
 		index--;
 	}
-	if (!inp[0])
+	if (!inp)
 	{
 		free(inp);
 		return (NULL);
@@ -65,10 +56,24 @@ static char	*sanitize(char *inp)
 	return (inp);
 }
 
-// static bool	shell_loop(void)
-// {
-
-// }
+static void	shell_loop(char *input)
+{
+	add_history(input);
+	if (!lexer(input))
+		exit(EXIT_FAILURE);
+	if (!g_shell.token)
+	{
+		free(input);
+		return ;
+	}
+	if (!parser(input))
+		exit(EXIT_FAILURE);
+	if (!resolve_paths())
+		exit(EXIT_FAILURE);
+	if (!exec())
+		exit(EXIT_FAILURE);
+	free_program_data();
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -81,23 +86,18 @@ int	main(int argc, char **argv, char **envp)
 	init();
 	while (1)
 	{
-		input = sanitize(readline(BOLD BLUE SHELL RESET));
-		if ()
+		init_signal();
+		input = readline(BOLD BLUE SHELL RESET);
+		if (!input)
 		{
 			free_program_data();
-			ft_putendl_fd("exit\n", 2);
+			ft_putendl_fd("exit", 2);
 			exit(0);
 		}
-		if (!lexer(input))
-			exit(EXIT_FAILURE);
-		if (!parser(input))
-			exit(EXIT_FAILURE);
-		add_history(input);
-		if (!resolve_paths())
-			exit(EXIT_FAILURE);
-		if (!exec())
-			exit(EXIT_FAILURE);
-		free_program_data();
+		input = sanitize(input);
+		if (!input)
+			continue ;
+		shell_loop(input);
 	}
 	return (EXIT_SUCCESS);
 }
