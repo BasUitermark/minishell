@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/17 17:45:59 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/25 15:20:28 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_env {
 	char			*key;
 	char			*value;
 	struct s_env	*next;
+	bool			hidden;
 }	t_env;
 
 typedef enum e_tokentype {

@@ -1,12 +1,3 @@
-put exit in the builtins
-
-strappend and strnappend might leak because it overwrites char *
-solution could be making new functions (strappendfree) which free s1 no matter what
-
-adjacent should be taken into consideration when parsing arguments
-within the adjacent function, expand each token separately
-
-free_array functions (for strings)
-
-
-something is seriously fucked in the expander
+in export, arguments given without keys should have env->hidden set to true
+env cmd checks if hidden is true and doesn't print if thats the case
+export should print all envs, hidden or visible

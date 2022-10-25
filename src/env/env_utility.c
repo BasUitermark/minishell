@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 15:12:06 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/17 17:45:58 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/25 15:23:13 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,11 @@ char	**normalize_env(void)
 	index = 0;
 	while (env)
 	{
+		if (env->hidden)
+		{
+			index++;
+			continue ;
+		}
 		if (!add_envstr(&res[index], env))
 		{
 			ft_freearray(res);

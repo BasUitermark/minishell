@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/24 14:41:16 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/25 15:24:44 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,7 @@ t_env	*get_env(t_env *head, char *key)
 {
 	while (head)
 	{
-		if (ft_strlen(head->key) == ft_strlen(key) \
-			&& ft_strncmp(head->key, key, ft_strlen(head->key)) == 0)
+		if (ft_strcmp(head->key, key) == 0)
 			return (head);
 		head = head->next;
 	}
