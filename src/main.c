@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:24:58 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/25 12:04:36 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,14 @@ void	free_program_data(void)
 
 static void	init(void)
 {
+	struct termios	t;
+
 	g_shell.fd_in = -1;
 	g_shell.fd_out = -1;
-
-	tcgetattr(STDIN_FILENO, &raw);
-	raw.c_lflag &= ~(ECHOCTL);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+	set_shlvl();
+	tcgetattr(STDIN_FILENO, &t);
+	t.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &t);
 	rl_catch_signals = false;
 	set_signals();
 }
@@ -70,20 +72,20 @@ static char	*sanitize(char *inp)
 int	main(int argc, char **argv, char **envp)
 {
 	char			*input;
-	struct termios	raw;
 
 	argc = 0;
 	argv = NULL;
-
 	if (!parse_environment(envp))
 		exit(EXIT_FAILURE);
-	set_shlvl();
 	init();
 	while (1)
 	{
 		input = sanitize(readline(BOLD BLUE SHELL RESET));
 		if (!input)
-			continue ;
+		{
+			free_program_data();
+			exit
+		}
 		if (!lexer(input))
 			exit(EXIT_FAILURE);
 		if (!parser(input))
