@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 15:12:06 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:41:03 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:55:50 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ bool	set_env(char *key, char *value)
 		free(node);
 		return (false);
 	}
-	return (add_env(node));
+	place_env(&g_shell.env, node);
+	return (true);
 }
 
 char	**normalize_env(void)
