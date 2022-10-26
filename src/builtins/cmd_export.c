@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:44:33 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:49:01 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	print_err(char *str)
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 }
 
-int	cmd_export(int argc, char **argv)
+int	cmd_export(int argc, const char **argv)
 {
 	int		i;
 
@@ -88,19 +88,19 @@ int	cmd_export(int argc, char **argv)
 	while (argv[i + 1])
 	{
 		i++;
-		if (!is_valid_key(argv[i]))
+		if (!is_valid_key((char *)argv[i]))
 		{
-			print_err(argv[i]);
+			print_err((char *)argv[i]);
 			continue ;
 		}
-		if (ft_strchr(argv[i], '=') == NULL)
+		if (ft_strchr((char *)argv[i], '=') == NULL)
 		{
-			if (!handle_no_val(argv[i]))
+			if (!handle_no_val((char *)argv[i]))
 				return (EXIT_FAILURE);
 			else
 				continue ;
 		}
-		if (!add_variable(&g_shell.env, argv[i]))
+		if (!add_variable(&g_shell.env, (char *)argv[i]))
 			return (EXIT_FAILURE);
 	}
 	return (0);

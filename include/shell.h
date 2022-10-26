@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:44:05 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:47:56 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void			place_env(t_env **head, t_env *node);
 int				cmd_echo(int argc, const char **argv);
 int				cmd_cd(int argc, const char **argv);
 int				cmd_env(void);
-int				cmd_export(int argc, char **argv);
+int				cmd_export(int argc, const char **argv);
 int				cmd_pwd(void);
 int				cmd_unset(int argc, const char **argv);
 int				cmd_exit(int argc, const char **argv);
