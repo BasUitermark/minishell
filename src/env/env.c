@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/25 18:43:29 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:43:12 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void	place_env(t_env **head, t_env *node)
 
 bool	add_variable(t_env **head, char *var_string)
 {
-	t_env	*tmp;
 	t_env	*new;
 
 	new = ft_calloc(1, sizeof(t_env));
@@ -115,17 +114,6 @@ bool	add_variable(t_env **head, char *var_string)
 		*head = new;
 		return (true);
 	}
-	//if (ft_strcmp((*head)->key, new->key) > 0)
-	//{
-	//	new->next = (*head)->next;
-	//	*head = new;
-	//	return (true);
-	//}
-	//tmp = *head;
-	//while (tmp->next && ft_strcmp(tmp->next->key, new->key) < 0)
-	//	tmp = tmp->next;
-	//new->next = tmp->next;
-	//tmp->next = new;
 	place_env(head, new);
 	return (true);
 }

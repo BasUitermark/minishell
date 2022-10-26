@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:40:28 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:44:33 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool	is_valid_key(char *str)
 	return (true);
 }
 
-static bool	handle_no_val(const char *str)
+static bool	handle_no_val(char *str)
 {
 	t_env	*env;
 
@@ -71,14 +71,14 @@ static bool	handle_no_val(const char *str)
 	return (true);
 }
 
-static void	print_err(const char *str)
+static void	print_err(char *str)
 {
 	ft_putstr_fd("export: `", STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 }
 
-int	cmd_export(int argc, const char **argv)
+int	cmd_export(int argc, char **argv)
 {
 	int		i;
 
