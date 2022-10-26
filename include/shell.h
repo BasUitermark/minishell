@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/25 18:17:57 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:33:27 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_shell {
 	t_token		*token;
 	t_command	*cmds;
 	size_t		cmd_n;
-	int			pipe[2];
 }	t_shell;
 
 extern t_shell	g_shell;
