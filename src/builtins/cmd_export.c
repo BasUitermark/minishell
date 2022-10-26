@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/25 18:54:04 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:40:28 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	cmd_export(int argc, const char **argv)
 			print_err(argv[i]);
 			continue ;
 		}
-		if (ft_strchr(argv[i], '=') == NULL) // no value
+		if (ft_strchr(argv[i], '=') == NULL)
 		{
 			if (!handle_no_val(argv[i]))
 				return (EXIT_FAILURE);

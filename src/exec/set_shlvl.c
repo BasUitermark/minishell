@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cmd_pwd.c                                          :+:    :+:            */
+/*   set_shlvl.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/08 11:17:12 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:40:53 by buiterma      ########   odam.nl         */
+/*   Created: 2022/10/18 16:53:14 by buiterma      #+#    #+#                 */
+/*   Updated: 2022/10/18 16:58:04 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int	cmd_pwd(void)
+void	set_shlvl(void)
 {
-	t_env	*pwd;
+	t_env	*tmp;
+	size_t	shlvl;
 
-	pwd = get_env(g_shell.env, "PWD");
-	if (!pwd)
-		return (1);
-	ft_putendl_fd(pwd->value, 1);
-	return (0);
+	tmp = get_env(g_shell.env, "SHLVL");
+	shlvl = ft_atoi(tmp->value) + 1;
+	set_env("SHLVL", ft_strdup(ft_itoa(shlvl)));
 }

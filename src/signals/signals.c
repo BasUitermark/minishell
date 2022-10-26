@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 12:53:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/03 15:27:39 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/25 13:38:22 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,20 @@ static void	sighandler(int num)
 		return ;
 }
 
-void	signal_intercept(void)
+void	init_signal(void)
+{
+	struct termios	t;
+	extern int		rl_catch_signals;
+
+	tcgetattr(STDIN_FILENO, &t);
+	t.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSAFLUSH, &t);
+	rl_catch_signals = false;
+	signal(SIGQUIT, SIG_IGN);
+	set_signals();
+}
+
+void	set_signals(void)
 {
 	struct sigaction	sig;
 

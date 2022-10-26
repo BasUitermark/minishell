@@ -16,12 +16,13 @@ LIBFT		= libs/libft
 
 #===============================================================================: Compile variables
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code 
 MAKEFLAGS	= --no-print-directory
 VALG		= valgrind -s --leak-check=full
 RM			= rm -rf
 MKDIR		= mkdir -p
-HEADERS		= -I include
+HEADERS		= -I include -I ~/.brew/opt/readline/include
+ARCHIVES	= -lreadline -L ~/.brew/opt/readline/lib
 
 #===============================================================================: Sourcefiles
 SRCS		= $(addprefix src/, $(addsuffix .c, \
@@ -39,7 +40,8 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 				parse_utility \
 				purge_commands) \
 			$(addprefix exec/, \
-				exec) \
+				exec \
+				set_shlvl) \
 			$(addprefix env/, \
 				env \
 				expand \
@@ -56,14 +58,16 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			$(addprefix signals/, \
 				signals) \
 			$(addprefix utils/, \
-				built_in_test)))
+				built_in_test) \
+			$(addprefix error/, \
+				error)))
 
 #===============================================================================: Make commands
 all: libft message $(NAME)
 
 #===============================================================================: Main compile
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(HEADERS) $(LIBFT)/libft.a -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I/Users/$(USER)/.brew/opt/readline/include -o $(NAME)
+	@$(CC) $(OBJS) $(HEADERS) $(ARCHIVES) $(LIBFT)/libft.a -lreadline -o $(NAME)
 	@printf "$(GREEN)✅Executable \"$(NAME)\" created$(RESET)\n\n"
 
 #===============================================================================: C file compile
@@ -77,7 +81,8 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/signals
 	@$(MKDIR) objs/utils
 	@$(MKDIR) objs/exec
-	@$(CC) -o $@ -c $< $(HEADERS)
+	@$(MKDIR) objs/error
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 endif

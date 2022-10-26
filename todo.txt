@@ -1,3 +1,0 @@
-in export, arguments given without keys should have env->hidden set to true
-env cmd checks if hidden is true and doesn't print if thats the case
-export should print all envs, hidden or visible

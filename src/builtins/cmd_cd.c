@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/19 11:08:13 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/18 16:39:34 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	cmd_cd(int argc, const char **argv)
 		if (!set_dir(home->value))
 			return (free_home(home));
 	}
-	else if (ft_strncmp(argv[1], "-n", 1) == 0)
+	else if (ft_strncmp(argv[1], "-n", 2) == 0)
 		ft_putendl_fd("CDEEZ NUTZ! :O", STDERR_FILENO);
 	else
 	{

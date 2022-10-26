@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:33:27 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/26 11:38:45 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <signal.h>
+# include <errno.h>
+# include <termios.h>
 # include "../libs/libft/include/libft.h"
 
 # define READ 0
@@ -119,13 +121,20 @@ int				cmd_pwd(void);
 int				cmd_unset(int argc, const char **argv);
 int				cmd_exit(int argc, const char **argv);
 
-void			signal_intercept(void);
+//========== Signals ===========//
+// void			signal_intercept(void);
+void			set_signals(void);
+void			init_signal(void);
 
+//========== Error ============//
+void			error(char *msg, int exit_code);
+
+//========== Utils ============//
 void			free_program_data(void);
-
 void			builtin_test(void);
 
 //=========== Exec ============//
 bool			exec(void);
+void			set_shlvl(void);
 
 #endif

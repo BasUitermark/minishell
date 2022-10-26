@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 12:46:38 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/09/15 15:26:01 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/24 18:02:08 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static char	*resolve_binary(char *command)
 
 bool	resolve_paths(void)
 {
-	int	index;
+	size_t	index;
 
 	index = 0;
 	while (index < g_shell.cmd_n)
