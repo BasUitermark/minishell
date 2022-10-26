@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:47:56 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/26 16:20:59 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define READ 0
 # define WRITE 1
 # define SHELL "[mini_pain]> "
-// # define PATH_MAX 4096
 
 typedef struct s_env {
 	char			*key;
@@ -67,7 +66,6 @@ typedef struct s_shell {
 	int			fd_in;
 	int			fd_out;
 	pid_t		pid;
-	t_token		*token;
 	t_command	*cmds;
 	size_t		cmd_n;
 }	t_shell;
@@ -77,7 +75,7 @@ extern t_shell	g_shell;
 int				main(int argc, char **argv, char **envp);
 
 //============== Lexer =============//
-bool			lexer(const char *input);
+bool			lexer(t_token **token, const char *input);
 bool			post_process(const char *input, t_token *head);
 t_tokentype		get_type(const char *input, unsigned int from);
 unsigned int	find_next(const char *input, unsigned int from);
@@ -91,7 +89,7 @@ bool			clear_token_list(t_token **head);
 void			print_command(t_command *cmd, size_t n);
 void			print_all_tokens(t_token *tokens);
 void			parse_special(t_token *tokens, char const *input);
-bool			parser(char const *input);
+bool			parser(t_token **token, char const *input);
 bool			parse_commands(t_token *tokens, char const *input);
 bool			parse_adjacent(const char *input, \
 					t_token *tokens, char **location);
@@ -122,7 +120,6 @@ int				cmd_unset(int argc, const char **argv);
 int				cmd_exit(int argc, const char **argv);
 
 //========== Signals ===========//
-// void			signal_intercept(void);
 void			set_signals(void);
 void			init_signal(void);
 
@@ -130,7 +127,7 @@ void			init_signal(void);
 void			error(char *msg, int exit_code);
 
 //========== Utils ============//
-void			free_program_data(void);
+void			cleanup(t_token *token);
 void			builtin_test(void);
 
 //=========== Exec ============//

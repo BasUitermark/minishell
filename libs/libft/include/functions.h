@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 18:55:32 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/09 18:58:26 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 17:01:36 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void		ft_strtoupper(char *str);
  * @param String to be converted.
  * @return Returns an integer conversion of str.
  */
-long			ft_atoi(const char *str);
+long		ft_atoi(const char *str);
 
 /**
  * Checks the length of the string.

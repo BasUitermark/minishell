@@ -6,20 +6,17 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:38:43 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 16:32:56 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	free_program_data(void)
+void	cleanup(t_token *token)
 {
-	close(g_shell.fd_in);
 	purge_commands();
-	clear_token_list(&g_shell.token);
-	g_shell.cmd_n = 0;
-	g_shell.cmds = NULL;
-	g_shell.token = NULL;
+	clear_token_list(&token);
+	token = NULL;
 }
 
 static void	init(void)
@@ -58,21 +55,26 @@ static char	*sanitize(char *inp)
 
 static void	shell_loop(char *input)
 {
+	t_token	*token;
+
+	token = NULL;
 	add_history(input);
-	if (!lexer(input))
-		exit(EXIT_FAILURE);
-	if (!g_shell.token)
+	if (lexer(&token, input))
 	{
-		free(input);
-		return ;
+		if (!token)
+		{
+			free(input);
+			return ;
+		}
+		if (parser(&token, input))
+		{
+			clear_token_list(&token);
+			if (resolve_paths())
+				if (!exec())
+					cleanup(NULL);
+		}
+		cleanup(NULL);
 	}
-	if (!parser(input))
-		exit(EXIT_FAILURE);
-	if (!resolve_paths())
-		exit(EXIT_FAILURE);
-	if (!exec())
-		exit(EXIT_FAILURE);
-	free_program_data();
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -90,7 +92,7 @@ int	main(int argc, char **argv, char **envp)
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input)
 		{
-			free_program_data();
+			cleanup(NULL);
 			ft_putendl_fd("exit", 2);
 			exit(0);
 		}

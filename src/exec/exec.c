@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:42:20 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 17:07:46 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ bool	exec_func(size_t index)
 static bool	single_builtin(void)
 {
 	g_shell.exit_code = exec_builtin(0);
-
 	return (true);
 }
 

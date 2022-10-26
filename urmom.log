@@ -1,0 +1,54 @@
+#===============================================================================: Filename
+#===============================================================================: Source to object conversion location
+#===============================================================================: Compile variables
+CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code 
+VALG		= valgrind -s --leak-check=full
+HEADERS		= -I include -I ~/.brew/opt/readline/include
+ARCHIVES	= -lreadline -L ~/.brew/opt/readline/lib
+SRCS		= $(addprefix src/, $(addsuffix .c, \
+				main \
+			$(addprefix lexer/, \
+			$(addprefix parsing/, \
+				parser \
+				parse_commands \
+				parse_adjacent \
+				parse_special \
+				resolve_paths \
+				parse_utility \
+				purge_commands) \
+			$(addprefix exec/, \
+			$(addprefix env/, \
+				expand \
+				parse \
+			$(addprefix builtins/, \
+			$(addprefix signals/, \
+				signals) \
+			$(addprefix utils/, \
+			$(addprefix error/, \
+#===============================================================================: Make commands
+all: libft message $(NAME)
+#===============================================================================: Main compile
+	@$(CC) $(OBJS) $(HEADERS) $(ARCHIVES) $(LIBFT)/libft.a -lreadline -o $(NAME)
+	@printf "$(GREEN)✅Executable \"$(NAME)\" created$(RESET)\n\n"
+	@$(MKDIR) objs/parsing
+	@$(MKDIR) objs/validation
+	@$(MKDIR) objs/signals
+#===============================================================================: Executable run command
+valg: all
+	@printf "$(GREEN)Executing $(NAME) with Valgrind\n$(RESET)\n"
+fsan: CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g3
+fsan: all
+	@printf "$(GREEN)Executing $(NAME) with fsanitize\n$(RESET)\n"
+	@git submodule update --init --recursive
+#===============================================================================: Build messages
+message:
+#===============================================================================: Remove all object files
+clean:
+	@$(MAKE) -C $(LIBFT) clean
+#===============================================================================: Remove all object files and executable
+fclean:
+	@$(MAKE) -C $(LIBFT) fclean
+#===============================================================================: Remove all object files, executable and remake executable
+re: fclean all
+#===============================================================================: To not confuse make
+.PHONY: all, clean, fclean, re, message, run

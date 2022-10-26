@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 12:45:21 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:04:17 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 17:07:14 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,36 +49,6 @@ static bool	expand_exit_code(char **expanded)
 	return (true);
 }
 
-// static bool	in_expand(t_env *head, char *location, \
-// 	unsigned int *index, char **expanded)
-// {
-// 	char	prev_char;
-
-// 	expanded[0] = ft_strnappend(expanded[0], \
-// 		&location[index[0]], next_var(location, index[0]) - index[0]);
-// 	if (!expanded[0])
-// 		return (false);
-// 	index[0] = next_var(location, index[0]);
-// 	prev_char = location[index[0] + var_length(location, index[0])];
-// 	location[index[0] + var_length(location, index[0])] = 0;
-// 	if (ft_strncmp(&location[index[0] + 1], "?", 1) == 0)
-// 	{
-// 		if (!expand_exit_code(expanded))
-// 			return (false);
-// 	}
-// 	else
-// 	{
-// 		if (get_env(head, &location[index[0] + 1]))
-// 			expanded[0] = ft_strappend(expanded[0], \
-// 				get_env(head, &location[index[0] + 1])->value);
-// 	}
-// 	if (!expanded[0])
-// 		return (false);
-// 	location[index[0] + var_length(location, index[0])] = prev_char;
-// 	index[0] += var_length(location, index[0]);
-// 	return (true);
-// }
-
 static bool	dodo_expand(char *location, char **expanded, unsigned int nv)
 {
 	if (ft_strncmp(&location[nv + 1], "?", 1) == 0)
@@ -109,7 +79,8 @@ static bool	do_expand(char *location, char **expanded, unsigned int *index)
 		expanded[0] = ft_strappend(expanded[0], &location[index[0]]);
 		return (false);
 	}
-	expanded[0] = ft_strnappendfree(expanded[0], &location[index[0]], nv - index[0]);
+	expanded[0] = ft_strnappendfree(expanded[0], \
+		&location[index[0]], nv - index[0]);
 	if (!expanded[0])
 		return (false);
 	vl = var_length(location, nv);

@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 18:54:24 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/09 18:59:16 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 17:02:40 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,5 @@ size_t	ft_putstr_fd(char *str, int fd)
 		return (out);
 	}
 	out = write(fd, str, ft_strlen(str));
-
 	return (out);
 }

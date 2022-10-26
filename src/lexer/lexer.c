@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/25 17:20:48 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/26 16:07:48 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	set_token_info(const char *input, unsigned int *index, \
 	*length = token_length(input, *index);
 }
 
-bool	lexer(const char *input)
+bool	lexer(t_token **token, const char *input)
 {
 	t_tokentype		types[2];
 	unsigned int	index;
@@ -97,10 +97,10 @@ bool	lexer(const char *input)
 		if (types[1] == INFILE || types[1] == OUTFILE || \
 			types[1] == OUTFILE_APPEND || types[1] == HEREDOC)
 			set_token_info(input, &index, &length, true);
-		if (!part_handler(&g_shell.token, index, length, types[1]))
-			return (clear_token_list(&g_shell.token));
+		if (!part_handler(token, index, length, types[1]))
+			return (clear_token_list(token));
 		index += length;
 		types[0] = types[1];
 	}
-	return (post_process(input, g_shell.token));
+	return (post_process(input, *token));
 }
