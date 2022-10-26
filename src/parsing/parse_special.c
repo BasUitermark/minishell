@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/13 16:19:54 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/26 15:42:13 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,35 +46,41 @@ static void	parse_outfile(t_token *tokens, char const *input)
 	free (tmp_path);
 }
 
-static char	*parse_heredoc(t_token token, char const *input)
+static void parse_heredoc(t_token token, char const *input)
 {
 	char	*tmp;
-	char	*str;
 	char	*end;
+	int		pipe[2];
 
+	end = NULL;
 	end = ft_substr(input, token.index, token.length);
-	str = NULL;
+	if (!end || !ft_pipe(pipe))
+		return ((void)free(end));
+	if (g_shell.fd_in != STDIN_FILENO)
+	{
+		close(g_shell.fd_in);
+		g_shell.fd_in = STDIN_FILENO;
+	}
+	g_shell.fd_in = pipe[READ];
 	while (1)
 	{
 		write(1, "> ", 2);
 		tmp = ft_get_next_line(STDIN_FILENO);
 		if (!tmp || !ft_strncmp(tmp, end, ft_strlen(end)))
 			break ;
-		str = ft_strappend(str, tmp);
+		ft_putstr_fd(tmp, pipe[WRITE]);
 		free(tmp);
 	}
+	close(pipe[WRITE]);
 	free(end);
-	return (str);
 }
 
 void	parse_special(t_token *tokens, char const *input)
 {
-	char	*heredoc;
-
 	while (tokens)
 	{
 		if (tokens->type == HEREDOC)
-			heredoc = parse_heredoc(*tokens, input);
+			parse_heredoc(*tokens, input);
 		if (tokens->type == INFILE)
 			parse_infile(tokens, input);
 		if (tokens->type == OUTFILE || tokens->type == OUTFILE_APPEND)
