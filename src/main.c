@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 16:32:56 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/27 14:49:04 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ void	cleanup(t_token *token)
 
 static void	init(void)
 {
-	g_shell.fd_in = -1;
-	g_shell.fd_out = -1;
+	if (g_shell.fd_in > 2)
+		close(g_shell.fd_in);
+	if (g_shell.fd_out > 2)
+		close(g_shell.fd_out);
+	g_shell.fd_in = STDIN_FILENO;
+	g_shell.fd_out = STDOUT_FILENO;
 	set_shlvl();
 }
 
@@ -85,16 +89,16 @@ int	main(int argc, char **argv, char **envp)
 	argv = NULL;
 	if (!parse_environment(envp))
 		exit(EXIT_FAILURE);
-	init();
 	while (1)
 	{
+		init();
 		init_signal();
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input)
 		{
 			cleanup(NULL);
 			ft_putendl_fd("exit", 2);
-			exit(0);
+			exit(EXIT_FAILURE);
 		}
 		input = sanitize(input);
 		if (!input)
