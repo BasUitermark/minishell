@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:38:43 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/27 11:56:14 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ void	free_program_data(void)
 
 static void	init(void)
 {
-	g_shell.fd_in = -1;
-	g_shell.fd_out = -1;
+	if (g_shell.fd_in > 2)
+		close(g_shell.fd_in);
+	if (g_shell.fd_out > 2)
+		close(g_shell.fd_out);
+	g_shell.fd_in = STDIN_FILENO;
+	g_shell.fd_out = STDOUT_FILENO;
 	set_shlvl();
 }
 
@@ -83,9 +87,9 @@ int	main(int argc, char **argv, char **envp)
 	argv = NULL;
 	if (!parse_environment(envp))
 		exit(EXIT_FAILURE);
-	init();
 	while (1)
 	{
+		init();
 		init_signal();
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input)
