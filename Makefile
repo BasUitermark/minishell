@@ -16,7 +16,7 @@ LIBFT		= libs/libft
 
 #===============================================================================: Compile variables
 CC			= gcc
-CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code 
+#CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code 
 MAKEFLAGS	= --no-print-directory
 VALG		= valgrind -s --leak-check=full
 RM			= rm -rf
@@ -57,8 +57,6 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 				cmd_unset) \
 			$(addprefix signals/, \
 				signals) \
-			$(addprefix utils/, \
-				built_in_test) \
 			$(addprefix error/, \
 				error)))
 

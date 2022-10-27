@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/27 14:48:53 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/27 22:10:45 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <signal.h>
 # include <errno.h>
 # include <termios.h>
+# include <sys/wait.h>
+# include <linux/limits.h>
 # include "../libs/libft/include/libft.h"
 
 # define READ 0
@@ -113,7 +115,7 @@ void			place_env(t_env **head, t_env *node);
 //========== Built-ins ==========//
 int				cmd_echo(int argc, const char **argv);
 int				cmd_cd(int argc, const char **argv);
-int				cmd_env(void);
+int				cmd_env(int argc);
 int				cmd_export(int argc, const char **argv);
 int				cmd_pwd(void);
 int				cmd_unset(int argc, const char **argv);
@@ -129,8 +131,8 @@ void			error(char *msg, int exit_code);
 //========== Utils ============//
 bool			ft_pipe(int fds[2]);
 bool			ft_fork(pid_t *pid);
+void			cleanup(t_token *token);
 void			free_program_data(void);
-void			builtin_test(void);
 
 //=========== Exec ============//
 bool			exec(void);

@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 18:56:45 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/27 21:57:47 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,45 +40,49 @@ static bool	set_dir(const char *path)
 	return (TRUE);
 }
 
-static int	tilde_flags(int argc, const char *path)
+static int	flags(int argc, const char *path)
 {
 	t_env	*user;
-	char	*hdir;
 
-	if (argc == 1 || (ft_strncmp(path, "~", 1) == 0 && \
-		ft_strlen(path) == 1))
+	if (ft_strncmp(path, "~", 1) == 0 && ft_strlen(path) == 1)
 	{
-		user = get_env(g_shell.env, "USER");
+		user = get_env(g_shell.env, "HOME");
 		if (!user)
-			return (0);
-		hdir = ft_strjoin("/Users/", user->value);
-		if (set_dir(hdir))
 		{
-			free(hdir);
+			ft_putendl_fd("bash: cd: HOME not set", 2);
+			cleanup(NULL);
 			return (1);
 		}
-		free(hdir);
-		return (0);
+		if (set_dir(user->value))
+			return (0);
 	}
-	else if (ft_strncmp(path, "-nuts", 5) == 0)
-		ft_putstr_fd("CDEEZ NUTZ! :O\n", 1);
-	return (1);
+	else if (ft_strncmp(path, "-", 1) == 0 && ft_strlen(path) == 1)
+	{
+		user = get_env(g_shell.env, "OLDPWD");
+		if (!user)
+		{
+			cleanup(NULL);
+			return (1);
+		}
+		if (set_dir(user->value))
+			return (0);
+	}
+	return (0);
 }
 
 int	cmd_cd(int argc, const char **argv)
 {
 	if (argc > 2)
 	{
-		ft_putendl_fd("Too many arguments.", STDERR_FILENO);
-		return (0);
+		ft_putendl_fd("bash: cd : too many arguments", STDERR_FILENO);
+		g_shell.exit_code = 1;
+		return (1);
 	}
-	if (argc == 1 || (ft_strncmp(argv[1], "~", 1) == 0 && \
-		ft_strlen(argv[1]) == 1))
-	{
-		tilde_flags(argc, argv[1]);
-		return (0);
-	}
+	if (ft_strlen(argv[1]) == 1)
+		return (flags(argc, argv[1]));
+	else if (ft_strncmp(argv[1], "-nuts", 5) == 0)
+		ft_putstr_fd("CDEEZ NUTZ! :O\n", 1);
 	else if (!set_dir(argv[1]))
-		return (0);
+		return (1);
 	return (0);
 }
