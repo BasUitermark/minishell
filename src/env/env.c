@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:43:12 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/27 14:24:50 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	place_env(t_env **head, t_env *node)
 		remove_variable(&g_shell.env, node->key);
 	if (ft_strcmp((*head)->key, node->key) > 0)
 	{
-		node->next = (*head)->next;
+		node->next = (*head);
 		*head = node;
 		return ;
 	}
@@ -114,7 +114,7 @@ bool	add_variable(t_env **head, char *var_string)
 		*head = new;
 		return (true);
 	}
-	place_env(head, new);
+	place_env(&g_shell.env, new);
 	return (true);
 }
 

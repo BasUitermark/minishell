@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/27 11:56:14 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/27 14:27:46 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			free_program_data();
 			ft_putendl_fd("exit", 2);
-			exit(0);
+			exit(EXIT_FAILURE);
 		}
 		input = sanitize(input);
 		if (!input)
