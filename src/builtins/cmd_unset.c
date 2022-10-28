@@ -6,18 +6,16 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 17:09:16 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:06:00 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/28 21:26:46 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-// #include "../../include/shell.h"
-// #include "../../libs/libft/include/libft.h"
-// #include <stdio.h>
 
 static char	*find_key(const char *str)
 {
-	int	i;
+	int		i;
+	char	*key;
 
 	i = 0;
 	while (str[i])
@@ -26,7 +24,10 @@ static char	*find_key(const char *str)
 			break ;
 		i++;
 	}
-	return (ft_substr(str, 0, i));
+	key = ft_substr(str, 0, i);
+	if (!key)
+		return (NULL);
+	return (key);
 }
 
 int	cmd_unset(int argc, const char **argv)
@@ -39,14 +40,16 @@ int	cmd_unset(int argc, const char **argv)
 	while (g_shell.env && argv[i])
 	{
 		key = find_key(argv[i]);
+		if (!key)
+			return (EXIT_FAILURE);
 		if (!remove_variable(&g_shell.env, key))
 		{
 			free(key);
-			return (1);
+			return (EXIT_FAILURE);
 		}
 		free(key);
 		g_shell.env = g_shell.env->next;
 		i++;
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

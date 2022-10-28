@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 09:53:34 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 16:20:21 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/28 21:35:47 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,9 @@ static bool	strisnum(const char *str)
 int	cmd_exit(int argc, const char **argv)
 {
 	if (argc > 2)
-	{
-		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
-		return (1);
-	}
+		return (error("minishell", "exit", "too many arguments", 1));
 	if (argc == 2 && (!strisnum(argv[1])))
-	{
-		ft_putstr_fd(BLUE BOLD SHELL RESET, STDERR_FILENO);
-		ft_putendl_fd(": exit: numeric argument required", STDERR_FILENO);
-		return (1);
-	}
+		return (error(BLUE BOLD SHELL RESET, "exit", "numeric argument required", 1));
 	ft_putendl_fd("exit", STDERR_FILENO);
 	if (!argv[1])
 		exit_status(0);

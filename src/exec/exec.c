@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/27 22:05:12 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/28 21:18:39 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	exec_builtin(int index)
 		return (cmd_echo(ft_arraylen(g_shell.cmds[index].args), \
 		(const char **)g_shell.cmds[index].args));
 	if (ft_strncmp("env", g_shell.cmds[index].args[0], 4) == 0)
-		return (cmd_env(ft_arraylen(g_shell.cmds[index].args)));
+		return (cmd_env(ft_arraylen(g_shell.cmds[index].args), \
+		(const char **)g_shell.cmds[index].args));
 	if (ft_strncmp("pwd", g_shell.cmds[index].args[0], 4) == 0)
 		return (cmd_pwd());
 	if (ft_strncmp("export", g_shell.cmds[index].args[0], 7) == 0)
@@ -69,9 +70,7 @@ static void	ft_exec(size_t index)
 	if (g_shell.cmds[index].path == NULL && !g_shell.cmds[index].invalid)
 		exit(exec_builtin(index));
 	execve(g_shell.cmds[index].path, g_shell.cmds[index].args, normalize_env());
-	ft_putstr_fd("command not found: ", STDERR_FILENO);
-	ft_putstr_fd(g_shell.cmds[index].args[0], STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
+	error("command not found", g_shell.cmds[index].args[0], NULL, 0);
 	exit(127);
 }
 

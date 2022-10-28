@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:49:01 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/10/28 21:30:16 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ static bool	handle_no_val(char *str)
 	return (true);
 }
 
-static void	print_err(char *str)
-{
-	ft_putstr_fd("export: `", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-}
+// static void	print_err(char *str)
+// {
+// 	ft_putstr_fd("export: `", STDERR_FILENO);
+// 	ft_putstr_fd(str, STDERR_FILENO);
+// 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+// }
 
 int	cmd_export(int argc, const char **argv)
 {
@@ -90,7 +90,7 @@ int	cmd_export(int argc, const char **argv)
 		i++;
 		if (!is_valid_key((char *)argv[i]))
 		{
-			print_err((char *)argv[i]);
+			error("export", (char *) argv[i], "not a valid identifier", 1);
 			continue ;
 		}
 		if (ft_strchr((char *)argv[i], '=') == NULL)

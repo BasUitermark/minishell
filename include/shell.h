@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/27 22:10:45 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/28 21:09:10 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void			place_env(t_env **head, t_env *node);
 //========== Built-ins ==========//
 int				cmd_echo(int argc, const char **argv);
 int				cmd_cd(int argc, const char **argv);
-int				cmd_env(int argc);
+int				cmd_env(int argc, const char **argv);
 int				cmd_export(int argc, const char **argv);
 int				cmd_pwd(void);
 int				cmd_unset(int argc, const char **argv);
@@ -126,7 +126,7 @@ void			set_signals(void);
 void			init_signal(void);
 
 //========== Error ============//
-void			error(char *msg, int exit_code);
+int				error(char *cmd, char *input, char *msg, int exit_code);
 
 //========== Utils ============//
 bool			ft_pipe(int fds[2]);

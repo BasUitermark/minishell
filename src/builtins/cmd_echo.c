@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/05 16:59:32 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/27 22:18:00 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/28 21:37:19 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	cmd_echo(int argc, const char **argv)
 		home = get_env(g_shell.env, "HOME");
 		if (!home)
 		{
-			ft_putendl_fd("bash: cd: HOME not set", 2);
+			error("bash", "cd", "HOME not set", 0);
 			cleanup(NULL);
 			return (1);
 		}
