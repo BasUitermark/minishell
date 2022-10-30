@@ -6,11 +6,27 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/05 16:59:32 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/28 21:37:19 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/29 22:28:24 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+static bool	is_flag(const char *argv)
+{
+	size_t	i;
+
+	i = 1;
+	if (argv[0] != '-')
+		return (FALSE);
+	while (argv[i])
+	{
+		if (argv[i] != 'n')
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
 
 int	cmd_echo(int argc, const char **argv)
 {
@@ -22,23 +38,18 @@ int	cmd_echo(int argc, const char **argv)
 	newline = true;
 	if (argc == 1)
 		return (ft_putchar_fd('\n', 1) & 0);
-	if (ft_strncmp((char *)argv[1], "-n", 2) == 0 && argc >= 2)
-	{
-		newline = false;
-		i = 2;
-	}
-	else if (ft_strncmp((char *)argv[1], "~", 1) == 0)
+	while (argv[i] && is_flag(argv[i]) && argc >= 2)
+		i++;
+	if (i > 1)
+		newline = FALSE;
+	if (ft_strncmp((char *)argv[1], "~", 1) == 0)
 	{
 		home = get_env(g_shell.env, "HOME");
 		if (!home)
-		{
-			error("bash", "cd", "HOME not set", 0);
-			cleanup(NULL);
-			return (1);
-		}
+			return (error("bash", "cd", "HOME not set", 1));
 		return (ft_putendl_fd(home->value, 1) & 0);
 	}
-	while (argv[i] && argc >= 2)
+	while (argv[i] && argc >= 2 && i != argc)
 	{
 		ft_putstr_fd((char *)argv[i], 1);
 		if (argv[i + 1])

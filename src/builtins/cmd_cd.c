@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/27 21:57:47 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/29 22:49:14 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static bool	set_dir(const char *path)
 {
 	char	cur_dir[PATH_MAX];
 
-	getcwd(cur_dir, PATH_MAX);
 	if (!path || chdir(path) < 0)
 	{
 		ft_putstr_fd((char *)path, STDERR_FILENO);
 		ft_putendl_fd(": No such file or directory.", STDERR_FILENO);
 		return (FALSE);
 	}
+	getcwd(cur_dir, PATH_MAX);
 	if (!set_pwd(cur_dir))
 		return (FALSE);
 	return (TRUE);
@@ -72,6 +72,7 @@ static int	flags(int argc, const char *path)
 
 int	cmd_cd(int argc, const char **argv)
 {
+	char	cur_dir[PATH_MAX];
 	if (argc > 2)
 	{
 		ft_putendl_fd("bash: cd : too many arguments", STDERR_FILENO);

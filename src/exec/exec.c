@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/28 21:18:39 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/30 11:41:36 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,10 @@ static void	ft_exec(size_t index)
 	}
 	if (g_shell.cmds[index].path == NULL && !g_shell.cmds[index].invalid)
 		exit(exec_builtin(index));
+	if (!access(g_shell.cmds[index].args[0], R_OK))
+		exit(error("minishell", g_shell.cmds[index].args[0], "Permission denied", 126));
 	execve(g_shell.cmds[index].path, g_shell.cmds[index].args, normalize_env());
-	error("command not found", g_shell.cmds[index].args[0], NULL, 0);
-	exit(127);
+	exit(error("command not found", g_shell.cmds[index].args[0], NULL, 127));
 }
 
 bool	exec_child(int index)

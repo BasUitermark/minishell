@@ -1,2 +1,0 @@
-"export foo = bar" results in: export: =: not a valid identifier
-	if prompt is given a non valid command. It wil infinite loop.
