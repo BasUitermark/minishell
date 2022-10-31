@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/28 21:09:10 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 10:55:34 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <errno.h>
 # include <termios.h>
 # include <sys/wait.h>
-# include <linux/limits.h>
 # include "../libs/libft/include/libft.h"
 
 # define READ 0

@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/30 11:41:36 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 10:53:13 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static bool	single_builtin(void)
 
 bool	exec(void)
 {
-	g_shell.exit_code = 0;
+	// g_shell.exit_code = 0;
 	if (g_shell.cmd_n == 0)
 		return (true);
 	if (g_shell.cmd_n == 1 && g_shell.cmds[0].path == NULL && \

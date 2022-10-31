@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/30 00:52:44 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 10:44:29 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	shell_loop(char *input)
 		cleanup(NULL);
 		return ;
 	}
-	if (!exec());
+	if (!exec())
 	{
 		cleanup(NULL);
 		return ;
@@ -107,8 +107,8 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 		{
 			cleanup(NULL);
-			ft_putendl_fd("exit", 2);
-			exit(EXIT_FAILURE);
+			ft_putendl_fd("exit", STDOUT_FILENO);
+			exit(g_shell.exit_code);
 		}
 		input = sanitize(input);
 		if (!input)
