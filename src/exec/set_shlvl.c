@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 16:53:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/18 16:58:04 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 16:43:07 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ void	set_shlvl(void)
 
 	tmp = get_env(g_shell.env, "SHLVL");
 	shlvl = ft_atoi(tmp->value) + 1;
-	set_env("SHLVL", ft_strdup(ft_itoa(shlvl)));
+	if (!set_env("SHLVL", ft_strdup(ft_itoa(shlvl))))
+		exit(1);
 }

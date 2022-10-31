@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/31 15:49:59 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 16:38:03 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static int	exec_builtin(int index)
 
 static void	ft_exec(size_t index)
 {
-	set_sigs_exec();
 	if (index == 0 && g_shell.fd_in != STDIN_FILENO)
 	{
 		dup2(g_shell.fd_in, STDIN_FILENO);
@@ -71,7 +70,8 @@ static void	ft_exec(size_t index)
 	if (g_shell.cmds[index].path == NULL && !g_shell.cmds[index].invalid)
 		exit(exec_builtin(index));
 	if (!access(g_shell.cmds[index].args[0], R_OK))
-		exit(error("minishell", g_shell.cmds[index].args[0], "Permission denied", 126));
+		exit(error("minishell", g_shell.cmds[index].args[0], \
+			"Permission denied", 126));
 	execve(g_shell.cmds[index].path, g_shell.cmds[index].args, normalize_env());
 	exit(error("command not found", g_shell.cmds[index].args[0], NULL, 127));
 }
@@ -124,6 +124,7 @@ static bool	single_builtin(void)
 
 bool	exec(void)
 {
+	set_sigs_exec();
 	// g_shell.exit_code = 0;
 	if (g_shell.cmd_n == 0)
 		return (true);

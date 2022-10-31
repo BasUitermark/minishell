@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/27 14:49:22 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 17:42:30 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ static void parse_heredoc(t_token token, char const *input)
 		tmp = ft_get_next_line(STDIN_FILENO);
 		if (!tmp || (ft_strlen(tmp) == ft_strlen(end) + 1 && ft_strncmp(tmp, end, ft_strlen(end)) == 0))
 			break ;
+		if (!expand(&tmp))
+		{
+			free (tmp);
+			break ;
+		}
 		ft_putstr_fd(tmp, pipe[WRITE]);
 		free(tmp);
 	}

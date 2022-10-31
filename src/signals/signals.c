@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 12:53:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/31 15:49:33 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 16:41:13 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ void	sig_handler_exec(int sig)
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
+		g_shell.exit_code = 130;
 	}
 	else if (sig == SIGQUIT)
 	{
 		write(1, "Quit: 3\n", 8);
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		g_shell.exit_code = 131;
 	}
 }
 

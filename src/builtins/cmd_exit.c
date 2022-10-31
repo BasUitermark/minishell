@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 09:53:34 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/31 10:53:53 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 16:31:45 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	exit_status(int exit_code)
 {
 	cleanup(NULL);
 	clear_list(&g_shell.env);
+	printf("%d\n", g_shell.exit_code);
 	if (g_shell.exit_code > 0)
 		exit(g_shell.exit_code);
 	exit(exit_code);
@@ -48,5 +49,5 @@ int	cmd_exit(int argc, const char **argv)
 		exit_status(0);
 	else
 		exit_status(ft_atoi(argv[1]));
-	return (0);
+	return (1);
 }
