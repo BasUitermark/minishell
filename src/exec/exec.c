@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/31 10:53:13 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 15:49:59 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	exec_builtin(int index)
 
 static void	ft_exec(size_t index)
 {
+	set_sigs_exec();
 	if (index == 0 && g_shell.fd_in != STDIN_FILENO)
 	{
 		dup2(g_shell.fd_in, STDIN_FILENO);

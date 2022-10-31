@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/31 10:55:34 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 15:56:39 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ int				cmd_exit(int argc, const char **argv);
 //========== Signals ===========//
 void			set_signals(void);
 void			init_signal(void);
+void			set_sigs_exec(void);
+void			sig_handler_exec(int sig);
 
 //========== Error ============//
 int				error(char *cmd, char *input, char *msg, int exit_code);

@@ -16,7 +16,7 @@ LIBFT		= libs/libft
 
 #===============================================================================: Compile variables
 CC			= gcc
-#CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code 
+CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code 
 MAKEFLAGS	= --no-print-directory
 VALG		= valgrind -s --leak-check=full
 RM			= rm -rf

@@ -6,11 +6,36 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 12:53:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/25 13:38:22 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/10/31 15:49:33 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void	set_sigs_exec(void)
+{
+	struct sigaction	sig;
+
+	sig.sa_handler = &sig_handler_exec;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	sigaction(SIGINT, &sig, NULL);
+	sigaction(SIGQUIT, &sig, NULL);
+}
+
+void	sig_handler_exec(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+	}
+	else if (sig == SIGQUIT)
+	{
+		write(1, "Quit: 3\n", 8);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
+}
 
 static void	sighandler(int num)
 {
