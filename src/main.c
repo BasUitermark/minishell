@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/31 15:17:12 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 12:29:50 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	init(void)
 		close(g_shell.fd_out);
 	g_shell.fd_in = STDIN_FILENO;
 	g_shell.fd_out = STDOUT_FILENO;
-	set_shlvl();
 }
 
 t_shell	g_shell;
@@ -84,6 +83,7 @@ int	main(int argc, char **argv, char **envp)
 	argv = NULL;
 	if (!parse_environment(envp))
 		exit(EXIT_FAILURE);
+	set_shlvl();
 	while (1)
 	{
 		init();

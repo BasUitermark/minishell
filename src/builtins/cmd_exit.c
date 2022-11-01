@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 09:53:34 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/31 16:31:45 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 12:50:48 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	exit_status(int exit_code)
 {
 	cleanup(NULL);
 	clear_list(&g_shell.env);
-	printf("%d\n", g_shell.exit_code);
 	if (g_shell.exit_code > 0)
 		exit(g_shell.exit_code);
 	exit(exit_code);
