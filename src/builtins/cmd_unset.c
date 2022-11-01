@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 17:09:16 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/28 21:26:46 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 18:38:54 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	cmd_unset(int argc, const char **argv)
 	char	*key;
 	int		i;
 
-	argc = 0;
+	(void)argc;
 	i = 0;
 	while (g_shell.env && argv[i])
 	{

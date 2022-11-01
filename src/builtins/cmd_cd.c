@@ -6,11 +6,12 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 15:11:47 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 19:28:49 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+#include <linux/limits.h>
 
 static bool	set_pwd(char *old_dir)
 {
@@ -45,22 +46,25 @@ static bool	set_dir(const char *path)
 
 static int	flags(int argc, const char *path)
 {
-	t_env	*user;
+	char	*tmp;
+	t_env	*oldpwd;
 
 	if ((ft_strncmp(path, "~", 1) == 0 && ft_strlen(path) == 1) || argc == 1)
 	{
-		user = get_env(g_shell.env, "HOME");
-		if (!user)
-			return (error("minishell", "cd", "HOME not set", 1));
-		if (set_dir(user->value))
-			return (0);
+		tmp = getenv("HOME");
+		if (!tmp)
+			return (1);
+		if (!set_dir(tmp))
+			return (1);
 	}
 	else if (ft_strncmp(path, "-", 1) == 0 && ft_strlen(path) == 1)
 	{
-		user = get_env(g_shell.env, "OLDPWD");
-		if (!user)
+		oldpwd = get_env(g_shell.env, "OLDPWD");
+		printf("wut%s\n", oldpwd->value);
+		if (!oldpwd)
 			return (error("minishell", "cd", "OLDPWD not set", 1));
-		if (set_dir(user->value))
+		ft_putendl_fd(oldpwd->value, 1);
+		if (set_dir(oldpwd->value))
 			return (0);
 	}
 	return (1);
@@ -68,7 +72,7 @@ static int	flags(int argc, const char *path)
 
 int	cmd_cd(int argc, const char **argv)
 {
-	t_env	*user;
+	char	*tmp;
 
 	if (argc > 2)
 		return (error("bash", "cd", "too many arguments", 1));
@@ -76,10 +80,10 @@ int	cmd_cd(int argc, const char **argv)
 		return (flags(argc, argv[1]));
 	if (argc == 1)
 	{
-		user = get_env(g_shell.env, "HOME");
-		if (!user)
+		tmp = getenv("HOME");
+		if (!tmp)
 			return (error("minishell", "cd", "HOME not set", 1));
-		if (set_dir(user->value))
+		if (set_dir(tmp))
 			return (0);
 	}
 	else if (ft_strncmp(argv[1], "-nuts", 5) == 0)

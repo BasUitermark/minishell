@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 16:25:08 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/01 18:38:23 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	main(int argc, char **argv, char **envp)
 {
 	char			*input;
 
-	argc = 0;
-	argv = NULL;
+	(void)argc;
+	(void)argv;
 	if (!parse_environment(envp))
 		exit(EXIT_FAILURE);
 	set_shlvl();
