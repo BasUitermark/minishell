@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/09 18:55:32 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/26 17:01:36 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:34:26 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,14 @@ char		*ft_strnstr(const char	*big, const char *little, size_t n);
  * @return Returns
  */
 int			ft_strncmp(const char *str1, const char *str2, size_t n);
+
+/**
+ * Compares str1 with str 2.
+ * @param *str1 The first string to be compared.
+ * @param *str2 The second string to be compared.
+ * @return Returns
+ */
+int			ft_strcmp(char *s1, char *s2);
 
 /**
  * Returns a string representation of an integer.

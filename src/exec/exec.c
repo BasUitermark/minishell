@@ -6,29 +6,11 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/01 15:41:49 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 15:54:43 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-bool	ft_pipe(int fds[2])
-{
-	if (pipe(fds) == -1)
-		return (false);
-	return (true);
-}
-
-bool	ft_fork(pid_t *pid)
-{
-	pid_t	output;
-
-	output = fork();
-	if (output == -1)
-		return (false);
-	*pid = output;
-	return (true);
-}
 
 static int	exec_builtin(int index)
 {
@@ -55,7 +37,7 @@ static int	exec_builtin(int index)
 	return (127);
 }
 
-static void	ft_exec(size_t index)
+void	ft_exec(size_t index)
 {
 	if (index == 0 && g_shell.fd_in != STDIN_FILENO)
 	{
@@ -101,18 +83,6 @@ bool	exec_child(int index)
 		close(fd[READ]);
 		close(fd[WRITE]);
 	}
-	return (true);
-}
-
-bool	exec_func(size_t index)
-{
-	while (index < g_shell.cmd_n - 1)
-	{
-		if (!exec_child(index))
-			return (false);
-		index++;
-	}
-	ft_exec(index);
 	return (true);
 }
 

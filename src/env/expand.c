@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 12:45:21 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/26 17:07:14 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:23:39 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static bool	dodo_expand(char *location, char **expanded, unsigned int nv)
 	return (true);
 }
 
-static bool	do_expand(char *location, char **expanded, unsigned int *index)
+bool	do_expand(char *location, char **expanded, unsigned int *index)
 {
 	unsigned int	nv;
 	unsigned int	vl;
@@ -90,21 +90,5 @@ static bool	do_expand(char *location, char **expanded, unsigned int *index)
 		return (false);
 	location[nv + vl] = prev_char;
 	index[0] += (nv - index[0]) + vl;
-	return (true);
-}
-
-bool	expand(char **location)
-{
-	unsigned int	index;
-	char			*expanded;
-
-	index = 0;
-	expanded = NULL;
-	while (do_expand(location[0], &expanded, &index))
-		(void)"skrrt skrrt";
-	if (!expanded)
-		return (false);
-	free(location[0]);
-	location[0] = expanded;
 	return (true);
 }

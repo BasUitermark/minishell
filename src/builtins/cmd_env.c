@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:37:03 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/28 21:14:33 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:18:38 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	cmd_env(int argc, const char **argv)
 	t_env	*env;
 
 	if (argc > 1)
-		return (error("env", (char *)argv[1], "No such file or directory", 127));
+		return (error("env", (char *)argv[1], \
+			"No such file or directory", 127));
 	env = g_shell.env;
 	if (!env)
 		return (1);
