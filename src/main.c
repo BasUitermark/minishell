@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 15:14:58 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 15:51:21 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 			continue ;
 		shell_loop(input);
-		// system("leaks minishell");
 	}
 	return (EXIT_SUCCESS);
 }

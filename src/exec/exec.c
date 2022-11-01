@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/01 15:17:48 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 15:41:49 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,7 @@ static bool	single_builtin(void)
 bool	exec(void)
 {
 	int		status;
-	size_t	i;
 
-	i = 0;
 	set_sigs_exec();
 	if (g_shell.cmd_n == 0)
 		return (true);

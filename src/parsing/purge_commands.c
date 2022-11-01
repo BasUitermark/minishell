@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 10:15:21 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/13 10:28:35 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 15:47:11 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	purge_commands(void)
 			j++;
 		}
 		free(g_shell.cmds[i].args);
+		free(g_shell.cmds[i].path);
 		i++;
 	}
 	free(g_shell.cmds);
