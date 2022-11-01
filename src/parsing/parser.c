@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/24 11:29:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/31 17:33:58 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:31:13 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,36 +27,6 @@ static int	parts(char *cmd)
 	}
 	return (parts);
 }
-
-// static bool	redo_args(t_command *cmd)
-// {
-// 	int		index[2];
-// 	char	**split;
-// 	char	**new_args;
-
-// 	split = ft_split(cmd->args[0], ' ');
-// 	if (!split)
-// 		return (false);
-// 	new_args = ft_calloc(ft_arraylen(cmd->args) + \
-// 		ft_arraylen(split), sizeof(char *));
-// 	if (!new_args)
-// 		return (ft_freearray(split) != NULL);
-// 	ft_memset(index, 0, sizeof(int) * 2);
-// 	while (split[index[0]])
-// 	{
-// 		new_args[index[0]] = split[index[0]];
-// 		index[0]++;
-// 	}
-// 	free(split);
-// 	while (cmd->args[1 + index[1]])
-// 	{
-// 		new_args[index[0] + index[1]] = cmd->args[1 + index[1]];
-// 		index[1]++;
-// 	}
-// 	free(cmd->args);
-// 	cmd->args = new_args;
-// 	return (true);
-// }
 
 static bool	redo_args(t_command *cmd)
 {

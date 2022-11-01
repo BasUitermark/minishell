@@ -1,42 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse.c                                            :+:    :+:            */
+/*   exec_utility.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/02 11:54:27 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:23:48 by jde-groo      ########   odam.nl         */
+/*   Created: 2022/11/01 13:25:21 by jde-groo      #+#    #+#                 */
+/*   Updated: 2022/11/01 13:27:01 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./../../include/shell.h"
+#include "shell.h"
 
-bool	parse_environment(char **envp)
+bool	ft_pipe(int fds[2])
 {
-	if (!envp)
+	if (pipe(fds) == -1)
 		return (false);
-	while (*envp)
-	{
-		if (!add_variable(&g_shell.env, *envp))
-			return (clear_list(&g_shell.env));
-		envp++;
-	}
 	return (true);
 }
 
-bool	expand(char **location)
+bool	ft_fork(pid_t *pid)
 {
-	unsigned int	index;
-	char			*expanded;
+	pid_t	output;
 
-	index = 0;
-	expanded = NULL;
-	while (do_expand(location[0], &expanded, &index))
-		(void)"skrrt skrrt";
-	if (!expanded)
+	output = fork();
+	if (output == -1)
 		return (false);
-	free(location[0]);
-	location[0] = expanded;
+	*pid = output;
+	return (true);
+}
+
+bool	exec_func(size_t index)
+{
+	while (index < g_shell.cmd_n - 1)
+	{
+		if (!exec_child(index))
+			return (false);
+		index++;
+	}
+	ft_exec(index);
 	return (true);
 }

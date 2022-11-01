@@ -103,6 +103,7 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 			ft_strmapi \
 			ft_strncat \
 			ft_strncmp \
+			ft_strcmp \
 			ft_strnstr \
 			ft_strrchr \
 			ft_strtolower \

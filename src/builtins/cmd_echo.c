@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/05 16:59:32 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/29 22:28:24 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:18:29 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ static bool	is_flag(const char *argv)
 		i++;
 	}
 	return (TRUE);
+}
+
+static void	print_all(int argc, const char **argv, int i)
+{
+	while (argv[i] && argc >= 2 && i != argc)
+	{
+		ft_putstr_fd((char *)argv[i], 1);
+		if (argv[i + 1])
+			ft_putchar_fd(' ', 1);
+		i++;
+	}
 }
 
 int	cmd_echo(int argc, const char **argv)
@@ -49,13 +60,7 @@ int	cmd_echo(int argc, const char **argv)
 			return (error("bash", "cd", "HOME not set", 1));
 		return (ft_putendl_fd(home->value, 1) & 0);
 	}
-	while (argv[i] && argc >= 2 && i != argc)
-	{
-		ft_putstr_fd((char *)argv[i], 1);
-		if (argv[i + 1])
-			ft_putchar_fd(' ', 1);
-		i++;
-	}
+	print_all(argc, argv, i);
 	if (newline)
 		ft_putchar_fd('\n', 1);
 	return (0);

@@ -6,27 +6,11 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 12:46:38 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:02:08 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:34:49 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-static int	ft_strcmp(char *s1, char *s2)
-{
-	int	index;
-
-	index = 0;
-	if (!s1 || !s2)
-		return (-1);
-	while (s1[index])
-	{
-		if (s1[index] != s2[index])
-			break ;
-		index++;
-	}
-	return (s1[index] - s2[index]);
-}
 
 static bool	is_built_in(char *command)
 {

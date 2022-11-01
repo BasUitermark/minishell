@@ -6,27 +6,11 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 11:51:56 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/27 14:24:50 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:32:35 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../../include/shell.h"
-
-static int	ft_strcmp(char *s1, char *s2)
-{
-	int	index;
-
-	index = 0;
-	if (!s1 || !s2)
-		return (-1);
-	while (s1[index])
-	{
-		if (s1[index] != s2[index])
-			break ;
-		index++;
-	}
-	return (s1[index] - s2[index]);
-}
 
 static bool	fill_env(t_env *env, char *var_string)
 {
@@ -68,36 +52,6 @@ bool	clear_list(t_env **head)
 	}
 	*head = NULL;
 	return (false);
-}
-
-t_env	*get_env(t_env *head, char *key)
-{
-	while (head)
-	{
-		if (ft_strcmp(head->key, key) == 0)
-			return (head);
-		head = head->next;
-	}
-	return (NULL);
-}
-
-void	place_env(t_env **head, t_env *node)
-{
-	t_env	*tmp;
-
-	if (get_env(g_shell.env, node->key))
-		remove_variable(&g_shell.env, node->key);
-	if (ft_strcmp((*head)->key, node->key) > 0)
-	{
-		node->next = (*head);
-		*head = node;
-		return ;
-	}
-	tmp = *head;
-	while (tmp->next && ft_strcmp(tmp->next->key, node->key) < 0)
-		tmp = tmp->next;
-	node->next = tmp->next;
-	tmp->next = node;
 }
 
 bool	add_variable(t_env **head, char *var_string)

@@ -41,11 +41,13 @@ SRCS		= $(addprefix src/, $(addsuffix .c, \
 				purge_commands) \
 			$(addprefix exec/, \
 				exec \
+				exec_utility \
 				set_shlvl) \
 			$(addprefix env/, \
 				env \
 				expand \
 				parse \
+				env_extra \
 				env_utility) \
 			$(addprefix builtins/, \
 				cmd_cd \

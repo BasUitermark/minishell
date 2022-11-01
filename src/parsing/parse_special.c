@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/31 17:42:30 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:31:35 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,29 @@ static void	parse_outfile(t_token *tokens, char const *input)
 	free (tmp_path);
 }
 
-static void parse_heredoc(t_token token, char const *input)
+static void	heredoc_loop(int *pipe, char *end)
 {
 	char	*tmp;
+
+	while (1)
+	{
+		write(1, "> ", 2);
+		tmp = ft_get_next_line(STDIN_FILENO);
+		if (!tmp || (ft_strlen(tmp) == ft_strlen(end) + 1 \
+			&& ft_strncmp(tmp, end, ft_strlen(end)) == 0))
+			break ;
+		if (!expand(&tmp))
+		{
+			free (tmp);
+			break ;
+		}
+		ft_putstr_fd(tmp, pipe[WRITE]);
+		free(tmp);
+	}
+}
+
+static void	parse_heredoc(t_token token, char const *input)
+{
 	char	*end;
 	int		pipe[2];
 
@@ -62,20 +82,7 @@ static void parse_heredoc(t_token token, char const *input)
 		g_shell.fd_in = STDIN_FILENO;
 	}
 	g_shell.fd_in = pipe[READ];
-	while (1)
-	{
-		write(1, "> ", 2);
-		tmp = ft_get_next_line(STDIN_FILENO);
-		if (!tmp || (ft_strlen(tmp) == ft_strlen(end) + 1 && ft_strncmp(tmp, end, ft_strlen(end)) == 0))
-			break ;
-		if (!expand(&tmp))
-		{
-			free (tmp);
-			break ;
-		}
-		ft_putstr_fd(tmp, pipe[WRITE]);
-		free(tmp);
-	}
+	heredoc_loop(pipe, end);
 	close(pipe[WRITE]);
 	free(end);
 }

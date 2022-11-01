@@ -6,29 +6,11 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:10:24 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:26:58 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-bool	ft_pipe(int fds[2])
-{
-	if (pipe(fds) == -1)
-		return (false);
-	return (true);
-}
-
-bool	ft_fork(pid_t *pid)
-{
-	pid_t	output;
-
-	output = fork();
-	if (output == -1)
-		return (false);
-	*pid = output;
-	return (true);
-}
 
 static int	exec_builtin(int index)
 {
@@ -55,7 +37,7 @@ static int	exec_builtin(int index)
 	return (127);
 }
 
-static void	ft_exec(size_t index)
+void	ft_exec(size_t index)
 {
 	if (index == 0 && g_shell.fd_in != STDIN_FILENO)
 	{
@@ -104,18 +86,6 @@ bool	exec_child(int index)
 	return (true);
 }
 
-bool	exec_func(size_t index)
-{
-	while (index < g_shell.cmd_n - 1)
-	{
-		if (!exec_child(index))
-			return (false);
-		index++;
-	}
-	ft_exec(index);
-	return (true);
-}
-
 static bool	single_builtin(void)
 {
 	g_shell.exit_code = exec_builtin(0);
@@ -127,7 +97,6 @@ bool	exec(void)
 	int	status;
 
 	set_sigs_exec();
-	// g_shell.exit_code = 0;
 	if (g_shell.cmd_n == 0)
 		return (true);
 	if (g_shell.cmd_n == 1 && g_shell.cmds[0].path == NULL && \
@@ -137,8 +106,6 @@ bool	exec(void)
 		return (false);
 	if (g_shell.pid == 0 && !exec_func(0))
 		return (false);
-	// g_shell.pid = waitpid(0, &g_shell.exit_code, 0);
-	// g_shell.exit_code = WEXITSTATUS(g_shell.exit_code);
 	waitpid(g_shell.pid, &status, 0);
 	if (WIFEXITED(status))
 		g_shell.exit_code = WEXITSTATUS(status);

@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/31 15:56:39 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:32:02 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ bool			add_env(t_env *node);
 bool			set_env(char *key, char *value);
 char			**normalize_env(void);
 void			place_env(t_env **head, t_env *node);
+bool			do_expand(char *location, char **expanded, unsigned int *index);
 
 //========== Built-ins ==========//
 int				cmd_echo(int argc, const char **argv);
@@ -136,6 +137,9 @@ void			cleanup(t_token *token);
 void			free_program_data(void);
 
 //=========== Exec ============//
+bool			exec_func(size_t index);
+bool			exec_child(int index);
+void			ft_exec(size_t index);
 bool			exec(void);
 void			set_shlvl(void);
 
