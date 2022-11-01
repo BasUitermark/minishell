@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 15:51:21 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 16:25:08 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 void	cleanup(t_token *token)
 {
+	if (g_shell.fd_in > 2)
+		close(g_shell.fd_in);
+	if (g_shell.fd_out > 2)
+		close(g_shell.fd_out);
 	purge_commands();
 	clear_token_list(&token);
 	token = NULL;
@@ -56,25 +60,22 @@ static char	*sanitize(char *inp)
 	return (inp);
 }
 
-static void	shell_loop(char *input)
+static bool	shell_loop(char *input)
 {
 	t_token	*token;
 
 	token = NULL;
 	add_history(input);
-	if (!lexer(&token, input))
-		return (cleanup(NULL));
-	if (!token)
-		return (free(input));
-	if (!parser(&token, input))
-		return (cleanup(token));
-	clear_token_list(&token);
-	if (!resolve_paths())
-		return (cleanup(NULL));
-	if (!exec())
-		return (cleanup(NULL));
-	cleanup(NULL);
+	if (!lexer(&token, input) || !token || !parser(&token, input) \
+		|| clear_token_list(&token) || !resolve_paths() || !exec())
+	{
+		free(input);
+		cleanup(token);
+		return (false);
+	}
+	cleanup(token);
 	free(input);
+	return (true);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -100,7 +101,8 @@ int	main(int argc, char **argv, char **envp)
 		input = sanitize(input);
 		if (!input)
 			continue ;
-		shell_loop(input);
+		if (!shell_loop(input))
+			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
