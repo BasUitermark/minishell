@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:10:24 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 15:17:48 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,11 @@ static bool	single_builtin(void)
 
 bool	exec(void)
 {
-	int	status;
+	int		status;
+	size_t	i;
 
+	i = 0;
 	set_sigs_exec();
-	// g_shell.exit_code = 0;
 	if (g_shell.cmd_n == 0)
 		return (true);
 	if (g_shell.cmd_n == 1 && g_shell.cmds[0].path == NULL && \
@@ -137,10 +138,9 @@ bool	exec(void)
 		return (false);
 	if (g_shell.pid == 0 && !exec_func(0))
 		return (false);
-	// g_shell.pid = waitpid(0, &g_shell.exit_code, 0);
-	// g_shell.exit_code = WEXITSTATUS(g_shell.exit_code);
 	waitpid(g_shell.pid, &status, 0);
 	if (WIFEXITED(status))
 		g_shell.exit_code = WEXITSTATUS(status);
+	cleanup(NULL);
 	return (true);
 }

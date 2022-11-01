@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/31 15:40:35 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/01 15:11:47 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,19 @@
 static bool	set_pwd(char *old_dir)
 {
 	char	cur_dir[PATH_MAX];
+	char	*dup_cur;
+	char	*dup_old;
 
 	getcwd(cur_dir, PATH_MAX);
-	if (!set_env("PWD", ft_strdup(cur_dir)))
+	dup_cur = ft_strdup(cur_dir);
+	if (!set_env("PWD", dup_cur))
 		return (FALSE);
-	if (!set_env("OLDPWD", ft_strdup(old_dir)))
+	dup_old = ft_strdup(old_dir);
+	if (!set_env("OLDPWD", dup_old))
+	{
+		free (dup_cur);
 		return (FALSE);
+	}
 	return (TRUE);
 }
 
