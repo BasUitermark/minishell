@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 18:38:23 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/03 16:52:47 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ static bool	shell_loop(char *input)
 	if (!lexer(&token, input) || !token || !parser(&token, input) \
 		|| clear_token_list(&token) || !resolve_paths() || !exec())
 	{
+		if (!token)
+		{
+			cleanup(NULL);
+			free(input);
+			return (true);
+		}
 		free(input);
 		cleanup(token);
 		return (false);
