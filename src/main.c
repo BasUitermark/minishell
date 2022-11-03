@@ -6,13 +6,13 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 18:38:23 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/03 12:52:14 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-void	cleanup(t_token *token)
+int	cleanup(t_token *token, int exit)
 {
 	if (g_shell.fd_in > 2)
 		close(g_shell.fd_in);
@@ -21,6 +21,7 @@ void	cleanup(t_token *token)
 	purge_commands();
 	clear_token_list(&token);
 	token = NULL;
+	return (exit);
 }
 
 static void	init(void)
@@ -70,10 +71,10 @@ static bool	shell_loop(char *input)
 		|| clear_token_list(&token) || !resolve_paths() || !exec())
 	{
 		free(input);
-		cleanup(token);
+		cleanup(token, 0);
 		return (false);
 	}
-	cleanup(token);
+	cleanup(token, 0);
 	free(input);
 	return (true);
 }
@@ -86,7 +87,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (!parse_environment(envp))
 		exit(EXIT_FAILURE);
-	set_shlvl();
+	if (!set_shlvl())
+		exit(cleanup(NULL, EXIT_FAILURE));
 	while (1)
 	{
 		init();
@@ -94,9 +96,8 @@ int	main(int argc, char **argv, char **envp)
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input)
 		{
-			cleanup(NULL);
 			ft_putendl_fd("exit", STDOUT_FILENO);
-			exit(g_shell.exit_code);
+			exit(cleanup(NULL, g_shell.exit_code));
 		}
 		input = sanitize(input);
 		if (!input)
