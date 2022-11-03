@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/24 11:29:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:31:13 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/03 12:39:33 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	parts(char *cmd)
 
 	index = 0;
 	parts = 1;
+	if (cmd[0] == '\'')
+		return (parts);
 	while (cmd[index])
 	{
 		if (cmd[index] == ' ')

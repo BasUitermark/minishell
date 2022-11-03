@@ -6,12 +6,11 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 19:28:49 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/02 10:32:46 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-#include <linux/limits.h>
 
 static bool	set_pwd(char *old_dir)
 {
