@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:31:35 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/04 12:42:03 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ static void	heredoc_loop(int *pipe, char *end)
 		tmp = ft_get_next_line(STDIN_FILENO);
 		if (!tmp || (ft_strlen(tmp) == ft_strlen(end) + 1 \
 			&& ft_strncmp(tmp, end, ft_strlen(end)) == 0))
-			break ;
+		{
+			free(tmp);
+			break ;	
+		}
 		if (!expand(&tmp))
 		{
 			free (tmp);

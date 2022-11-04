@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/03 12:51:55 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/04 12:30:24 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int				error(char *cmd, char *input, char *msg, int exit_code);
 //========== Utils ============//
 bool			ft_pipe(int fds[2]);
 bool			ft_fork(pid_t *pid);
-int				cleanup(t_token *token, int exit);
+int				cleanup(t_token *token, int exit, bool exit_prog);
 void			free_program_data(void);
 
 //=========== Exec ============//

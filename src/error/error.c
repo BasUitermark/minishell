@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 14:30:06 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/10/28 21:18:31 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/04 12:34:31 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ int	error(char *cmd, char *input, char *msg, int exit_code)
 	if (msg)
 		ft_putstr_fd(msg, STDERR_FILENO);
 	write(STDERR_FILENO, "\n", 1);
+	cleanup(NULL, 0, true);
 	return (exit_code);
 }

@@ -6,18 +6,20 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/03 16:53:26 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/04 12:30:56 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-int	cleanup(t_token *token, int exit)
+int	cleanup(t_token *token, int exit, bool exit_prog)
 {
 	if (g_shell.fd_in > 2)
 		close(g_shell.fd_in);
 	if (g_shell.fd_out > 2)
 		close(g_shell.fd_out);
+	if (exit_prog)
+		clear_list(&g_shell.env);
 	purge_commands();
 	clear_token_list(&token);
 	token = NULL;
@@ -72,15 +74,14 @@ static bool	shell_loop(char *input)
 	{
 		if (!token)
 		{
-			cleanup(NULL);
+			cleanup(NULL, 0, false);
 			free(input);
 			return (true);
 		}
 		free(input);
-		cleanup(token, 0);
-		return (false);
+		exit(cleanup(token, EXIT_FAILURE, true));
 	}
-	cleanup(token, 0);
+	cleanup(token, 0, false);
 	free(input);
 	return (true);
 }
@@ -94,7 +95,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!parse_environment(envp))
 		exit(EXIT_FAILURE);
 	if (!set_shlvl())
-		exit(cleanup(NULL, EXIT_FAILURE));
+		exit(cleanup(NULL, EXIT_FAILURE, true));
 	while (1)
 	{
 		init();
@@ -103,13 +104,12 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
-			exit(cleanup(NULL, g_shell.exit_code));
+			exit(cleanup(NULL, g_shell.exit_code, true));
 		}
 		input = sanitize(input);
 		if (!input)
 			continue ;
-		if (!shell_loop(input))
-			return (EXIT_FAILURE);
+		shell_loop(input);
 	}
 	return (EXIT_SUCCESS);
 }

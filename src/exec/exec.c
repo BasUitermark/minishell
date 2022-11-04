@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/01 15:54:43 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/04 12:33:50 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,5 @@ bool	exec(void)
 	waitpid(g_shell.pid, &status, 0);
 	if (WIFEXITED(status))
 		g_shell.exit_code = WEXITSTATUS(status);
-	cleanup(NULL);
 	return (true);
 }
