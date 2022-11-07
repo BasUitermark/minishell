@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:33:50 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/05 23:32:35 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ static int	exec_builtin(int index)
 
 void	ft_exec(size_t index)
 {
-	if (index == 0 && g_shell.fd_in != STDIN_FILENO)
-	{
-		dup2(g_shell.fd_in, STDIN_FILENO);
-		close(g_shell.fd_in);
-	}
-	if (index == g_shell.cmd_n - 1 && g_shell.fd_out != STDOUT_FILENO)
-	{
-		dup2(g_shell.fd_out, STDOUT_FILENO);
-		close(g_shell.fd_out);
-	}
+	// if (index == 0 && g_shell.fd_in != STDIN_FILENO)
+	// {
+	// 	dup2(g_shell.fd_in, STDIN_FILENO);
+	// 	close(g_shell.fd_in);
+	// }
+	// if (index == g_shell.cmd_n - 1 && g_shell.fd_out != STDOUT_FILENO)
+	// {
+	// 	dup2(g_shell.fd_out, STDOUT_FILENO);
+	// 	close(g_shell.fd_out);
+	// }
 	if (g_shell.cmds[index].path == NULL && !g_shell.cmds[index].invalid)
 		exit(exec_builtin(index));
 	execve(g_shell.cmds[index].path, g_shell.cmds[index].args, normalize_env());
@@ -61,7 +61,9 @@ void	ft_exec(size_t index)
 bool	exec_child(int index)
 {
 	int		fd[2];
+	int	status;
 
+	printf("Entering child...\n");
 	if (!ft_pipe(fd))
 		return (false);
 	if (!ft_fork(&g_shell.pid))
@@ -72,15 +74,18 @@ bool	exec_child(int index)
 	}
 	if (g_shell.pid == 0)
 	{
+		printf("Executing command: %d\n", index);
 		dup2(fd[WRITE], STDOUT_FILENO);
-		close(fd[WRITE]);
+		// close(fd[WRITE]);
 		close(fd[READ]);
 		ft_exec(index);
 	}
 	else
 	{
+		printf("Parenting...\n");
+		wait(&status);
 		dup2(fd[READ], STDIN_FILENO);
-		close(fd[READ]);
+		// close(fd[READ]);
 		close(fd[WRITE]);
 	}
 	return (true);
@@ -94,7 +99,7 @@ static bool	single_builtin(void)
 
 bool	exec(void)
 {
-	int		status;
+	// int		status;
 
 	set_sigs_exec();
 	if (g_shell.cmd_n == 0)
@@ -106,8 +111,9 @@ bool	exec(void)
 		return (false);
 	if (g_shell.pid == 0 && !exec_func(0))
 		return (false);
-	waitpid(g_shell.pid, &status, 0);
-	if (WIFEXITED(status))
-		g_shell.exit_code = WEXITSTATUS(status);
+	// waitpid(g_shell.pid, &status, 0);
+	// if (WIFEXITED(status))
+	// 	g_shell.exit_code = WEXITSTATUS(status);
+	printf("end\n");
 	return (true);
 }

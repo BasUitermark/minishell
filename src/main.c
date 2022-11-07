@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:30:56 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/05 23:32:23 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static bool	shell_loop(char *input)
 int	main(int argc, char **argv, char **envp)
 {
 	char			*input;
+	int	status;
 
 	(void)argc;
 	(void)argv;
@@ -110,6 +111,9 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 			continue ;
 		shell_loop(input);
+		waitpid(g_shell.pid, &status, 0);
+		if (WIFEXITED(status))
+			g_shell.exit_code = WEXITSTATUS(status);
 	}
 	return (EXIT_SUCCESS);
 }
