@@ -6,11 +6,25 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/09 12:11:27 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/09 12:41:09 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+static void	print_val(char *val, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (val[i])
+	{
+		if (val[i] == '"')
+			ft_putchar_fd('\\', fd);
+		ft_putchar_fd(val[i], fd);
+		i++;
+	}
+}
 
 static int	print_env(void)
 {
@@ -24,7 +38,7 @@ static int	print_env(void)
 		if (env->value)
 		{
 			ft_putstr_fd("=\"", STDOUT_FILENO);
-			ft_putstr_fd(env->value, STDOUT_FILENO);
+			print_val(env->value, STDOUT_FILENO);
 			ft_putchar_fd('"', STDOUT_FILENO);
 		}
 		ft_putchar_fd('\n', STDOUT_FILENO);
