@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:33:50 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/09 10:48:42 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ bool	exec_child(int index)
 		close(fd[WRITE]);
 		return (false);
 	}
-	if (g_shell.pid == 0)
+	if (g_shell.pid != 0)
 	{
 		dup2(fd[WRITE], STDOUT_FILENO);
 		close(fd[WRITE]);
