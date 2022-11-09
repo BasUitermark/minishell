@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:42:03 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/09 11:42:13 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ static void	heredoc_loop(int *pipe, char *end)
 			&& ft_strncmp(tmp, end, ft_strlen(end)) == 0))
 		{
 			free(tmp);
-			break ;	
+			break ;
 		}
 		if (!expand(&tmp))
 		{
-			free (tmp);
+			free(tmp);
 			break ;
 		}
 		ft_putstr_fd(tmp, pipe[WRITE]);

@@ -6,13 +6,13 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 16:53:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/03 12:53:01 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/09 11:42:28 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
 
-static bool	init_shlvl()
+static bool	init_shlvl(void)
 {
 	char	*convert;
 
