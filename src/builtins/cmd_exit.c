@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 09:53:34 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:31:07 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/10 13:26:58 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	cmd_exit(int argc, const char **argv)
 	if (argc == 2 && (!strisnum(argv[1])))
 		return (error(BLUE BOLD SHELL RESET, "exit", \
 			"numeric argument required", 1));
-	ft_putendl_fd("exit", STDERR_FILENO);
+	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (!argv[1])
 		exit_status(0);
 	else

@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/09 12:41:09 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/09 14:17:58 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static bool	handle_no_val(char *str)
 		return (false);
 	env->hidden = true;
 	env->key = ft_strdup(str);
+	env->value = NULL;
 	if (!env->key)
 	{
 		free(env);

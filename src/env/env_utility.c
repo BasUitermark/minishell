@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 15:12:06 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/26 11:55:50 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/09 14:20:40 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static unsigned int	env_length(void)
 	env = g_shell.env;
 	while (env)
 	{
-		length++;
+		if (!env->hidden)
+			length++;
 		env = env->next;
 	}
 	return (length);
@@ -97,7 +98,7 @@ char	**normalize_env(void)
 	{
 		if (env->hidden)
 		{
-			index++;
+			env = env->next;
 			continue ;
 		}
 		if (!add_envstr(&res[index], env))

@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/09 10:48:42 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/10 14:12:28 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	exec_builtin(int index)
 	if (ft_strncmp("unset", g_shell.cmds[index].args[0], 6) == 0)
 		return (cmd_unset(ft_arraylen(g_shell.cmds[index].args), \
 		(const char **)g_shell.cmds[index].args));
-	return (127);
+	return (error("command not found", g_shell.cmds[index].args[0], NULL, 127));
 }
 
 void	ft_exec(size_t index)
@@ -52,10 +52,11 @@ void	ft_exec(size_t index)
 	if (g_shell.cmds[index].path == NULL && !g_shell.cmds[index].invalid)
 		exit(exec_builtin(index));
 	execve(g_shell.cmds[index].path, g_shell.cmds[index].args, normalize_env());
-	if (!access(g_shell.cmds[index].args[0], F_OK))
-		exit(error("minishell", g_shell.cmds[index].args[0], \
-			"Permission denied", 126));
-	exit(error("command not found", g_shell.cmds[index].args[0], NULL, 127));
+	if (access(g_shell.cmds[index].args[0], R_OK) == -1)
+		exit(error("minishell", "command not found", \
+				g_shell.cmds[index].args[0], 127));
+	exit(error("minishell", g_shell.cmds[index].args[0], \
+		"Permission denied", 126));
 }
 
 bool	exec_child(int index)
@@ -70,9 +71,10 @@ bool	exec_child(int index)
 		close(fd[WRITE]);
 		return (false);
 	}
-	if (g_shell.pid != 0)
+	if (g_shell.pid == 0)
 	{
-		dup2(fd[WRITE], STDOUT_FILENO);
+		if ((size_t)index != g_shell.cmd_n - 1)
+			dup2(fd[WRITE], STDOUT_FILENO);
 		close(fd[WRITE]);
 		close(fd[READ]);
 		ft_exec(index);
@@ -96,7 +98,6 @@ bool	exec(void)
 {
 	int		status;
 
-	set_sigs_exec();
 	if (g_shell.cmd_n == 0)
 		return (true);
 	if (g_shell.cmd_n == 1 && g_shell.cmds[0].path == NULL && \

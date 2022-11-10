@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/02 10:32:46 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/10 13:49:43 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,42 +52,39 @@ static int	flags(int argc, const char *path)
 	{
 		tmp = getenv("HOME");
 		if (!tmp)
-			return (1);
+			return (EXIT_FAILURE);
 		if (!set_dir(tmp))
-			return (1);
+			return (EXIT_FAILURE);
 	}
 	else if (ft_strncmp(path, "-", 1) == 0 && ft_strlen(path) == 1)
 	{
 		oldpwd = get_env(g_shell.env, "OLDPWD");
-		printf("wut%s\n", oldpwd->value);
 		if (!oldpwd)
 			return (error("minishell", "cd", "OLDPWD not set", 1));
 		ft_putendl_fd(oldpwd->value, 1);
 		if (set_dir(oldpwd->value))
-			return (0);
+			return (EXIT_SUCCESS);
 	}
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
 int	cmd_cd(int argc, const char **argv)
 {
-	char	*tmp;
+	t_env	*tmp;
 
-	if (argc > 2)
-		return (error("bash", "cd", "too many arguments", 1));
 	if (ft_strlen(argv[1]) == 1)
 		return (flags(argc, argv[1]));
 	if (argc == 1)
 	{
-		tmp = getenv("HOME");
+		tmp = get_env(g_shell.env, "HOME");
 		if (!tmp)
 			return (error("minishell", "cd", "HOME not set", 1));
-		if (set_dir(tmp))
-			return (0);
+		if (set_dir(tmp->value))
+			return (EXIT_SUCCESS);
 	}
 	else if (ft_strncmp(argv[1], "-nuts", 5) == 0)
 		ft_putstr_fd("CDEEZ NUTZ! :O\n", 1);
 	else if (!set_dir(argv[1]))
-		return (1);
-	return (1);
+		return (EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }

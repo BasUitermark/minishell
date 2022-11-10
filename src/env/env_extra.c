@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 13:20:49 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:24:24 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/09 14:01:18 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	place_env(t_env **head, t_env *node)
 
 	if (get_env(g_shell.env, node->key))
 		remove_variable(&g_shell.env, node->key);
+	*head = g_shell.env;
 	if (ft_strcmp((*head)->key, node->key) > 0)
 	{
 		node->next = (*head);

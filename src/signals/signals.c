@@ -6,22 +6,11 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 12:53:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:07:34 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/10 16:56:29 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell.h"
-
-void	set_sigs_exec(void)
-{
-	struct sigaction	sig;
-
-	sig.sa_handler = &sig_handler_exec;
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	sigaction(SIGINT, &sig, NULL);
-	sigaction(SIGQUIT, &sig, NULL);
-}
+#include "../../include/shell.h"
 
 void	sig_handler_exec(int sig)
 {
@@ -30,13 +19,14 @@ void	sig_handler_exec(int sig)
 		write(1, "\n", 1);
 		g_shell.exit_code = 130;
 	}
-	else if (sig == SIGQUIT)
+	if (sig == SIGQUIT)
 	{
 		write(1, "Quit: 3\n", 8);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		g_shell.exit_code = 131;
 	}
+	exit(g_shell.exit_code);
 }
 
 static void	sighandler(int num)
@@ -63,6 +53,17 @@ void	init_signal(void)
 	rl_catch_signals = false;
 	signal(SIGQUIT, SIG_IGN);
 	set_signals();
+}
+
+void	set_sigs_exec(void)
+{
+	struct sigaction	sig;
+
+	sig.sa_handler = &sig_handler_exec;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	sigaction(SIGINT, &sig, NULL);
+	sigaction(SIGQUIT, &sig, NULL);
 }
 
 void	set_signals(void)

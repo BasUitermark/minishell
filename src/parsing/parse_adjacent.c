@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 17:13:24 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/01 18:39:40 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/10 14:29:30 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	parse_adjacent_part(const char *input, char **res, t_token *tokens)
 	if (!tokens->length)
 	{
 		tmp = ft_strdup("");
-		res[0] = ft_strappend(res[0], tmp);
+		res[0] = ft_strappendfree(res[0], tmp);
 		free(tmp);
 		return (res[0] != NULL);
 	}
@@ -31,7 +31,7 @@ static bool	parse_adjacent_part(const char *input, char **res, t_token *tokens)
 		free(tmp);
 		return (false);
 	}
-	res[0] = ft_strappend(res[0], tmp);
+	res[0] = ft_strappendfree(res[0], tmp);
 	free(tmp);
 	return (res[0] != NULL);
 }
