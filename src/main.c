@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/10 16:58:44 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/10 19:30:24 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char			*input;
 
+	rl_catch_signals = 0;
 	(void)argc;
 	(void)argv;
 	if (!parse_environment(envp))
