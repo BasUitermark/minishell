@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/10 20:12:39 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/10 20:29:48 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	exec_builtin(int index)
 
 void	ft_exec(size_t index)
 {
+	char	**norm_env;
+
 	if (index == 0 && g_shell.fd_in != STDIN_FILENO)
 	{
 		dup2(g_shell.fd_in, STDIN_FILENO);
@@ -51,7 +53,10 @@ void	ft_exec(size_t index)
 	}
 	if (g_shell.cmds[index].path == NULL && !g_shell.cmds[index].invalid)
 		exit(exec_builtin(index));
-	execve(g_shell.cmds[index].path, g_shell.cmds[index].args, normalize_env());
+	norm_env = normalize_env();
+	if (access(g_shell.cmds[index].path, 0))
+		execve(g_shell.cmds[index].path, g_shell.cmds[index].args, norm_env);
+	ft_freearray(norm_env);
 	if (access(g_shell.cmds[index].args[0], R_OK) == -1)
 		exit(error("minishell", "command not found", \
 				g_shell.cmds[index].args[0], 127));
