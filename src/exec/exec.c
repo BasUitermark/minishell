@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/10 20:29:48 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/13 21:47:12 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_exec(size_t index)
 	if (g_shell.cmds[index].path == NULL && !g_shell.cmds[index].invalid)
 		exit(exec_builtin(index));
 	norm_env = normalize_env();
-	if (access(g_shell.cmds[index].path, 0))
+	if (access(g_shell.cmds[index].path, 0) == 0)
 		execve(g_shell.cmds[index].path, g_shell.cmds[index].args, norm_env);
 	ft_freearray(norm_env);
 	if (access(g_shell.cmds[index].args[0], R_OK) == -1)
@@ -114,12 +114,11 @@ bool	exec(void)
 		return (false);
 	if (g_shell.pid == 0 && !exec_func(0))
 		return (false);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, sig_handler_exec);
+	sig_ignore();
 	waitpid(g_shell.pid, &status, 0);
 	if (WIFEXITED(status))
 		g_shell.exit_code = WEXITSTATUS(status);
-	if (status == 2 || status == 3)
-		sig_handler_exec(status);
+	// if (status == 2 || status == 3)
+	// 	sig_handler_exec(status);
 	return (true);
 }

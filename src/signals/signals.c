@@ -6,11 +6,17 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 12:53:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/10 20:09:17 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/13 21:46:52 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+void	sig_ignore(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
 
 void	sig_handler_exec(int sig)
 {
