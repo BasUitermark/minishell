@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/28 12:53:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/13 21:46:52 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/14 13:19:52 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,3 @@ void	init_signal(void)
 	signal(SIGINT, sighandler);
 	signal(SIGQUIT, sighandler);
 }
-

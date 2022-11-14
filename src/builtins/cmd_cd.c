@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/10 13:49:43 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/14 13:18:30 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static bool	set_dir(const char *path)
 
 	getcwd(cur_dir, PATH_MAX);
 	if (!path || chdir(path) < 0)
-		return (error((char *)path, "No such file or directory", NULL, 0));
+		return (error("minishell", (char *)path, \
+				"No such file or directory", 0));
 	if (!set_pwd(cur_dir))
 		return (FALSE);
 	return (TRUE);
@@ -45,27 +46,31 @@ static bool	set_dir(const char *path)
 
 static int	flags(int argc, const char *path)
 {
-	char	*tmp;
-	t_env	*oldpwd;
+	t_env	*tmp;
+	char	*new_home;
 
 	if ((ft_strncmp(path, "~", 1) == 0 && ft_strlen(path) == 1) || argc == 1)
 	{
-		tmp = getenv("HOME");
+		tmp = get_env(g_shell.env, "HOME");
 		if (!tmp)
-			return (EXIT_FAILURE);
-		if (!set_dir(tmp))
+		{
+			new_home = getenv("HOME");
+			if (!set_dir(new_home))
+				return (EXIT_FAILURE);
+		}
+		else if (!set_dir(tmp->value))
 			return (EXIT_FAILURE);
 	}
 	else if (ft_strncmp(path, "-", 1) == 0 && ft_strlen(path) == 1)
 	{
-		oldpwd = get_env(g_shell.env, "OLDPWD");
-		if (!oldpwd)
+		tmp = get_env(g_shell.env, "OLDPWD");
+		if (!tmp)
 			return (error("minishell", "cd", "OLDPWD not set", 1));
-		ft_putendl_fd(oldpwd->value, 1);
-		if (set_dir(oldpwd->value))
+		ft_putendl_fd(tmp->value, 1);
+		if (set_dir(tmp->value))
 			return (EXIT_SUCCESS);
 	}
-	return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
 int	cmd_cd(int argc, const char **argv)

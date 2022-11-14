@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/14 12:27:35 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/14 13:19:38 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ void	ft_exec(size_t index)
 	norm_env = normalize_env();
 	execve(g_shell.cmds[index].path, g_shell.cmds[index].args, norm_env);
 	ft_freearray(norm_env);
-	if (access(g_shell.cmds[index].args[0], R_OK) == -1)
+	if (access(g_shell.cmds[index].args[0], F_OK) == 0)
 		exit(error("minishell", g_shell.cmds[index].args[0], \
-					"command not found", 127));
+			"Permission denied", 126));
 	exit(error("minishell", g_shell.cmds[index].args[0], \
-		"Permission denied", 126));
+				"command not found", 127));
 }
 
 bool	exec_child(int index)
@@ -117,7 +117,5 @@ bool	exec(void)
 	waitpid(g_shell.pid, &status, 0);
 	if (WIFEXITED(status))
 		g_shell.exit_code = WEXITSTATUS(status);
-	// if (status == 2 || status == 3)
-	// 	sig_handler_exec(status);
 	return (true);
 }

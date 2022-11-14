@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/01 13:25:21 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/13 21:48:15 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/14 13:24:09 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ bool	exec_func(size_t index)
 	sig_ignore();
 	waitpid(g_shell.pid, &status, 0);
 	g_shell.exit_code = WEXITSTATUS(status);
-	if (status == 2 || status == 3 || status == 9)
-		sig_handler_exec(status);
+	sig_handler_exec(status);
 	while (wait(&status) != -1)
 		(void)"hello c:";
 	exit(cleanup(NULL, g_shell.exit_code, true));
