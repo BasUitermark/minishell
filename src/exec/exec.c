@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/14 11:10:00 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/15 13:01:02 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,10 @@ void	ft_exec(size_t index)
 	norm_env = normalize_env();
 	execve(g_shell.cmds[index].path, g_shell.cmds[index].args, norm_env);
 	ft_freearray(norm_env);
-	if (access(g_shell.cmds[index].args[0], R_OK) == -1)
-		exit(error("minishell", "command not found", \
-				g_shell.cmds[index].args[0], 127));
+	if (access(g_shell.cmds[index].args[0], R_OK) == -1 || \
+		(ft_strncmp("..", g_shell.cmds[index].args[0], 2) == 0))
+		exit(error("minishell", g_shell.cmds[index].args[0], \
+					"command not found", 127));
 	exit(error("minishell", g_shell.cmds[index].args[0], \
 		"Permission denied", 126));
 }
@@ -98,8 +99,6 @@ static bool	single_builtin(void)
 	return (true);
 }
 
-// signals work, ctrl + \ does not give correct exit code back -.-
-// signals in concurrent shells also work as expected
 bool	exec(void)
 {
 	int		status;

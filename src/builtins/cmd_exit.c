@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 09:53:34 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/10 13:26:58 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/15 12:58:44 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static void	exit_status(int exit_code)
 {
+	int	mod;
+
+	mod = exit_code % 256;
 	cleanup(NULL, exit_code, true);
 	if (g_shell.exit_code > 0)
 		exit(g_shell.exit_code);
@@ -29,7 +32,7 @@ static bool	strisnum(const char *str)
 		return (false);
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[0] != '-')
 			return (false);
 		i++;
 	}
@@ -38,12 +41,21 @@ static bool	strisnum(const char *str)
 
 int	cmd_exit(int argc, const char **argv)
 {
+	if (argc > 1 && (!strisnum(argv[1])))
+	{
+		if (g_shell.pid != 0)
+			ft_putendl_fd("exit", STDOUT_FILENO);
+		exit(error("minishell", "exit", \
+			"numeric argument required", 255));
+	}
 	if (argc > 2)
+	{
+		if (g_shell.pid != 0)
+			ft_putendl_fd("exit", STDOUT_FILENO);
 		return (error("minishell", "exit", "too many arguments", 1));
-	if (argc == 2 && (!strisnum(argv[1])))
-		return (error(BLUE BOLD SHELL RESET, "exit", \
-			"numeric argument required", 1));
-	ft_putendl_fd("exit", STDOUT_FILENO);
+	}
+	if (g_shell.pid != 0)
+		ft_putendl_fd("exit", STDOUT_FILENO);
 	if (!argv[1])
 		exit_status(0);
 	else

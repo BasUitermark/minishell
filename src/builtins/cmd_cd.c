@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/10 13:49:43 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/15 12:51:03 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static bool	set_dir(const char *path)
 	char	cur_dir[PATH_MAX];
 
 	getcwd(cur_dir, PATH_MAX);
+	printf("yesnt?\n");
 	if (!path || chdir(path) < 0)
 		return (error((char *)path, "No such file or directory", NULL, 0));
 	if (!set_pwd(cur_dir))
@@ -72,7 +73,7 @@ int	cmd_cd(int argc, const char **argv)
 {
 	t_env	*tmp;
 
-	if (ft_strlen(argv[1]) == 1)
+	if (ft_strlen(argv[1]) == 1 && argv[1][0] != '.')
 		return (flags(argc, argv[1]));
 	if (argc == 1)
 	{

@@ -79,7 +79,6 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/env
 	@$(MKDIR) objs/builtins
 	@$(MKDIR) objs/signals
-	@$(MKDIR) objs/utils
 	@$(MKDIR) objs/exec
 	@$(MKDIR) objs/error
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
