@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/15 13:33:38 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/15 15:33:36 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,15 @@ bool	exec_child(int index)
 
 static bool	single_builtin(void)
 {
+	if (ft_strcmp(g_shell.cmds[0].args[0], "echo") == 0)
+		return (false);
+	if (ft_strcmp(g_shell.cmds[0].args[0], "export") == 0 && \
+		g_shell.cmds[0].args[1] == NULL)
+		return (false);
+	if (ft_strcmp(g_shell.cmds[0].args[0], "pwd") == 0)
+		return (false);
+	if (ft_strcmp(g_shell.cmds[0].args[0], "env") == 0)
+		return (false);
 	g_shell.exit_code = exec_builtin(0);
 	return (true);
 }
