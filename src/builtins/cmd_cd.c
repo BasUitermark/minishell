@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/14 13:18:30 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/15 13:25:31 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	cmd_cd(int argc, const char **argv)
 {
 	t_env	*tmp;
 
-	if (ft_strlen(argv[1]) == 1)
+	if (ft_strlen(argv[1]) == 1 && argv[1][0] != '.')
 		return (flags(argc, argv[1]));
 	if (argc == 1)
 	{
