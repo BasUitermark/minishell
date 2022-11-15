@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/24 11:29:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/14 12:29:10 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/15 13:57:46 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,9 @@ static bool	parse_env_cmds(void)
 
 bool	parser(t_token **token, char const *input)
 {
-	parse_special(*token, input);
 	if (!parse_commands(*token, input))
+		return (false);
+	if (!parse_special(*token, input))
 		return (false);
 	if (!parse_env_cmds())
 		return (false);

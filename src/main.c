@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/10 19:30:24 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/15 12:49:06 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 int	cleanup(t_token *token, int exit, bool exit_prog)
 {
-	if (g_shell.fd_in > 2)
-		close(g_shell.fd_in);
-	if (g_shell.fd_out > 2)
-		close(g_shell.fd_out);
 	if (exit_prog)
 		clear_list(&g_shell.env);
 	purge_commands();
@@ -28,12 +24,7 @@ int	cleanup(t_token *token, int exit, bool exit_prog)
 
 static void	init(void)
 {
-	if (g_shell.fd_in > 2)
-		close(g_shell.fd_in);
-	if (g_shell.fd_out > 2)
-		close(g_shell.fd_out);
-	g_shell.fd_in = STDIN_FILENO;
-	g_shell.fd_out = STDOUT_FILENO;
+	(void)"placeholder";
 }
 
 t_shell	g_shell;

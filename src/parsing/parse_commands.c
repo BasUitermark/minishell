@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 13:30:56 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/10 14:37:46 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/15 12:51:59 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ bool	parse_commands(t_token *tokens, char const *input)
 			g_shell.cmds[i].args = parse_args(input, tokens, arg_count);
 			if (!g_shell.cmds[i].args)
 				return (false);
+			g_shell.cmds[i].fd_in = STDIN_FILENO;
+			g_shell.cmds[i].fd_out = STDOUT_FILENO;
 			i++;
 		}
 		tokens = tokens->next;

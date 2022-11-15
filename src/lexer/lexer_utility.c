@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:09 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/10/11 11:06:25 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/15 14:16:05 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,5 @@ bool	add_token(t_token **head, t_tokentype type, unsigned int index, \
 bool	part_handler(t_token **head, unsigned int index, unsigned int length, \
 	t_tokentype type)
 {
-	if (type == PIPE)
-		return (true);
 	return (add_token(head, type, index, length));
 }

@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/14 17:14:05 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/15 13:33:38 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ void	ft_exec(size_t index)
 {
 	char	**norm_env;
 
-	if (index == 0 && g_shell.fd_in != STDIN_FILENO)
+	if (g_shell.cmds[index].fd_in != STDIN_FILENO)
 	{
-		dup2(g_shell.fd_in, STDIN_FILENO);
-		close(g_shell.fd_in);
+		dup2(g_shell.cmds[index].fd_in, STDIN_FILENO);
+		close(g_shell.cmds[index].fd_in);
 	}
-	if (index == g_shell.cmd_n - 1 && g_shell.fd_out != STDOUT_FILENO)
+	if (g_shell.cmds[index].fd_out != STDOUT_FILENO)
 	{
-		dup2(g_shell.fd_out, STDOUT_FILENO);
-		close(g_shell.fd_out);
+		dup2(g_shell.cmds[index].fd_out, STDOUT_FILENO);
+		close(g_shell.cmds[index].fd_out);
 	}
 	if (g_shell.cmds[index].path == NULL && !g_shell.cmds[index].invalid)
 		exit(exec_builtin(index));
