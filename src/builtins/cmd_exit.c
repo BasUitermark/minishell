@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 09:53:34 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/15 12:58:44 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/15 13:30:42 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ int	cmd_exit(int argc, const char **argv)
 {
 	if (argc > 1 && (!strisnum(argv[1])))
 	{
-		if (g_shell.pid != 0)
+		if (g_shell.cmd_n == 1)
 			ft_putendl_fd("exit", STDOUT_FILENO);
 		exit(error("minishell", "exit", \
 			"numeric argument required", 255));
 	}
 	if (argc > 2)
 	{
-		if (g_shell.pid != 0)
+		if (g_shell.cmd_n == 1)
 			ft_putendl_fd("exit", STDOUT_FILENO);
 		return (error("minishell", "exit", "too many arguments", 1));
 	}
-	if (g_shell.pid != 0)
+	if (g_shell.cmd_n == 1)
 		ft_putendl_fd("exit", STDOUT_FILENO);
 	if (!argv[1])
 		exit_status(0);
