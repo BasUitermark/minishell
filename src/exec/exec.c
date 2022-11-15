@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/14 13:19:38 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/14 17:14:05 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static int	exec_builtin(int index)
 	if (ft_strncmp("unset", g_shell.cmds[index].args[0], 6) == 0)
 		return (cmd_unset(ft_arraylen(g_shell.cmds[index].args), \
 		(const char **)g_shell.cmds[index].args));
-	return (error("command not found", g_shell.cmds[index].args[0], NULL, 127));
+	return (error("minishell", g_shell.cmds[index].args[0], \
+			"command not found", 127));
 }
 
 void	ft_exec(size_t index)
