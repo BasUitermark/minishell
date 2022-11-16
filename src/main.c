@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/15 12:49:06 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/16 16:09:15 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ static bool	shell_loop(char *input)
 {
 	t_token	*token;
 
+	/*
+	 * checken waar cmd_n 0 is in het geval van GEEN commands maar wel een in/out file
+	 * in exec?
+	 */
 	token = NULL;
 	if (!lexer(&token, input) || !token || !parser(&token, input) \
 		|| clear_token_list(&token) || !resolve_paths() || !exec())

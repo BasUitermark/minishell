@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/15 15:33:36 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/16 16:07:54 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	ft_exec(size_t index)
 {
 	char	**norm_env;
 
+	if (g_shell.cmds[index].fd_in < 0)
+		exit(1);
 	if (g_shell.cmds[index].fd_in != STDIN_FILENO)
 	{
 		dup2(g_shell.cmds[index].fd_in, STDIN_FILENO);
@@ -104,7 +106,10 @@ static bool	single_builtin(void)
 		return (false);
 	if (ft_strcmp(g_shell.cmds[0].args[0], "env") == 0)
 		return (false);
-	g_shell.exit_code = exec_builtin(0);
+	if (g_shell.cmds[0].fd_in < 0)
+		g_shell.exit_code = 1;
+	else
+		g_shell.exit_code = exec_builtin(0);
 	return (true);
 }
 
