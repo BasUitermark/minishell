@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/15 13:25:10 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/17 16:23:03 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,18 @@ void	ft_exec(size_t index)
 {
 	char	**norm_env;
 
-	if (index == 0 && g_shell.fd_in != STDIN_FILENO)
+	if (!g_shell.cmds[index].args || \
+		g_shell.cmds[index].fd_in < 0 || g_shell.cmds[index].fd_out < 0)
+		exit(1);
+	if (g_shell.cmds[index].fd_in != STDIN_FILENO)
 	{
-		dup2(g_shell.fd_in, STDIN_FILENO);
-		close(g_shell.fd_in);
+		dup2(g_shell.cmds[index].fd_in, STDIN_FILENO);
+		close(g_shell.cmds[index].fd_in);
 	}
-	if (index == g_shell.cmd_n - 1 && g_shell.fd_out != STDOUT_FILENO)
+	if (g_shell.cmds[index].fd_out != STDOUT_FILENO)
 	{
-		dup2(g_shell.fd_out, STDOUT_FILENO);
-		close(g_shell.fd_out);
+		dup2(g_shell.cmds[index].fd_out, STDOUT_FILENO);
+		close(g_shell.cmds[index].fd_out);
 	}
 	if (g_shell.cmds[index].path == NULL && !g_shell.cmds[index].invalid)
 		exit(exec_builtin(index));
@@ -95,7 +98,19 @@ bool	exec_child(int index)
 
 static bool	single_builtin(void)
 {
-	g_shell.exit_code = exec_builtin(0);
+	if (ft_strcmp(g_shell.cmds[0].args[0], "echo") == 0)
+		return (false);
+	if (ft_strcmp(g_shell.cmds[0].args[0], "export") == 0 && \
+		g_shell.cmds[0].args[1] == NULL)
+		return (false);
+	if (ft_strcmp(g_shell.cmds[0].args[0], "pwd") == 0)
+		return (false);
+	if (ft_strcmp(g_shell.cmds[0].args[0], "env") == 0)
+		return (false);
+	if (g_shell.cmds[0].fd_in < 0)
+		g_shell.exit_code = 1;
+	else
+		g_shell.exit_code = exec_builtin(0);
 	return (true);
 }
 
@@ -106,7 +121,7 @@ bool	exec(void)
 	if (g_shell.cmd_n == 0)
 		return (true);
 	if (g_shell.cmd_n == 1 && g_shell.cmds[0].path == NULL && \
-		!g_shell.cmds[0].invalid && single_builtin())
+		!g_shell.cmds[0].invalid && g_shell.cmds[0].args && single_builtin())
 		return (true);
 	if (!ft_fork(&g_shell.pid))
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 16:00:11 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/13 21:47:03 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/16 13:56:44 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,13 @@ typedef struct s_command {
 	char	*path;
 	char	**args;
 	bool	invalid;
+	int		fd_in;
+	int		fd_out;
 }	t_command;
 
 typedef struct s_shell {
 	t_env		*env;
 	int			exit_code;
-	int			fd_in;
-	int			fd_out;
 	pid_t		pid;
 	t_command	*cmds;
 	size_t		cmd_n;
@@ -89,7 +89,7 @@ bool			clear_token_list(t_token **head);
 //============ Parsing =============//
 void			print_command(t_command *cmd, size_t n);
 void			print_all_tokens(t_token *tokens);
-void			parse_special(t_token *tokens, char const *input);
+bool			parse_special(t_token *tokens, char const *input);
 bool			parser(t_token **token, char const *input);
 bool			parse_commands(t_token *tokens, char const *input);
 bool			parse_adjacent(const char *input, \
