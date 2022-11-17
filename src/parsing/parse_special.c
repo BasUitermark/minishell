@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/16 16:11:20 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/17 14:05:05 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ static bool	parse_infile(t_token *tokens, char const *input, t_command *cmd)
 	return (true);
 }
 
-static void	parse_outfile(t_token *tokens, char const *input, t_command *cmd)
+static bool	parse_outfile(t_token *tokens, char const *input, t_command *cmd)
 {
 	char	*tmp_path;
 
-	if (cmd->fd_out < 0)
+	if (cmd->fd_out < 0 || cmd->fd_in < 0)
 		return ;
 	if (cmd->fd_out != STDOUT_FILENO)
 	{
@@ -53,6 +53,7 @@ static void	parse_outfile(t_token *tokens, char const *input, t_command *cmd)
 		cmd->fd_out = open(tmp_path, O_RDWR | O_CREAT | O_APPEND, \
 						0644);
 	free (tmp_path);
+	return (cmd->fd_out >= 0);
 }
 
 static void	heredoc_loop(int *pipe, char *end)
@@ -126,15 +127,11 @@ bool	parse_special(t_token *tokens, char const *input)
 			if (!parse_infile(tokens, input, &g_shell.cmds[cmd_index]))
 				return (false);
 		if (tokens->type == OUTFILE || tokens->type == OUTFILE_APPEND)
-			parse_outfile(tokens, input, &g_shell.cmds[cmd_index]);
+			if (!parse_outfile(tokens, input, &g_shell.cmds[cmd_index]))
+				return (false);
 		tokens = tokens->next;
 		if (tokens && tokens->type == PIPE && g_shell.cmd_n > cmd_index)
 			cmd_index++;
 	}
-	/*
-	 * hier checken of cmd_n 0 is
-	 * zo ja, open/close alle out files in de lijst
-	 * geef errors voor alle infiles die we niet kunnen openen
-	 */
 	return (true);
 }
