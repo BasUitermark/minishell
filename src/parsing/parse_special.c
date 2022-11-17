@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/17 14:05:05 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/17 14:10:03 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static bool	parse_outfile(t_token *tokens, char const *input, t_command *cmd)
 	char	*tmp_path;
 
 	if (cmd->fd_out < 0 || cmd->fd_in < 0)
-		return ;
+		return (true);
 	if (cmd->fd_out != STDOUT_FILENO)
 	{
 		close(cmd->fd_out);
