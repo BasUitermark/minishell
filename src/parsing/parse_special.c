@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 19:49:14 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/17 14:10:03 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/17 14:15:58 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static bool	parse_infile(t_token *tokens, char const *input, t_command *cmd)
 	return (true);
 }
 
-static bool	parse_outfile(t_token *tokens, char const *input, t_command *cmd)
+static void	parse_outfile(t_token *tokens, char const *input, t_command *cmd)
 {
 	char	*tmp_path;
 
 	if (cmd->fd_out < 0 || cmd->fd_in < 0)
-		return (true);
+		return ;
 	if (cmd->fd_out != STDOUT_FILENO)
 	{
 		close(cmd->fd_out);
@@ -52,8 +52,9 @@ static bool	parse_outfile(t_token *tokens, char const *input, t_command *cmd)
 	if (tokens->type == OUTFILE_APPEND)
 		cmd->fd_out = open(tmp_path, O_RDWR | O_CREAT | O_APPEND, \
 						0644);
+	if (cmd->fd_out < 0)
+		error("minishell", "permission denied", tmp_path, 420);
 	free (tmp_path);
-	return (cmd->fd_out >= 0);
 }
 
 static void	heredoc_loop(int *pipe, char *end)
@@ -127,8 +128,7 @@ bool	parse_special(t_token *tokens, char const *input)
 			if (!parse_infile(tokens, input, &g_shell.cmds[cmd_index]))
 				return (false);
 		if (tokens->type == OUTFILE || tokens->type == OUTFILE_APPEND)
-			if (!parse_outfile(tokens, input, &g_shell.cmds[cmd_index]))
-				return (false);
+			parse_outfile(tokens, input, &g_shell.cmds[cmd_index]);
 		tokens = tokens->next;
 		if (tokens && tokens->type == PIPE && g_shell.cmd_n > cmd_index)
 			cmd_index++;
