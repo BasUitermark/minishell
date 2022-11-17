@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 09:53:34 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/15 13:30:42 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/17 11:44:25 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 static void	exit_status(int exit_code)
 {
-	int	mod;
-
-	mod = exit_code % 256;
-	cleanup(NULL, exit_code, true);
+	cleanup(NULL, exit_code % 256, true);
 	if (g_shell.exit_code > 0)
 		exit(g_shell.exit_code);
-	exit(exit_code);
+	exit(exit_code % 256);
 }
 
 static bool	strisnum(const char *str)
