@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 10:15:21 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/16 13:56:40 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/17 13:08:29 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	purge_commands(void)
 			close(g_shell.cmds[i].fd_in);
 		if (g_shell.cmds[i].fd_out > 2)
 			close(g_shell.cmds[i].fd_out);
-		while (g_shell.cmds[i].args[j])
+		while (g_shell.cmds[i].args && g_shell.cmds[i].args[j])
 		{
 			free(g_shell.cmds[i].args[j]);
 			j++;

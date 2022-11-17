@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/24 11:29:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/16 13:55:38 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/17 13:09:04 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static bool	parse_env_cmds(void)
 	index = 0;
 	while (index < g_shell.cmd_n)
 	{
-		if (parts(g_shell.cmds[index].args[0]) > 1)
+		if (g_shell.cmds[index].args && \
+			parts(g_shell.cmds[index].args[0]) > 1)
 			if (!redo_args(&g_shell.cmds[index]))
 				return (false);
 		index++;

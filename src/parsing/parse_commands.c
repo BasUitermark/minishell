@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/31 13:30:56 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/16 13:56:22 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/17 13:09:16 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,26 @@ static size_t	command_counter(t_token *tokens)
 	int	i;
 
 	i = 0;
+	if (!tokens)
+		return (0);
 	while (tokens)
 	{
-		if (tokens->type == COMMAND)
+		if (tokens->type == PIPE)
 			i++;
 		tokens = tokens->next;
 	}
-	return (i);
+	return (i + 1);
 }
 
 static size_t	arg_counter(t_token *tokens)
 {
 	int	i;
 
-	i = 1;
-	tokens = tokens->next;
-	while (tokens && tokens->type == ARGUMENT)
+	i = 0;
+	while (tokens && tokens->type != PIPE)
 	{
-		if (!tokens->adjacent)
+		if ((tokens->type == ARGUMENT || tokens->type == COMMAND) \
+			&& !tokens->adjacent)
 			i++;
 		tokens = tokens->next;
 	}
@@ -52,6 +54,8 @@ static char	**parse_args(char const *input, t_token *tokens, size_t amount)
 		return (NULL);
 	while (tokens && i < amount)
 	{
+		while (tokens && (tokens->type != ARGUMENT && tokens->type != COMMAND))
+			tokens = tokens->next;
 		if (!parse_adjacent(input, tokens, &args[i]))
 			return (ft_freearray(args));
 		while (tokens->adjacent)
@@ -74,17 +78,19 @@ bool	parse_commands(t_token *tokens, char const *input)
 		return (false);
 	while (tokens && i < g_shell.cmd_n)
 	{
-		if (tokens->type == COMMAND)
+		g_shell.cmds[i].fd_in = STDIN_FILENO;
+		g_shell.cmds[i].fd_out = STDOUT_FILENO;
+		arg_count = arg_counter(tokens);
+		if (arg_count)
 		{
-			arg_count = arg_counter(tokens);
 			g_shell.cmds[i].args = parse_args(input, tokens, arg_count);
 			if (!g_shell.cmds[i].args)
 				return (false);
-			g_shell.cmds[i].fd_in = STDIN_FILENO;
-			g_shell.cmds[i].fd_out = STDOUT_FILENO;
-			i++;
 		}
+		while (tokens && tokens->next && tokens->type != PIPE)
+			tokens = tokens->next;
 		tokens = tokens->next;
+		i++;
 	}
 	return (true);
 }

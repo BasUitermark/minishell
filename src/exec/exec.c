@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/13 14:53:22 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/16 16:07:54 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/17 13:07:19 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	ft_exec(size_t index)
 {
 	char	**norm_env;
 
-	if (g_shell.cmds[index].fd_in < 0)
+	if (!g_shell.cmds[index].args || \
+		g_shell.cmds[index].fd_in < 0)
 		exit(1);
 	if (g_shell.cmds[index].fd_in != STDIN_FILENO)
 	{
@@ -122,7 +123,7 @@ bool	exec(void)
 	if (g_shell.cmd_n == 0)
 		return (true);
 	if (g_shell.cmd_n == 1 && g_shell.cmds[0].path == NULL && \
-		!g_shell.cmds[0].invalid && single_builtin())
+		!g_shell.cmds[0].invalid && g_shell.cmds[0].args && single_builtin())
 		return (true);
 	if (!ft_fork(&g_shell.pid))
 		return (false);
