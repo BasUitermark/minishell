@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/02 12:45:21 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:23:39 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/23 16:20:26 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ static bool	expand_exit_code(char **expanded)
 
 static bool	dodo_expand(char *location, char **expanded, unsigned int nv)
 {
+	if (location[nv + 1] == '\0')
+	{
+		expanded[0] = ft_strappend(expanded[0], "$");
+		return (true);
+	}
 	if (ft_strncmp(&location[nv + 1], "?", 1) == 0)
 	{
 		if (!expand_exit_code(expanded))

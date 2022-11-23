@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 17:13:24 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/17 12:43:54 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/23 17:05:00 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	parse_adjacent_part(const char *input, char **res, t_token *tokens)
 {
 	char	*tmp;
 
-	if (!tokens->length)
+	if (!tokens->length || tokens->length == 0xFFFFFFFF)
 	{
 		tmp = ft_strdup("");
 		res[0] = ft_strappendfree(res[0], tmp);

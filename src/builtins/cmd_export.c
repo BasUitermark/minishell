@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 16:39:37 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/23 13:19:52 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 17:08:36 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,28 +88,29 @@ static bool	handle_no_val(char *str)
 
 int	cmd_export(int argc, const char **argv)
 {
-	int		i;
+	int		i[2];
 
-	i = 0;
+	ft_memset(&i, 0, sizeof(int) * 2);
 	if (argc == 1)
 		return (print_env());
-	while (argv[i + 1])
+	while (argv[i[0] + 1])
 	{
-		i++;
-		if (!is_valid_key((char *)argv[i]))
+		i[0]++;
+		if (!is_valid_key((char *)argv[i[0]]))
 		{
-			error("export", (char *) argv[i], "not a valid identifier", 1);
+			error("export", (char *) argv[i[0]], "not a valid identifier", 1);
+			i[1] = EXIT_FAILURE;
 			continue ;
 		}
-		if (ft_strchr((char *)argv[i], '=') == NULL)
+		if (ft_strchr((char *)argv[i[0]], '=') == NULL)
 		{
-			if (!handle_no_val((char *)argv[i]))
+			if (!handle_no_val((char *)argv[i[0]]))
 				return (EXIT_FAILURE);
 			else
 				continue ;
 		}
-		if (!add_variable(&g_shell.env, (char *)argv[i]))
+		if (!add_variable(&g_shell.env, (char *)argv[i[0]]))
 			return (EXIT_FAILURE);
 	}
-	return (0);
+	return (i[1]);
 }

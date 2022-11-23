@@ -6,7 +6,7 @@
 /*   By: jde-groo <jde-groo@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/25 12:16:07 by jde-groo      #+#    #+#                 */
-/*   Updated: 2022/11/16 13:47:37 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/23 17:06:05 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static unsigned int	token_length(const char *input, unsigned int from)
 	while (input[from + index])
 		if (process_token_length(input, &index, from))
 			break ;
-	if (input[from] == '\"' || input[from] == '\'')
+	if ((input[from] == '\"' || input[from] == '\'') \
+		&& input[from + index] == input[from])
 		index++;
 	return (index);
 }
