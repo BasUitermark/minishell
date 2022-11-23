@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/23 11:37:56 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/23 11:39:46 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	main(int argc, char **argv, char **envp)
 		exit(cleanup(NULL, EXIT_FAILURE, true));
 	while (1)
 	{
-		init();
 		init_signal();
 		input = readline(BOLD BLUE SHELL RESET);
 		if (!input)
