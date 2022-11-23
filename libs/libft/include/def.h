@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/03 15:25:47 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/09/12 15:06:40 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 16:03:13 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ typedef struct s_data_store
 # define RED		"\x1b[31m"
 # define GREEN		"\x1b[32m"
 # define YELLOW		"\x1b[33m"
-# define BLUE		"\x1b[34m"
+# define BLUE		"\001\e[1;34m\002"
 # define MAGENTA	"\x1b[35m"
-# define CYAN		"\x1b[36m"
-# define RESET		"\x1b[0m"
+# define CYAN		'\001\e[00;36m\002'
+# define RESET		"\001\e[0m\002"
 
-# define BOLD		"\x1b[1m"
+# define BOLD		"\001\x1b[1m\002"
 # define ITALIC		"\x1b[3m"
 # define LINE		"\x1b[4m"
 # define BLINK		"\x1b[5m"

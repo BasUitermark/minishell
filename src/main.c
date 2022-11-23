@@ -6,13 +6,11 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/23 11:39:46 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/23 16:03:21 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
-
-t_shell	g_shell;
 
 int	cleanup(t_token *token, int exit, bool exit_prog)
 {
@@ -23,6 +21,8 @@ int	cleanup(t_token *token, int exit, bool exit_prog)
 	token = NULL;
 	return (exit);
 }
+
+t_shell	g_shell;
 
 static char	*sanitize(char *inp)
 {
@@ -41,7 +41,7 @@ static char	*sanitize(char *inp)
 		inp[index] = '\0';
 		index--;
 	}
-	if (!inp[0])
+	if (!inp)
 	{
 		free(inp);
 		return (NULL);
@@ -86,7 +86,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		init_signal();
-		input = readline(BOLD BLUE SHELL RESET);
+		input = readline(BLUE SHELL RESET);
 		if (!input)
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
