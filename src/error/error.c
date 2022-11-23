@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/20 14:30:06 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/09 12:13:45 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/23 12:07:07 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ int	error(char *cmd, char *input, char *msg, int exit_code)
 	if (cmd)
 	{
 		ft_putstr_fd(cmd, STDERR_FILENO);
+		if (input)
+			write(STDERR_FILENO, ": ", 2);
+	}
+	else
+	{
+		ft_putstr_fd("minishell", STDERR_FILENO);
 		if (input)
 			write(STDERR_FILENO, ": ", 2);
 	}
