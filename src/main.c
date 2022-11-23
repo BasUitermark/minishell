@@ -6,11 +6,13 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/08/23 20:43:40 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/23 11:36:49 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/23 11:37:56 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell.h"
+
+t_shell	g_shell;
 
 int	cleanup(t_token *token, int exit, bool exit_prog)
 {
@@ -21,13 +23,6 @@ int	cleanup(t_token *token, int exit, bool exit_prog)
 	token = NULL;
 	return (exit);
 }
-
-static void	init(void)
-{
-	(void)"placeholder";
-}
-
-t_shell	g_shell;
 
 static char	*sanitize(char *inp)
 {
