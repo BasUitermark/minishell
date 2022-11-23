@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/12 17:09:16 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/15 15:30:57 by jde-groo      ########   odam.nl         */
+/*   Updated: 2022/11/23 16:03:18 by jde-groo      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ int	cmd_unset(int argc, const char **argv)
 {
 	char	*key;
 	int		i;
+	int		ret;
 
 	(void)argc;
 	i = -1;
+	ret = EXIT_SUCCESS;
 	while (g_shell.env && argv[i + 1])
 	{
 		i++;
@@ -65,14 +67,11 @@ int	cmd_unset(int argc, const char **argv)
 		{
 			error("unset", (char *) argv[i], "not a valid identifier", 1);
 			free(key);
+			ret = EXIT_FAILURE;
 			continue ;
 		}
-		if (!remove_variable(&g_shell.env, key))
-		{
-			free(key);
-			return (EXIT_FAILURE);
-		}
+		remove_variable(&g_shell.env, key);
 		free(key);
 	}
-	return (EXIT_SUCCESS);
+	return (ret);
 }
