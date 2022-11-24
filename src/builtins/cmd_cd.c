@@ -6,7 +6,7 @@
 /*   By: buiterma <buiterma@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 13:34:33 by buiterma      #+#    #+#                 */
-/*   Updated: 2022/11/15 13:25:31 by buiterma      ########   odam.nl         */
+/*   Updated: 2022/11/24 14:16:11 by buiterma      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	flags(int argc, const char *path)
 		if (set_dir(tmp->value))
 			return (EXIT_SUCCESS);
 	}
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int	cmd_cd(int argc, const char **argv)
@@ -91,5 +91,5 @@ int	cmd_cd(int argc, const char **argv)
 		ft_putstr_fd("CDEEZ NUTZ! :O\n", 1);
 	else if (!set_dir(argv[1]))
 		return (EXIT_FAILURE);
-	return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
